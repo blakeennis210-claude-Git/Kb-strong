@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="KB Strong" />
   <meta name="theme-color" content="#0a0a0a" />
   <title>KB Strong</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <style>
     :root {
       --bg: #0a0a0a; --card: #141414; --border: #222;
@@ -37,18 +37,18 @@ html, body {
 /* Each view fills the app container, hidden by default */
 .view {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: var(--bg);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  opacity: 0;
-  pointer-events: none;
+  display: none !important;
   padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 20px);
 }
 .view.active {
-  opacity: 1;
-  pointer-events: all;
+  display: block !important;
 }
+#home.active { display: flex !important; }
+#done.active { display: flex !important; flex-direction: column; align-items: center; justify-content: center; }
 
 /* ── HOME ── */
 #home { padding: 2.5rem 1.5rem 2rem; display: flex; flex-direction: column; min-height: 100%; }
@@ -404,6 +404,7 @@ num.style.color = active ? ‘#0a0a0a’ : ‘#444’;
 });
 }
 
+window.addEventListener(‘load’, renderHome);
 renderHome();
 </script>
 
