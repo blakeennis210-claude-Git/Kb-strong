@@ -26,13 +26,13 @@
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; width: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden; position: fixed; }
+    html, body { height: 100%; width: 100%; max-width: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden; }
     body { padding-top: var(--safe-top); padding-bottom: var(--safe-bottom); }
     .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.08em; }
 
 ```
 /* ── SCREENS ── */
-.screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.screen { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100%; flex-direction: column; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; background: var(--bg); z-index: 1; }
 .screen.active { display: flex; }
 
 /* ── HOME ── */
@@ -121,9 +121,6 @@
 .done-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 12vw, 6rem); line-height: 0.95; letter-spacing: 0.08em; }
 .done-sub { font-size: 0.95rem; color: var(--muted); margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
 .done-btn { margin-top: 2rem; background: var(--yellow); color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
-
-/* scrollable workout screen */
-#workout { overflow-y: auto; }
 ```
 
   </style>
