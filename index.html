@@ -192,7 +192,7 @@
     <button class="nav-fwd" id="fwdBtn" onclick="nextItem()">Next →</button>
   </div>
   <div class="overview">
-    <div class="overview-hd">Workout Overview</div>
+    <div class="overview-hd" id="overviewHd">Workout Overview</div>
     <div id="overviewList"></div>
     <div class="tip">
       <div class="tip-hd">💡 Beginner Strength Tip</div>
@@ -285,11 +285,66 @@ const WORKOUTS = [
         { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
       ]}
     ]
+  },
+  {
+    id: "pull-circuit",
+    name: "Pull · Circuit",
+    duration: "~20 min",
+    icon: "🔄",
+    accent: "#e8c547",
+    isCircuit: true,
+    rounds: 3,
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — push hips back, flat back, feel the hamstring load", icon: "📐" },
+        { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
+      ]},
+      { id: "work", label: "CIRCUIT", items: [
+        { name: "Bent Over Row",         dur: 40, rest: 15, desc: "Hinge 45°, drive elbows back past your hips, squeeze shoulder blades hard at top. Keep moving — moderate weight.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Ring Rows",             dur: 40, rest: 15, desc: "Body rigid, pull chest to rings. Keep moving — adjust angle if needed.", muscle:"Lats, Rear Delt, Biceps", icon:"⭕" },
+        { name: "KB Deadlift",           dur: 40, rest: 15, desc: "Hip hinge, flat back, chest proud. Drive through heels. Controlled reps.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
+        { name: "KB Hammer Curl",        dur: 40, rest: 15, desc: "Neutral grip, controlled pace. Keep tension on the muscle the whole time.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
+        { name: "KB Concentration Curl", dur: 40, rest: 60, desc: "Elbow braced, full stretch, hard squeeze. Last exercise — give it everything. Then rest before next round.", muscle:"Biceps Peak", icon:"💥", bicep:true }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  },
+  {
+    id: "push-circuit",
+    name: "Push · Circuit",
+    duration: "~20 min",
+    icon: "🔁",
+    accent: "#e05cff",
+    isCircuit: true,
+    rounds: 3,
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Band Pull-Apart",    dur: 40, rest: 10, desc: "Hands in front, pull band apart to chest level. Opens the chest before pressing.", icon: "↔️" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — prep the posterior chain", icon: "📐" }
+      ]},
+      { id: "work", label: "CIRCUIT", items: [
+        { name: "KB Shoulder Press",             dur: 40, rest: 15, desc: "Clean to rack, press overhead, lower with control. Moderate weight — keep the pace.", muscle:"Shoulders, Triceps", icon:"🏋️" },
+        { name: "KB Tricep Overhead Extension",  dur: 40, rest: 15, desc: "Both hands on KB overhead, lower behind head, press back up. Elbows forward.", muscle:"Triceps Long Head", icon:"💪", tricep:true },
+        { name: "KB Pushups",                    dur: 40, rest: 15, desc: "Hands on KB handles, body rigid, chest to KB level. Push hard.", muscle:"Chest, Triceps, Shoulders", icon:"⬇️" },
+        { name: "KB Chest Press",                dur: 40, rest: 60, desc: "Floor press — KBs at chest, press up and in, squeeze at top. Last exercise — rest before next round.", muscle:"Chest, Triceps, Anterior Delt", icon:"🎯" }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders after all the pressing", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
   }
 ];
 
 // ─── STATE ───
-let W, phIdx, itIdx, setN, ticker, tLeft, resting;
+let W, phIdx, itIdx, setN, roundN, ticker, tLeft, resting;
 const PCOLS = { warmup:"#5b8dee", work:"#e8c547", cooldown:"#5ecb8a" };
 
 // ─── STORAGE ───
@@ -315,7 +370,7 @@ function renderHome() {
       <div class="wcard-icon">${w.icon}</div>
       <div style="flex:1">
         <div class="wcard-name">${w.name}</div>
-        <div class="wcard-meta">${w.duration} · ${w.phases.find(p=>p.id==='work').items.length} exercises</div>
+        <div class="wcard-meta">${w.duration} · ${w.isCircuit ? w.rounds+' rounds · ' : ''}${w.phases.find(p=>p.id==='work').items.length} exercises${w.isCircuit ? ' · timed' : ''}</div>
       </div>
       <div class="wcard-arr">›</div>
     </div>`
@@ -326,7 +381,7 @@ function goHome() { stopTicker(); showPage('pg-home'); }
 
 function startWorkout(id) {
   W = WORKOUTS.find(w => w.id === id);
-  phIdx=0; itIdx=0; setN=1;
+  phIdx=0; itIdx=0; setN=1; roundN=1;
   stopTicker(); tLeft=null; resting=false;
   buildOverview(); render(); showPage('pg-workout');
 }
@@ -353,13 +408,24 @@ function render() {
   document.getElementById('bicepTag').style.display   = isBicep() ? 'inline-block' : 'none';
   document.getElementById('exEmoji').textContent      = item.icon;
   document.getElementById('exName').textContent       = item.name;
-  document.getElementById('exStats').innerHTML = isWork()
-    ? `<div class="stats">
+  const circuit = W.isCircuit && isWork();
+  if (circuit) {
+    document.getElementById('exStats').innerHTML =
+      `<div class="stats">
+        <div><div class="stat-lbl">Round</div><div class="stat-val" style="color:${c}">${roundN}<span class="stat-sub">/${W.rounds}</span></div></div>
+        <div><div class="stat-lbl">Work</div><div class="stat-val">${item.dur}s</div></div>
+        <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
+      </div>`;
+  } else if (isWork()) {
+    document.getElementById('exStats').innerHTML =
+      `<div class="stats">
         <div><div class="stat-lbl">Set</div><div class="stat-val" style="color:${c}">${setN}<span class="stat-sub">/${item.sets}</span></div></div>
         <div><div class="stat-lbl">Reps</div><div class="stat-val">${item.reps}</div></div>
         <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
-      </div>`
-    : `<div class="dur" style="color:${c}">${item.dur}s</div>`;
+      </div>`;
+  } else {
+    document.getElementById('exStats').innerHTML = `<div class="dur" style="color:${c}">${item.dur}s</div>`;
+  }
   document.getElementById('exDesc').textContent = item.desc;
   document.getElementById('exMuscle').innerHTML = (isWork()&&item.muscle)
     ? `<span class="muscle-lbl">TARGETS · </span><span style="color:${c};font-weight:700">${item.muscle}</span>` : '';
@@ -368,6 +434,10 @@ function render() {
     ? `<div class="demo-wrap" style="margin-top:1rem;border-radius:4px;overflow:hidden;border:1px solid #1e1e1e"><div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#444;text-transform:uppercase;padding:0.5rem 0.75rem 0.3rem">How to perform</div>${gif}</div>` : '';
   renderWeightLog();
   renderTimer();
+  // Auto-start timer for circuit work items
+  if (W.isCircuit && isWork() && !ticker && tLeft === null && !resting) {
+    setTimeout(() => playTicker(), 300);
+  }
   document.getElementById('restArea').innerHTML = (isWork()&&!resting&&tLeft===null)
     ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
   const fb=document.getElementById('fwdBtn');
@@ -378,7 +448,7 @@ function render() {
 
 function renderWeightLog() {
   const wl=document.getElementById('weightLog');
-  if (!isWork()) { wl.innerHTML=''; return; }
+  if (!isWork() || W.isCircuit) { wl.innerHTML=''; return; }
   const item=it(), saved=loadW(W.id,item.name)||{}, prev=loadPrev(W.id,item.name)||{};
   let rows='';
   for (let s=1; s<=item.sets; s++) {
@@ -406,43 +476,91 @@ function saveSetWeight(s, val) {
 
 function renderTimer() {
   const item=it(), area=document.getElementById('timerArea');
-  const hasDur=!isWork()&&item.dur;
-  if (!hasDur&&!resting) { area.innerHTML=''; return; }
-  const c=resting?'#e8c547':'#5ecb8a', label=resting?'⏸ REST':'⏱ WORK';
-  const num=tLeft!==null?tLeft:(resting?item.rest:item.dur);
-  const btn=ticker
+  const isCircuitWork = W.isCircuit && isWork();
+  const hasDur = (!isWork() && item.dur) || isCircuitWork;
+  if (!hasDur && !resting) { area.innerHTML=''; return; }
+  const c = resting ? '#e8c547' : '#5ecb8a';
+  const label = resting ? '⏸ REST' : '⏱ WORK';
+  const dur = isCircuitWork ? item.dur : item.dur;
+  const num = tLeft !== null ? tLeft : (resting ? item.rest : dur);
+  // Progress bar percentage
+  const total = resting ? item.rest : dur;
+  const pct = total > 0 ? Math.round((num / total) * 100) : 0;
+  const btn = ticker
     ? `<button class="timer-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTicker()">PAUSE</button>`
-    : `<button class="timer-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTicker()">START TIMER</button>`;
-  area.innerHTML=`<div class="timer-box ${resting?'rest-mode':'work-mode'}">
+    : `<button class="timer-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTicker()">
+        ${isCircuitWork ? 'START' : 'START TIMER'}
+      </button>`;
+  area.innerHTML = `<div class="timer-box ${resting ? 'rest-mode' : 'work-mode'}">
     <div class="timer-lbl" style="color:${c}">${label}</div>
-    <div class="timer-num" style="color:${c}">${num}</div>${btn}</div>`;
+    <div class="timer-num" style="color:${c}">${num}</div>
+    <div style="height:4px;background:#1a1a1a;border-radius:2px;margin:0.4rem 0">
+      <div style="height:100%;border-radius:2px;background:${c};width:${pct}%;transition:width 0.9s linear"></div>
+    </div>
+    ${btn}
+  </div>`;
 }
 
 function playTicker() {
   if (ticker) return;
-  const item=it();
-  if (tLeft===null) tLeft=resting?item.rest:item.dur;
-  ticker=setInterval(()=>{
+  const item = it();
+  const isCircuitWork = W.isCircuit && isWork();
+  if (tLeft === null) tLeft = resting ? item.rest : item.dur;
+  ticker = setInterval(() => {
     tLeft--;
-    if (tLeft<=0) {
+    if (tLeft <= 0) {
       stopTicker();
-      if (!resting&&!isWork()&&item.rest>0) { resting=true; tLeft=item.rest; playTicker(); }
-      else { resting=false; tLeft=null; }
+      // Determine what happens next
+      if (!resting && item.rest > 0) {
+        // Work done -> go to rest
+        resting = true;
+        tLeft = item.rest;
+        renderTimer();
+        playTicker();
+      } else {
+        // Rest done (or no rest) -> advance
+        resting = false;
+        tLeft = null;
+        if (isCircuitWork) {
+          // Circuit: auto-advance to next exercise/round
+          setTimeout(() => nextItem(), 400);
+        } else {
+          // Strength warmup/cooldown: just stop
+          renderTimer();
+          document.getElementById('restArea').innerHTML =
+            isWork() ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
+        }
+        return;
+      }
     }
     renderTimer();
-    if (isWork()&&!resting&&tLeft===null)
-      document.getElementById('restArea').innerHTML=
+    if (!W.isCircuit && isWork() && !resting && tLeft === null)
+      document.getElementById('restArea').innerHTML =
         `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>`;
-  },1000);
+  }, 1000);
   renderTimer();
 }
 function pauseTicker() { stopTicker(); renderTimer(); }
-function stopTicker()  { clearInterval(ticker); ticker=null; }
+function stopTicker()  { clearInterval(ticker); ticker = null; }
 function startRest()   { resting=true; tLeft=it().rest; document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
 
 function nextItem() {
-  if (isWork()) { const s=loadW(W.id,it().name); if(s) archiveW(W.id,it().name,s); }
+  if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW(W.id,it().name,s); }
   stopTicker(); tLeft=null; resting=false;
+
+  // Circuit mode: go through all exercises, then increment round
+  if (W.isCircuit && isWork()) {
+    if (itIdx+1 < ph().items.length) { itIdx++; render(); window.scrollTo(0,0); return; }
+    // finished a round
+    if (roundN < W.rounds) { roundN++; itIdx=0; render(); window.scrollTo(0,0); return; }
+    // all rounds done — fall through to cooldown
+    itIdx=0;
+    if (phIdx+1 < W.phases.length) { phIdx++; itIdx=0; }
+    else { showPage('pg-done'); return; }
+    render(); window.scrollTo(0,0);
+    return;
+  }
+
   if (isWork()&&setN<it().sets) { setN++; render(); return; }
   setN=1;
   if (itIdx+1<ph().items.length) itIdx++;
@@ -467,6 +585,10 @@ function buildOverview() {
   ).join('');
 }
 function highlightOverview() {
+  if (W.isCircuit) {
+    const hd = document.getElementById('overviewHd');
+    if (hd && ph().id==='work') hd.textContent = `Round ${roundN} of ${W.rounds}`;
+  }
   workPh().items.forEach((ex,i)=>{
     const num=document.getElementById(`en${i}`), nm=document.getElementById(`ern${i}`), row=document.getElementById(`er${i}`);
     if (!row) return;
