@@ -9,207 +9,157 @@
   <meta name="apple-mobile-web-app-title" content="KB Strong" />
   <meta name="theme-color" content="#0a0a0a" />
   <title>KB Strong</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg: #0a0a0a; --card: #141414; --border: #222;
-      --text: #f5f0e8; --muted: #888; --dim: #555;
-      --yellow: #e8c547; --blue: #5b8dee; --green: #5ecb8a; --purple: #e05cff;
-    }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: #0a0a0a; color: #f5f0e8; font-family: 'DM Sans', sans-serif; }
+    body { padding: env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px); }
 
 ```
-html, body {
-  width: 100%; height: 100%;
-  background: var(--bg); color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  overflow: hidden;
-}
+/* Pages — JS sets display directly, never rely on CSS classes for show/hide */
+#pg-home, #pg-workout, #pg-done { width: 100%; min-height: 100vh; background: #0a0a0a; }
 
-/* Single page container — only one view shown at a time */
-#app {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  overflow: hidden;
-}
-
-/* Each view fills the app container, hidden by default */
-.view {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  display: none !important;
-  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 20px);
-}
-.view.active {
-  display: block !important;
-}
-#home.active { display: flex !important; }
-#done.active { display: flex !important; flex-direction: column; align-items: center; justify-content: center; }
-
-/* ── HOME ── */
-#home { padding: 2.5rem 1.5rem 2rem; display: flex; flex-direction: column; min-height: 100%; }
-.home-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-bottom: 0.5rem; }
-.home-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 20vw, 8rem); line-height: 0.88; }
-.home-title span { color: var(--yellow); }
-.home-tag { margin-top: 1.25rem; font-size: 1rem; color: var(--muted); line-height: 1.5; max-width: 280px; }
-.divider { width: 40px; height: 2px; background: var(--yellow); margin: 1.75rem 0; }
-.wlist { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
-.wcard {
-  background: var(--card); border: 1px solid var(--border); border-radius: 4px;
-  padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem;
-  cursor: pointer; position: relative; overflow: hidden; active-scale: 0.98;
-}
+/* HOME */
+#pg-home { padding: 2.5rem 1.5rem 2rem; }
+.eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: #555; text-transform: uppercase; margin-bottom: 0.5rem; }
+.app-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.88; }
+.app-title span { color: #e8c547; }
+.tagline { margin-top: 1rem; font-size: 1rem; color: #888; line-height: 1.5; }
+.divider { width: 40px; height: 2px; background: #e8c547; margin: 1.5rem 0; }
+.wcard { background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; position: relative; overflow: hidden; cursor: pointer; }
 .wcard:active { opacity: 0.7; }
-.wcard-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--yellow); }
-.wcard-icon { font-size: 1.8rem; flex-shrink: 0; }
+.wcard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #e8c547; }
+.wcard-icon { font-size: 1.8rem; }
 .wcard-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; line-height: 1; }
-.wcard-meta { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
-.wcard-arr { color: var(--dim); margin-left: auto; }
-.home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; padding-top: 1.5rem; }
+.wcard-meta { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
+.wcard-arr { color: #555; margin-left: auto; font-size: 1.2rem; }
+.home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; margin-top: 2rem; }
 
-/* ── WORKOUT ── */
-#workout { padding-bottom: 2rem; }
-.w-header { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
-.w-back { background: none; border: none; color: var(--muted); font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; margin-bottom: 3px; display: block; }
+/* WORKOUT */
+#pg-workout { padding: 0 0 3rem; }
+.w-head { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
+.back-btn { background: none; border: none; color: #888; font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; display: block; margin-bottom: 3px; }
 .w-appname { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; line-height: 1; }
-.w-phase { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; }
-.w-hright { text-align: right; font-size: 0.75rem; color: var(--dim); }
-.w-phcount { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
-
-.prog-wrap { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
-.prog-fill { height: 100%; border-radius: 2px; transition: width 0.35s ease; background: var(--yellow); }
-
-.main-card { margin: 1.25rem 1.5rem 0; background: var(--card); border-radius: 4px; padding: 1.5rem; border: 1px solid var(--border); position: relative; overflow: hidden; }
-.card-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-.bicep-pill { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: var(--purple); background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin-left: 0.5rem; margin-bottom: 0.6rem; text-transform: uppercase; }
-.card-inner { margin-left: 0.5rem; }
-.card-row { display: flex; align-items: flex-start; gap: 0.85rem; }
-.card-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
-.card-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.5rem, 6vw, 2rem); letter-spacing: 0.06em; line-height: 1; }
-.stats-row { display: flex; gap: 1.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
-.stat .lbl { font-size: 0.6rem; color: var(--dim); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.stat .val { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; }
-.stat .sub { font-size: 0.9rem; color: #444; }
-.dur-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 0.3rem; }
-.card-desc { margin-top: 1.1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
-.card-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
-.card-muscle .lbl { color: var(--dim); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-
-.timer-block { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
-.timer-block.work-t { background: #0e1a12; border: 1px solid #0f3021; }
-.timer-block.rest-t { background: #1a1208; border: 1px solid #3d2c05; }
-.t-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
-.t-digits { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; }
-.t-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-
-.rest-trig { margin: 0.85rem 1.5rem 0; text-align: center; }
-.rest-trig button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-
-.nav-row { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
-.nav-prev { flex: 1; background: var(--card); color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-.nav-next { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
-
-.ex-list { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
-.ex-list-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
+.w-phase-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; }
+.w-head-right { text-align: right; font-size: 0.75rem; color: #555; }
+.w-phase-count { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
+.prog { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
+.prog-inner { height: 100%; border-radius: 2px; transition: width 0.3s; }
+.excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; padding: 1.5rem; border: 1px solid #222; position: relative; overflow: hidden; }
+.excard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin-bottom: 0.6rem; margin-left: 0.5rem; text-transform: uppercase; }
+.excard-body { margin-left: 0.5rem; }
+.excard-top { display: flex; gap: 0.85rem; align-items: flex-start; }
+.ex-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
+.ex-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1; }
+.stats { display: flex; gap: 1.5rem; margin-top: 0.6rem; }
+.stat-lbl { font-size: 0.6rem; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; }
+.stat-sub { font-size: 0.9rem; color: #444; }
+.dur { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 0.3rem; }
+.ex-desc { margin-top: 1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
+.ex-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
+.muscle-lbl { color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.timer-box { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
+.timer-box.work-mode { background: #0e1a12; border: 1px solid #0f3021; }
+.timer-box.rest-mode { background: #1a1208; border: 1px solid #3d2c05; }
+.timer-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
+.timer-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; }
+.timer-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+.rest-row { margin: 0.85rem 1.5rem 0; text-align: center; }
+.rest-row button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+.nav { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
+.nav-back { flex: 1; background: #141414; color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+.nav-fwd { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
+.overview { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
+.overview-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
 .ex-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #161616; }
-.ex-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; background: #1e1e1e; color: #444; }
-.ex-name { flex: 1; font-size: 0.82rem; color: #666; }
-.ex-sets { font-size: 0.7rem; color: #555; }
+.ex-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
+.ex-row-name { flex: 1; font-size: 0.82rem; }
+.ex-row-sets { font-size: 0.7rem; }
 .tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
-.tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: var(--dim); margin-bottom: 0.3rem; text-transform: uppercase; }
+.tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
 .tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
 
-/* ── DONE ── */
-#done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; min-height: 100%; }
-.done-emoji { font-size: 5rem; }
-.done-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 13vw, 6rem); line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
-.done-sub { font-size: 0.95rem; color: var(--muted); margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
-.done-btn { margin-top: 2rem; background: var(--yellow); color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
+/* DONE */
+#pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+.done-fire { font-size: 5rem; }
+.done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
+.done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
+.done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
 ```
 
   </style>
 </head>
 <body>
-<div id="app">
 
-  <!-- HOME -->
-
-  <div class="view active" id="home">
-    <div class="home-eyebrow">Workout Tracker</div>
-    <div class="home-title">KB<br/><span>Strong</span></div>
-    <div class="home-tag">Pull-focused kettlebell training. Built for strength.</div>
-    <div class="divider"></div>
-    <div class="wlist" id="wlist"></div>
-    <div class="home-foot">Add to Home Screen in Safari to install as app</div>
-  </div>
-
-  <!-- WORKOUT -->
-
-  <div class="view" id="workout">
-    <div class="w-header">
-      <div>
-        <button class="w-back" onclick="goHome()">← Workouts</button>
-        <div class="w-appname">KB Strong</div>
-        <div class="w-phase" id="wPhase"></div>
-      </div>
-      <div class="w-hright">
-        <div class="w-phcount" id="wPhCount"></div>
-        <div id="wItemCount"></div>
-      </div>
-    </div>
-    <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
-    <div class="main-card" id="mainCard">
-      <div class="card-stripe" id="cardStripe"></div>
-      <div id="bicepPill" class="bicep-pill" style="display:none">Bicep Isolation</div>
-      <div class="card-inner">
-        <div class="card-row">
-          <div class="card-emoji" id="cardEmoji"></div>
-          <div>
-            <div class="card-name" id="cardName"></div>
-            <div id="cardStats"></div>
-          </div>
-        </div>
-        <div class="card-desc" id="cardDesc"></div>
-        <div class="card-muscle" id="cardMuscle"></div>
-      </div>
-    </div>
-    <div id="timerArea"></div>
-    <div id="restArea"></div>
-    <div class="nav-row">
-      <button class="nav-prev" onclick="prevItem()">← Back</button>
-      <button class="nav-next" id="nextBtn" onclick="nextItem()">Next →</button>
-    </div>
-    <div class="ex-list">
-      <div class="ex-list-hd">Workout Overview</div>
-      <div id="exList"></div>
-      <div class="tip">
-        <div class="tip-hd">💡 Beginner Strength Tip</div>
-        <div class="tip-body">Add <strong style="color:var(--yellow)">2.5–5 lbs each week</strong> to your deadlift and rows. Progressive overload is what builds strength.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DONE -->
-
-  <div class="view" id="done">
-    <div class="done-emoji">🔥</div>
-    <div class="done-title"><div style="color:var(--yellow)">WORKOUT</div><div>COMPLETE</div></div>
-    <div class="done-sub">Strength is built one session at a time. Go crush performance academy. Eat protein. Come back heavier next week.</div>
-    <button class="done-btn" onclick="goHome()">Back to Workouts</button>
-  </div>
-
+<div id="pg-home">
+  <div class="eyebrow">Workout Tracker</div>
+  <div class="app-title">KB<br/><span>Strong</span></div>
+  <div class="tagline">Pull-focused kettlebell training. Built for strength.</div>
+  <div class="divider"></div>
+  <div id="home-list"></div>
+  <div class="home-foot">Open in Safari · Add to Home Screen to install</div>
 </div>
+
+<div id="pg-workout" style="display:none">
+  <div class="w-head">
+    <div>
+      <button class="back-btn" onclick="goHome()">← Workouts</button>
+      <div class="w-appname">KB Strong</div>
+      <div class="w-phase-lbl" id="phaseLbl"></div>
+    </div>
+    <div class="w-head-right">
+      <div class="w-phase-count" id="phaseCount"></div>
+      <div id="itemCount"></div>
+    </div>
+  </div>
+  <div class="prog"><div class="prog-inner" id="progBar"></div></div>
+  <div class="excard" id="exCard">
+    <div class="excard-bar" id="exBar"></div>
+    <div id="bicepTag" class="bicep-tag" style="display:none">Bicep Isolation</div>
+    <div class="excard-body">
+      <div class="excard-top">
+        <div class="ex-emoji" id="exEmoji"></div>
+        <div>
+          <div class="ex-name" id="exName"></div>
+          <div id="exStats"></div>
+        </div>
+      </div>
+      <div class="ex-desc" id="exDesc"></div>
+      <div class="ex-muscle" id="exMuscle"></div>
+    </div>
+  </div>
+  <div id="timerArea"></div>
+  <div id="restArea"></div>
+  <div class="nav">
+    <button class="nav-back" onclick="prevItem()">← Back</button>
+    <button class="nav-fwd" id="fwdBtn" onclick="nextItem()">Next →</button>
+  </div>
+  <div class="overview">
+    <div class="overview-hd">Workout Overview</div>
+    <div id="overviewList"></div>
+    <div class="tip">
+      <div class="tip-hd">💡 Beginner Strength Tip</div>
+      <div class="tip-body">Add <strong style="color:#e8c547">2.5–5 lbs each week</strong> to your deadlift and rows. Progressive overload is what builds strength.</div>
+    </div>
+  </div>
+</div>
+
+<div id="pg-done" style="display:none">
+  <div class="done-fire">🔥</div>
+  <div class="done-title"><div style="color:#e8c547">WORKOUT</div><div>COMPLETE</div></div>
+  <div class="done-sub">Strength is built one session at a time. Go crush performance academy. Eat protein. Come back heavier next week.</div>
+  <button class="done-btn" onclick="goHome()">Back to Workouts</button>
+</div>
+
 <script>
-// ═══════════════════════════════════════════════════════════
-//  WORKOUTS DATA — edit this to add/change workouts
-// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+//  WORKOUTS — add new workouts here when needed
+// ═══════════════════════════════════════════════════════
 const WORKOUTS = [
   {
-    id: "pull-strength",
+    id: "pull",
     name: "Pull · Back & Biceps",
     duration: "~35 min",
     icon: "⛏️",
@@ -221,191 +171,213 @@ const WORKOUTS = [
         { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
       ]},
       { id: "work", label: "MAIN WORK", items: [
-        { name: "KB Deadlift",          sets: 5, reps: "5",      rest: 90, desc: "Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle: "Lats, Erectors, Glutes", icon: "🏋️" },
-        { name: "Two-Hand KB Row",      sets: 5, reps: "5",      rest: 90, desc: "Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle: "Lats, Rhomboids, Biceps", icon: "⛏️" },
-        { name: "Single-Arm KB Row",    sets: 3, reps: "5 each", rest: 75, desc: "Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle: "Lats, Rear Delt, Biceps", icon: "💪" },
-        { name: "KB Hammer Curl",       sets: 3, reps: "8",      rest: 60, desc: "Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle: "Biceps, Brachialis", icon: "🔨", bicep: true },
-        { name: "KB Concentration Curl",sets: 3, reps: "8 each", rest: 60, desc: "Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle: "Biceps Peak", icon: "💥", bicep: true }
+        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
+        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪" },
+        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
+        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true }
       ]},
       { id: "cooldown", label: "COOLDOWN", items: [
-        { name: "Chest Opener",       dur: 30, rest: 0, desc: "Doorframe stretch — open chest and anterior shoulders", icon: "🚪" },
-        { name: "Child's Pose Reach", dur: 30, rest: 0, desc: "Reach arms long, breathe into your lats", icon: "🧘" },
-        { name: "Supine Twist",       dur: 30, rest: 0, desc: "Both sides — decompress the spine after deadlifts", icon: "🌀" }
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine after deadlifts", icon:"🌀" }
       ]}
     ]
   }
-  // ADD MORE WORKOUTS HERE
 ];
 
-// ═══════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════
-let W = null, phIdx = 0, itIdx = 0, setN = 1;
-let ticker = null, tLeft = null, resting = false;
+// ─── STATE ───
+let W, phIdx, itIdx, setN, ticker, tLeft, resting;
 
-const PCOLS = { warmup: “#5b8dee”, work: “#e8c547”, cooldown: “#5ecb8a” };
+const PCOLS = { warmup:"#5b8dee", work:"#e8c547", cooldown:"#5ecb8a" };
 
-function showView(id) {
-document.querySelectorAll(’.view’).forEach(v => v.classList.remove(‘active’));
-document.getElementById(id).classList.add(‘active’);
-document.getElementById(id).scrollTop = 0;
+// ─── PAGE NAVIGATION — pure inline style, no CSS classes ───
+function showPage(id) {
+  document.getElementById('pg-home').style.display    = 'none';
+  document.getElementById('pg-workout').style.display = 'none';
+  document.getElementById('pg-done').style.display    = 'none';
+  const el = document.getElementById(id);
+  el.style.display = (id === 'pg-done') ? 'flex' : 'block';
+  window.scrollTo(0, 0);
 }
 
-// HOME
+// ─── HOME ───
 function renderHome() {
-document.getElementById(‘wlist’).innerHTML = WORKOUTS.map(w => ` <div class="wcard" onclick="startWorkout('${w.id}')"> <div class="wcard-stripe" style="background:${w.accent}"></div> <div class="wcard-icon">${w.icon}</div> <div> <div class="wcard-name">${w.name}</div> <div class="wcard-meta">${w.duration} &nbsp;·&nbsp; ${w.phases.find(p=>p.id==='work').items.length} exercises</div> </div> <div class="wcard-arr">›</div> </div>`).join(’’);
+  document.getElementById('home-list').innerHTML = WORKOUTS.map(w =>
+    `<div class="wcard" onclick="startWorkout('${w.id}')">
+      <div class="wcard-bar" style="background:${w.accent}"></div>
+      <div class="wcard-icon">${w.icon}</div>
+      <div style="flex:1">
+        <div class="wcard-name">${w.name}</div>
+        <div class="wcard-meta">${w.duration} · ${w.phases.find(p=>p.id==='work').items.length} exercises</div>
+      </div>
+      <div class="wcard-arr">›</div>
+    </div>`
+  ).join('');
 }
 
-function goHome() { stopTimer(); showView(‘home’); }
+function goHome() {
+  stopTicker();
+  showPage('pg-home');
+}
 
-// START
+// ─── START ───
 function startWorkout(id) {
-W = WORKOUTS.find(w => w.id === id);
-phIdx = 0; itIdx = 0; setN = 1;
-stopTimer(); tLeft = null; resting = false;
-buildExList();
-render();
-showView(‘workout’);
+  W = WORKOUTS.find(w => w.id === id);
+  phIdx = 0; itIdx = 0; setN = 1;
+  stopTicker(); tLeft = null; resting = false;
+  buildOverview();
+  render();
+  showPage('pg-workout');
 }
 
-// HELPERS
-const ph  = () => W.phases[phIdx];
-const it  = () => ph().items[itIdx];
-const isW = () => ph().id === ‘work’;
-const isBicep = () => isW() && it().bicep;
-const ac  = () => isBicep() ? ‘#e05cff’ : (PCOLS[ph().id] || W.accent);
-const workPh = () => W.phases.find(p => p.id === ‘work’);
+// ─── HELPERS ───
+const ph      = () => W.phases[phIdx];
+const it      = () => ph().items[itIdx];
+const isWork  = () => ph().id === 'work';
+const isBicep = () => isWork() && !!it().bicep;
+const color   = () => isBicep() ? '#e05cff' : (PCOLS[ph().id] || W.accent);
+const workPh  = () => W.phases.find(p => p.id === 'work');
 
-// RENDER
+// ─── RENDER ───
 function render() {
-const item = it(), phase = ph(), color = ac();
+  const item = it(), c = color();
 
-document.getElementById(‘wPhase’).textContent = phase.label;
-document.getElementById(‘wPhase’).style.color = color;
-document.getElementById(‘wPhCount’).textContent = phase.label;
-document.getElementById(‘wPhCount’).style.color = color;
-document.getElementById(‘wItemCount’).textContent = `${itIdx+1} / ${phase.items.length}`;
+  document.getElementById('phaseLbl').textContent  = ph().label;
+  document.getElementById('phaseLbl').style.color  = c;
+  document.getElementById('phaseCount').textContent = ph().label;
+  document.getElementById('phaseCount').style.color = c;
+  document.getElementById('itemCount').textContent  = `${itIdx+1} / ${ph().items.length}`;
 
-// progress
-const wi = workPh().items, wpi = W.phases.findIndex(p=>p.id===‘work’);
-let prog = phIdx > wpi ? wi.length : phIdx === wpi ? itIdx : 0;
-document.getElementById(‘progFill’).style.width = `${(prog/wi.length)*100}%`;
-document.getElementById(‘progFill’).style.background = W.accent;
+  const wi = workPh().items, wpi = W.phases.findIndex(p=>p.id==='work');
+  const prog = phIdx > wpi ? wi.length : phIdx === wpi ? itIdx : 0;
+  document.getElementById('progBar').style.width      = `${(prog/wi.length)*100}%`;
+  document.getElementById('progBar').style.background = W.accent;
 
-document.getElementById(‘cardStripe’).style.background = color;
-document.getElementById(‘bicepPill’).style.display = isBicep() ? ‘inline-block’ : ‘none’;
-document.getElementById(‘cardEmoji’).textContent = item.icon;
-document.getElementById(‘cardName’).textContent = item.name;
+  document.getElementById('exBar').style.background = c;
+  document.getElementById('bicepTag').style.display  = isBicep() ? 'inline-block' : 'none';
+  document.getElementById('exEmoji').textContent     = item.icon;
+  document.getElementById('exName').textContent      = item.name;
 
-if (isW()) {
-document.getElementById(‘cardStats’).innerHTML = ` <div class="stats-row"> <div class="stat"><div class="lbl">Set</div><div class="val" style="color:${color}">${setN}<span class="sub">/${item.sets}</span></div></div> <div class="stat"><div class="lbl">Reps</div><div class="val">${item.reps}</div></div> <div class="stat"><div class="lbl">Rest</div><div class="val">${item.rest}s</div></div> </div>`;
-} else {
-document.getElementById(‘cardStats’).innerHTML = `<div class="dur-val" style="color:${color}">${item.dur}s</div>`;
-}
+  if (isWork()) {
+    document.getElementById('exStats').innerHTML =
+      `<div class="stats">
+        <div><div class="stat-lbl">Set</div><div class="stat-val" style="color:${c}">${setN}<span class="stat-sub">/${item.sets}</span></div></div>
+        <div><div class="stat-lbl">Reps</div><div class="stat-val">${item.reps}</div></div>
+        <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
+      </div>`;
+  } else {
+    document.getElementById('exStats').innerHTML = `<div class="dur" style="color:${c}">${item.dur}s</div>`;
+  }
 
-document.getElementById(‘cardDesc’).textContent = item.desc;
-const me = document.getElementById(‘cardMuscle’);
-me.innerHTML = (isW() && item.muscle)
-? `<span class="lbl">TARGETS · </span><span style="color:${color};font-weight:700">${item.muscle}</span>` : ‘’;
+  document.getElementById('exDesc').textContent = item.desc;
+  document.getElementById('exMuscle').innerHTML = (isWork() && item.muscle)
+    ? `<span class="muscle-lbl">TARGETS · </span><span style="color:${c};font-weight:700">${item.muscle}</span>` : '';
 
-renderTimer();
+  renderTimer();
 
-const ra = document.getElementById(‘restArea’);
-ra.innerHTML = (isW() && !resting && tLeft === null)
-? `<div class="rest-trig"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : ‘’;
+  document.getElementById('restArea').innerHTML = (isWork() && !resting && tLeft === null)
+    ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
 
-const nb = document.getElementById(‘nextBtn’);
-nb.style.background = color;
-nb.textContent = (isW() && setN < item.sets) ? `Next Set (${setN+1}/${item.sets})` : ‘Next →’;
+  const fb = document.getElementById('fwdBtn');
+  fb.style.background = c;
+  fb.textContent = (isWork() && setN < item.sets) ? `Next Set (${setN+1}/${item.sets})` : 'Next →';
 
-highlightEx();
+  highlightOverview();
 }
 
 function renderTimer() {
-const item = it(), ta = document.getElementById(‘timerArea’);
-const hasT = !isW() && item.dur;
-if (!hasT && !resting) { ta.innerHTML = ‘’; return; }
-const color = resting ? ‘#e8c547’ : ‘#5ecb8a’;
-const label = resting ? ‘⏸ REST’ : ‘⏱ WORK’;
-const digits = tLeft !== null ? tLeft : (resting ? item.rest : item.dur);
-const btnHtml = ticker
-? `<button class="t-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTimer()">PAUSE</button>`
-: `<button class="t-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTimer()">START TIMER</button>`;
-ta.innerHTML = `<div class="timer-block ${resting?'rest-t':'work-t'}">
-<div class="t-label" style="color:${color}">${label}</div>
-<div class="t-digits" style="color:${color}">${digits}</div>
-${btnHtml}
-
-  </div>`;
+  const item = it(), area = document.getElementById('timerArea');
+  const hasDur = !isWork() && item.dur;
+  if (!hasDur && !resting) { area.innerHTML = ''; return; }
+  const c = resting ? '#e8c547' : '#5ecb8a';
+  const label = resting ? '⏸ REST' : '⏱ WORK';
+  const num = tLeft !== null ? tLeft : (resting ? item.rest : item.dur);
+  const btn = ticker
+    ? `<button class="timer-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTicker()">PAUSE</button>`
+    : `<button class="timer-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTicker()">START TIMER</button>`;
+  area.innerHTML =
+    `<div class="timer-box ${resting?'rest-mode':'work-mode'}">
+      <div class="timer-lbl" style="color:${c}">${label}</div>
+      <div class="timer-num" style="color:${c}">${num}</div>
+      ${btn}
+    </div>`;
 }
 
-// TIMER
-function playTimer() {
-if (ticker) return;
-const item = it();
-if (tLeft === null) tLeft = resting ? item.rest : item.dur;
-ticker = setInterval(() => {
-tLeft–;
-if (tLeft <= 0) {
-stopTimer();
-const autoRest = !resting && !isW() && item.rest > 0;
-if (autoRest) { resting = true; tLeft = item.rest; playTimer(); }
-else { resting = false; tLeft = null; }
+// ─── TIMER ───
+function playTicker() {
+  if (ticker) return;
+  const item = it();
+  if (tLeft === null) tLeft = resting ? item.rest : item.dur;
+  ticker = setInterval(() => {
+    tLeft--;
+    if (tLeft <= 0) {
+      stopTicker();
+      if (!resting && !isWork() && item.rest > 0) {
+        resting = true; tLeft = item.rest; playTicker();
+      } else {
+        resting = false; tLeft = null;
+        document.getElementById('restArea').innerHTML = isWork()
+          ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
+      }
+    }
+    renderTimer();
+  }, 1000);
+  renderTimer();
 }
-renderTimer();
-document.getElementById(‘restArea’).innerHTML =
-(isW() && !resting && tLeft === null)
-? `<div class="rest-trig"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : ‘’;
-}, 1000);
-renderTimer();
-}
-function pauseTimer() { stopTimer(); renderTimer(); }
-function stopTimer()  { clearInterval(ticker); ticker = null; }
-function startRest()  { resting = true; tLeft = it().rest; document.getElementById(‘restArea’).innerHTML=’’; renderTimer(); playTimer(); }
+function pauseTicker() { stopTicker(); renderTimer(); }
+function stopTicker()  { clearInterval(ticker); ticker = null; }
+function startRest()   { resting = true; tLeft = it().rest; document.getElementById('restArea').innerHTML = ''; renderTimer(); playTicker(); }
 
-// NAV
+// ─── NAVIGATION ───
 function nextItem() {
-stopTimer(); tLeft = null; resting = false;
-if (isW() && setN < it().sets) { setN++; render(); return; }
-setN = 1;
-if (itIdx + 1 < ph().items.length) { itIdx++; }
-else if (phIdx + 1 < W.phases.length) { phIdx++; itIdx = 0; }
-else { showView(‘done’); return; }
-render();
-document.getElementById(‘workout’).scrollTop = 0;
+  stopTicker(); tLeft = null; resting = false;
+  if (isWork() && setN < it().sets) { setN++; render(); return; }
+  setN = 1;
+  if (itIdx + 1 < ph().items.length) { itIdx++; }
+  else if (phIdx + 1 < W.phases.length) { phIdx++; itIdx = 0; }
+  else { showPage('pg-done'); return; }
+  render();
+  window.scrollTo(0, 0);
 }
 function prevItem() {
-stopTimer(); tLeft = null; resting = false; setN = 1;
-if (itIdx > 0) { itIdx–; }
-else if (phIdx > 0) { phIdx–; itIdx = W.phases[phIdx].items.length - 1; }
-render();
-document.getElementById(‘workout’).scrollTop = 0;
+  stopTicker(); tLeft = null; resting = false; setN = 1;
+  if (itIdx > 0) { itIdx--; }
+  else if (phIdx > 0) { phIdx--; itIdx = W.phases[phIdx].items.length - 1; }
+  render();
+  window.scrollTo(0, 0);
 }
 
-// EX LIST
-function buildExList() {
-document.getElementById(‘exList’).innerHTML = workPh().items.map((ex, i) =>
-`<div class="ex-row" id="er${i}"> <div class="ex-num" id="en${i}">${i+1}</div> <div class="ex-name" id="ename${i}">${ex.name}</div> <div class="ex-sets" style="color:${ex.bicep?'#9a3dbb':'#555'}">${ex.sets}×${ex.reps}</div> </div>`).join(’’);
+// ─── OVERVIEW ───
+function buildOverview() {
+  document.getElementById('overviewList').innerHTML = workPh().items.map((ex, i) =>
+    `<div class="ex-row" id="er${i}">
+      <div class="ex-num" id="en${i}" style="background:#1e1e1e;color:#444">${i+1}</div>
+      <div class="ex-row-name" id="ern${i}" style="color:#666">${ex.name}</div>
+      <div class="ex-row-sets" style="color:${ex.bicep?'#9a3dbb':'#555'}">${ex.sets}×${ex.reps}</div>
+    </div>`
+  ).join('');
 }
-function highlightEx() {
-workPh().items.forEach((ex, i) => {
-const row = document.getElementById(`er${i}`);
-const num = document.getElementById(`en${i}`);
-const nm  = document.getElementById(`ename${i}`);
-if (!row) return;
-const active = ph().id===‘work’ && i===itIdx;
-const past   = ph().id===‘cooldown’ || (ph().id===‘work’ && i<itIdx);
-const col = ex.bicep ? ‘#e05cff’ : W.accent;
-row.style.opacity = past ? ‘0.25’ : active ? ‘1’ : ‘0.45’;
-nm.style.color = active ? ‘#f5f0e8’ : ‘#666’;
-nm.style.fontWeight = active ? ‘700’ : ‘400’;
-num.style.background = active ? col : ‘#1e1e1e’;
-num.style.color = active ? ‘#0a0a0a’ : ‘#444’;
-});
+function highlightOverview() {
+  workPh().items.forEach((ex, i) => {
+    const num  = document.getElementById(`en${i}`);
+    const name = document.getElementById(`ern${i}`);
+    const row  = document.getElementById(`er${i}`);
+    if (!row) return;
+    const active = ph().id === 'work' && i === itIdx;
+    const past   = ph().id === 'cooldown' || (ph().id === 'work' && i < itIdx);
+    const c = ex.bicep ? '#e05cff' : W.accent;
+    row.style.opacity        = past ? '0.25' : active ? '1' : '0.45';
+    name.style.color         = active ? '#f5f0e8' : '#666';
+    name.style.fontWeight    = active ? '700' : '400';
+    num.style.background     = active ? c : '#1e1e1e';
+    num.style.color          = active ? '#0a0a0a' : '#444';
+  });
 }
 
-window.addEventListener(‘load’, renderHome);
+// ─── INIT ───
 renderHome();
+showPage('pg-home');
 </script>
 
 </body>
