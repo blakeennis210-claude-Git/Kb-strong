@@ -13,10 +13,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; background: #0a0a0a; color: #f5f0e8; font-family: 'DM Sans', sans-serif; }
     body { padding: env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px); }
-
     #pg-home, #pg-workout, #pg-done { width: 100%; min-height: 100vh; background: #0a0a0a; }
-
-    /* HOME */
     #pg-home { padding: 2.5rem 1.5rem 2rem; }
     .eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: #555; text-transform: uppercase; margin-bottom: 0.5rem; }
     .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.88; }
@@ -31,8 +28,6 @@
     .wcard-meta { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
     .wcard-arr { color: #555; margin-left: auto; font-size: 1.2rem; }
     .home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; margin-top: 2rem; }
-
-    /* WORKOUT */
     #pg-workout { padding: 0 0 3rem; }
     .w-head { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
     .back-btn { background: none; border: none; color: #888; font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; display: block; margin-bottom: 3px; }
@@ -42,12 +37,10 @@
     .w-phase-count { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
     .prog { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
     .prog-inner { height: 100%; border-radius: 2px; transition: width 0.3s; }
-
-    /* EXERCISE CARD */
-    .excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; border: 1px solid #222; position: relative; overflow: hidden; }
+    .excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; padding: 1.5rem; border: 1px solid #222; position: relative; overflow: hidden; }
     .excard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-    .bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin: 0.75rem 0 0 1rem; text-transform: uppercase; }
-    .excard-body { padding: 0.75rem 1.25rem 1.25rem 1.25rem; margin-left: 0.25rem; }
+    .bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin-bottom: 0.6rem; margin-left: 0.5rem; text-transform: uppercase; }
+    .excard-body { margin-left: 0.5rem; }
     .excard-top { display: flex; gap: 0.85rem; align-items: flex-start; }
     .ex-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
     .ex-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1; }
@@ -59,26 +52,21 @@
     .ex-desc { margin-top: 1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
     .ex-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
     .muscle-lbl { color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* DEMO GIF */
-    .demo-wrap { margin-top: 1rem; border-radius: 6px; overflow: hidden; background: #1a1a1a; border: 1px solid #2a2a2a; text-align: center; }
-    .demo-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
-    .demo-label { font-size: 0.65rem; color: #555; padding: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* WEIGHT TRACKER */
-    .weight-section { margin-top: 1rem; background: #0f0f0f; border-radius: 6px; border: 1px solid #1e1e1e; overflow: hidden; }
-    .weight-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #555; text-transform: uppercase; padding: 0.6rem 0.85rem 0.4rem; }
-    .weight-rows { padding: 0 0.85rem 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .weight-row { display: flex; align-items: center; gap: 0.75rem; }
-    .weight-set-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: #555; width: 36px; flex-shrink: 0; }
-    .weight-input-wrap { flex: 1; position: relative; }
-    .weight-input { width: 100%; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 3px; color: #f5f0e8; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; padding: 0.4rem 2.2rem 0.4rem 0.75rem; letter-spacing: 0.05em; outline: none; -webkit-appearance: none; }
-    .weight-input:focus { border-color: #e8c547; }
-    .weight-unit { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); font-size: 0.65rem; color: #555; font-weight: 700; letter-spacing: 0.1em; pointer-events: none; }
-    .weight-prev { font-size: 0.7rem; color: #444; white-space: nowrap; min-width: 60px; text-align: right; }
-    .weight-prev span { color: #666; }
-
-    /* TIMER */
+    .demo-wrap { margin-top: 1.1rem; background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 4px; overflow: hidden; }
+    .demo-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #444; text-transform: uppercase; padding: 0.5rem 0.75rem 0; }
+    .demo-wrap svg { display: block; width: 100%; height: auto; }
+    .weight-log { margin: 1.1rem 1.5rem 0; background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1rem 1.25rem; }
+    .wlog-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #555; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .wlog-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+    .wlog-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; color: #555; width: 42px; flex-shrink: 0; }
+    .wlog-label.active-set { color: #e8c547; }
+    .wlog-input-wrap { flex: 1; position: relative; }
+    .wlog-input { width: 100%; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 3px; padding: 0.5rem 2.5rem 0.5rem 0.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #f5f0e8; letter-spacing: 0.05em; -webkit-appearance: none; }
+    .wlog-input:focus { outline: none; border-color: #e8c547; }
+    .wlog-input.active-input { border-color: #e8c547; background: #1a1800; }
+    .wlog-unit { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); font-size: 0.65rem; font-weight: 700; color: #555; letter-spacing: 0.1em; }
+    .wlog-prev { font-size: 0.7rem; color: #444; width: 64px; flex-shrink: 0; text-align: right; line-height: 1.3; }
+    .wlog-prev.has-data { color: #5ecb8a; }
     .timer-box { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
     .timer-box.work-mode { background: #0e1a12; border: 1px solid #0f3021; }
     .timer-box.rest-mode { background: #1a1208; border: 1px solid #3d2c05; }
@@ -87,13 +75,9 @@
     .timer-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
     .rest-row { margin: 0.85rem 1.5rem 0; text-align: center; }
     .rest-row button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-
-    /* NAV */
     .nav { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
     .nav-back { flex: 1; background: #141414; color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
     .nav-fwd { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
-
-    /* OVERVIEW */
     .overview { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
     .overview-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
     .ex-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #161616; }
@@ -103,13 +87,57 @@
     .tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
     .tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
     .tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
-
-    /* DONE */
     #pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
     .done-fire { font-size: 5rem; }
     .done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
     .done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
     .done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes deadlift {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 75px; }
+      50% { transform: rotate(-35deg); transform-origin: 60px 75px; }
+    }
+    @keyframes row-arms {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes curl-up {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 58px; }
+      50% { transform: rotate(-70deg); transform-origin: 60px 58px; }
+    }
+    @keyframes hinge {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 72px; }
+      50% { transform: rotate(40deg); transform-origin: 160px 72px; }
+    }
+    @keyframes arm-circle {
+      0% { transform: rotate(0deg); transform-origin: 160px 55px; }
+      100% { transform: rotate(360deg); transform-origin: 160px 55px; }
+    }
+    @keyframes scap-squeeze {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+    @keyframes scap-squeeze-r {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(-6px); }
+    }
+    @keyframes twist {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 80px; }
+      50% { transform: rotate(30deg); transform-origin: 160px 80px; }
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    @keyframes kb-float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes kb-float-ground {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
   </style>
 </head>
 <body>
@@ -149,10 +177,10 @@
       </div>
       <div class="ex-desc" id="exDesc"></div>
       <div class="ex-muscle" id="exMuscle"></div>
-      <div id="demoArea"></div>
-      <div id="weightArea"></div>
+      <div id="exDemo"></div>
     </div>
   </div>
+  <div id="weightLog"></div>
   <div id="timerArea"></div>
   <div id="restArea"></div>
   <div class="nav">
@@ -177,6 +205,394 @@
 </div>
 
 <script>
+// ═══════════════════════════════════════
+// ANIMATED SVG DEMOS
+// ═══════════════════════════════════════
+const DEMOS = {
+
+"KB Deadlift": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .dl-body { animation: none; }
+      .dl-torso { transform-origin: 160px 95px; animation: dl-hinge 2s ease-in-out infinite; }
+      .dl-kb-l { animation: dl-kb 2s ease-in-out infinite; }
+      .dl-kb-r { animation: dl-kb 2s ease-in-out infinite; }
+      @keyframes dl-hinge {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(42deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+      @keyframes dl-kb {
+        0%,15% { transform: translateY(0px); }
+        45%,55% { transform: translateY(28px); }
+        85%,100% { transform: translateY(0px); }
+      }
+    </style>
+  </defs>
+  <!-- ground -->
+  <line x1="40" y1="148" x2="240" y2="148" stroke="#222" stroke-width="1.5"/>
+  <!-- static legs -->
+  <line x1="140" y1="118" x2="125" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="118" x2="155" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- feet -->
+  <line x1="125" y1="148" x2="112" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="155" y1="148" x2="168" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- animated torso+head+arms -->
+  <g class="dl-torso">
+    <circle cx="140" cy="72" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+    <line x1="140" y1="83" x2="140" y2="118" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="95" x2="115" y2="108" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="115" y1="108" x2="105" y2="122" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="140" y1="95" x2="165" y2="108" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="165" y1="108" x2="175" y2="122" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <!-- animated KBs -->
+  <g class="dl-kb-l">
+    <rect x="95" y="119" width="14" height="11" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+    <line x1="97" y1="119" x2="107" y2="119" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <g class="dl-kb-r">
+    <rect x="171" y="119" width="14" height="11" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+    <line x1="173" y1="119" x2="183" y2="119" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <!-- cue text -->
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">HIP HINGE · FLAT BACK · DRIVE HEELS</text>
+</svg>`,
+
+"Two-Hand KB Row": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .row-arms { animation: row-pull 2s ease-in-out infinite; transform-origin: 140px 95px; }
+      @keyframes row-pull {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(-28deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- static hinged body -->
+  <circle cx="140" cy="62" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+  <!-- hinged torso -->
+  <line x1="140" y1="73" x2="132" y2="105" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- legs -->
+  <line x1="132" y1="105" x2="120" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="120" y1="138" x2="108" y2="150" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="132" y1="105" x2="148" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="148" y1="138" x2="160" y2="150" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- animated arms -->
+  <g class="row-arms">
+    <line x1="136" y1="88" x2="108" y2="100" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="108" y1="100" x2="95" y2="115" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="136" y1="88" x2="164" y2="100" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="164" y1="100" x2="177" y2="115" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="83" y="112" width="14" height="11" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+    <rect x="175" y="112" width="14" height="11" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">HINGE 45° · DRIVE ELBOWS BACK · SQUEEZE</text>
+</svg>`,
+
+"Single-Arm KB Row": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .sa-arm { animation: sa-pull 2s ease-in-out infinite; transform-origin: 155px 88px; }
+      @keyframes sa-pull {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(-55deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- bench suggestion -->
+  <rect x="60" y="118" width="50" height="8" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+  <!-- body hinged, bracing hand on bench -->
+  <circle cx="140" cy="62" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+  <line x1="140" y1="73" x2="132" y2="105" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="132" y1="105" x2="118" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="118" y1="138" x2="108" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="132" y1="105" x2="150" y2="135" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="150" y1="135" x2="162" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- bracing arm -->
+  <line x1="136" y1="88" x2="108" y2="102" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="108" y1="102" x2="88" y2="116" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated rowing arm -->
+  <g class="sa-arm">
+    <line x1="155" y1="88" x2="178" y2="102" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="178" y1="102" x2="192" y2="118" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="185" y="115" width="13" height="10" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">FULL STRETCH · ELBOW PAST HIP</text>
+</svg>`,
+
+"KB Hammer Curl": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .hc-arm-l { animation: hc-curl-l 2s ease-in-out infinite; transform-origin: 108px 88px; }
+      .hc-arm-r { animation: hc-curl-r 2s ease-in-out infinite; transform-origin: 172px 88px; }
+      @keyframes hc-curl-l {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(-75deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+      @keyframes hc-curl-r {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(75deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- standing body -->
+  <circle cx="140" cy="42" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+  <line x1="140" y1="53" x2="140" y2="105" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="125" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="155" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="138" x2="118" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="155" y1="138" x2="162" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated left arm -->
+  <g class="hc-arm-l">
+    <line x1="108" y1="88" x2="108" y2="118" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- KB vertical = neutral grip -->
+    <rect x="102" y="116" width="10" height="16" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <!-- animated right arm -->
+  <g class="hc-arm-r">
+    <line x1="172" y1="88" x2="172" y2="118" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="168" y="116" width="10" height="16" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <!-- static upper arms -->
+  <line x1="140" y1="68" x2="108" y2="88" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="140" y1="68" x2="172" y2="88" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">NEUTRAL GRIP · ELBOWS PINNED · SLOW DOWN</text>
+</svg>`,
+
+"KB Concentration Curl": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .cc-forearm { animation: cc-pull 2s ease-in-out infinite; transform-origin: 155px 100px; }
+      @keyframes cc-pull {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(-75deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- seated body leaning forward -->
+  <circle cx="148" cy="52" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+  <!-- torso forward lean -->
+  <line x1="148" y1="63" x2="138" y2="95" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- legs seated -->
+  <line x1="138" y1="95" x2="115" y2="118" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="115" y1="118" x2="95" y2="118" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="138" y1="95" x2="165" y2="118" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="165" y1="118" x2="185" y2="118" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- bench seat -->
+  <rect x="82" y="118" width="115" height="7" rx="2" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <!-- bracing arm on other knee -->
+  <line x1="142" y1="78" x2="168" y2="92" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="168" y1="92" x2="178" y2="110" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- upper arm braced on inner knee (static) -->
+  <line x1="142" y1="78" x2="118" y2="92" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="118" y1="92" x2="115" y2="102" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated forearm -->
+  <g class="cc-forearm">
+    <line x1="115" y1="100" x2="115" y2="128" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="109" y="125" width="13" height="11" rx="2" fill="#e8c547" fill-opacity="0.25" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">ELBOW BRACED · FULL STRETCH · HARD SQUEEZE</text>
+</svg>`,
+
+"Arm Circles": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ac-arm-l { animation: ac-left 2s linear infinite; transform-origin: 140px 75px; }
+      .ac-arm-r { animation: ac-right 2s linear infinite; transform-origin: 140px 75px; }
+      @keyframes ac-left {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes ac-right {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(-360deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <circle cx="140" cy="42" r="11" fill="none" stroke="#5b8dee" stroke-width="2.5"/>
+  <line x1="140" y1="53" x2="140" y2="105" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="125" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="155" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="138" x2="118" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <line x1="155" y1="138" x2="162" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <!-- rotating arms -->
+  <g class="ac-arm-l">
+    <line x1="140" y1="75" x2="100" y2="75" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="100" cy="75" r="4" fill="#5b8dee" fill-opacity="0.5"/>
+  </g>
+  <g class="ac-arm-r">
+    <line x1="140" y1="75" x2="180" y2="75" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="180" cy="75" r="4" fill="#5b8dee" fill-opacity="0.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">BIG CIRCLES · BOTH DIRECTIONS · 20 EACH</text>
+</svg>`,
+
+"Hip Hinge Practice": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .hh-upper { animation: hh-hinge 2.5s ease-in-out infinite; transform-origin: 140px 105px; }
+      @keyframes hh-hinge {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(55deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- static legs -->
+  <line x1="140" y1="105" x2="122" y2="140" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="158" y2="140" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="122" y1="140" x2="108" y2="150" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="158" y1="140" x2="172" y2="150" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated upper body -->
+  <g class="hh-upper">
+    <circle cx="140" cy="62" r="11" fill="none" stroke="#5b8dee" stroke-width="2.5"/>
+    <line x1="140" y1="73" x2="140" y2="105" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="82" x2="112" y2="90" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="90" x2="100" y2="100" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="140" y1="82" x2="168" y2="90" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="168" y1="90" x2="180" y2="100" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- flat back indicator line -->
+    <line x1="130" y1="68" x2="130" y2="105" stroke="#e8c547" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">PUSH HIPS BACK · FLAT BACK · FEEL HAMSTRINGS</text>
+</svg>`,
+
+"Scapular Pulls": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .sp-shoulder-l { animation: sp-left 2s ease-in-out infinite; transform-origin: 115px 78px; }
+      .sp-shoulder-r { animation: sp-right 2s ease-in-out infinite; transform-origin: 165px 78px; }
+      @keyframes sp-left {
+        0%,15% { transform: translateX(0); }
+        45%,55% { transform: translateX(10px); }
+        85%,100% { transform: translateX(0); }
+      }
+      @keyframes sp-right {
+        0%,15% { transform: translateX(0); }
+        45%,55% { transform: translateX(-10px); }
+        85%,100% { transform: translateX(0); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <circle cx="140" cy="42" r="11" fill="none" stroke="#5b8dee" stroke-width="2.5"/>
+  <line x1="140" y1="53" x2="140" y2="105" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="125" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="155" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="138" x2="118" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <line x1="155" y1="138" x2="162" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <!-- animated shoulder blades squeezing -->
+  <g class="sp-shoulder-l">
+    <line x1="140" y1="68" x2="105" y2="80" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="105" y1="80" x2="92" y2="95" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <g class="sp-shoulder-r">
+    <line x1="140" y1="68" x2="175" y2="80" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="175" y1="80" x2="188" y2="95" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">PULL SHOULDER BLADES BACK AND DOWN</text>
+</svg>`,
+
+"Chest Opener": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .co-lean { animation: co-forward 2.5s ease-in-out infinite; transform-origin: 140px 95px; }
+      @keyframes co-forward {
+        0%,20% { transform: rotate(0deg); }
+        50%,60% { transform: rotate(18deg); }
+        90%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <!-- doorframe -->
+  <rect x="62" y="20" width="8" height="130" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+  <rect x="210" y="20" width="8" height="130" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="1"/>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- animated body leaning in -->
+  <g class="co-lean">
+    <circle cx="140" cy="55" r="11" fill="none" stroke="#5ecb8a" stroke-width="2.5"/>
+    <line x1="140" y1="66" x2="140" y2="108" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="108" x2="125" y2="140" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="108" x2="155" y2="140" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+    <!-- arms on frame -->
+    <line x1="140" y1="78" x2="90" y2="72" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="90" y1="72" x2="70" y2="72" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="140" y1="78" x2="190" y2="72" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="190" y1="72" x2="210" y2="72" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">LEAN FORWARD · FEEL CHEST AND SHOULDERS OPEN</text>
+</svg>`,
+
+"Child's Pose Reach": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .cpr-arms { animation: cpr-reach 2.5s ease-in-out infinite; transform-origin: 185px 88px; }
+      @keyframes cpr-reach {
+        0%,20% { transform: scaleX(1); }
+        50%,60% { transform: scaleX(1.18); }
+        90%,100% { transform: scaleX(1); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="148" x2="240" y2="148" stroke="#222" stroke-width="1.5"/>
+  <!-- kneeling body -->
+  <circle cx="210" cy="62" r="11" fill="none" stroke="#5ecb8a" stroke-width="2.5"/>
+  <line x1="210" y1="73" x2="200" y2="105" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  <!-- knees on ground -->
+  <line x1="200" y1="105" x2="188" y2="130" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="188" y1="130" x2="215" y2="135" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  <line x1="200" y1="105" x2="218" y2="128" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  <!-- animated arms reaching forward -->
+  <g class="cpr-arms">
+    <line x1="205" y1="88" x2="165" y2="88" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="165" y1="88" x2="100" y2="92" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="100" cy="92" r="4" fill="#5ecb8a" fill-opacity="0.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">REACH LONG · BREATHE INTO LATS · HOLD</text>
+</svg>`,
+
+"Supine Twist": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .st-knees { animation: st-rotate 3s ease-in-out infinite; transform-origin: 140px 105px; }
+      @keyframes st-rotate {
+        0%,15% { transform: rotate(0deg); }
+        40%,55% { transform: rotate(38deg); }
+        80%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <!-- mat -->
+  <rect x="45" y="138" width="190" height="8" rx="3" fill="#141414" stroke="#1e1e1e" stroke-width="1"/>
+  <!-- lying body - head -->
+  <circle cx="230" cy="108" r="11" fill="none" stroke="#5ecb8a" stroke-width="2.5"/>
+  <!-- torso lying flat -->
+  <line x1="220" y1="108" x2="140" y2="108" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  <!-- arms out to sides -->
+  <line x1="185" y1="108" x2="185" y2="80" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="185" y1="108" x2="185" y2="136" stroke="#5ecb8a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated knees rotating -->
+  <g class="st-knees">
+    <line x1="140" y1="105" x2="118" y2="88" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="118" y1="88" x2="100" y2="105" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="105" x2="122" y2="90" stroke="#5ecb8a" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">BOTH SIDES · BREATHE DEEP · LET SPINE RELEASE</text>
+</svg>`
+};
+
 // ═══════════════════════════════════════════════════════
 //  WORKOUTS DATA
 // ═══════════════════════════════════════════════════════
@@ -189,24 +605,16 @@ const WORKOUTS = [
     accent: "#e8c547",
     phases: [
       { id: "warmup", label: "WARM-UP", items: [
-        { name: "Arm Circles",        dur:40, rest:10, desc:"Big controlled circles forward & backward — loosen the shoulder capsule", icon:"🔄",
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
-        { name: "Hip Hinge Practice", dur:40, rest:10, desc:"Bodyweight only — push hips back, flat back, feel the hamstring load", icon:"📐",
-          gif:"https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" },
-        { name: "Scapular Pulls",     dur:40, rest:10, desc:"Retract and depress shoulder blades — activates the lats before lifting", icon:"🦅",
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" }
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — push hips back, flat back, feel the hamstring load", icon: "📐" },
+        { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
       ]},
       { id: "work", label: "MAIN WORK", items: [
-        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️",
-          gif:"https://media.giphy.com/media/xT9IgG50Lg7rusQ5i8/giphy.gif" },
-        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️",
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
-        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪",
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
-        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true,
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
-        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true,
-          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" }
+        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
+        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪" },
+        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
+        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true }
       ]},
       { id: "cooldown", label: "COOLDOWN", items: [
         { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
@@ -217,30 +625,18 @@ const WORKOUTS = [
   }
 ];
 
-// ═══════════════════════════════════════════
-//  STORAGE HELPERS
-// ═══════════════════════════════════════════
-function saveWeight(workoutId, exerciseName, setIndex, value) {
-  const key = `w_${workoutId}_${exerciseName}_${setIndex}`;
-  localStorage.setItem(key, value);
-}
-function getWeight(workoutId, exerciseName, setIndex) {
-  return localStorage.getItem(`w_${workoutId}_${exerciseName}_${setIndex}`) || '';
-}
-function getPrevWeight(workoutId, exerciseName, setIndex) {
-  // We store current session separately so "prev" = last committed value
-  return localStorage.getItem(`w_${workoutId}_${exerciseName}_${setIndex}`) || null;
-}
-
-// ═══════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════
+// ─── STATE ───
 let W, phIdx, itIdx, setN, ticker, tLeft, resting;
 const PCOLS = { warmup:"#5b8dee", work:"#e8c547", cooldown:"#5ecb8a" };
 
-// ═══════════════════════════════════════════
-//  PAGE NAVIGATION
-// ═══════════════════════════════════════════
+// ─── STORAGE ───
+function sKey(wid, name) { return 'kb_' + wid + '_' + name.replace(/\s+/g,'_'); }
+function saveW(wid, name, data) { try { localStorage.setItem(sKey(wid,name), JSON.stringify(data)); } catch(e){} }
+function loadW(wid, name) { try { const d=localStorage.getItem(sKey(wid,name)); return d?JSON.parse(d):null; } catch(e){return null;} }
+function loadPrev(wid, name) { try { const d=localStorage.getItem(sKey(wid,name)+'_prev'); return d?JSON.parse(d):null; } catch(e){return null;} }
+function archiveW(wid, name, data) { try { localStorage.setItem(sKey(wid,name)+'_prev', JSON.stringify(data)); } catch(e){} }
+
+// ─── PAGE NAV ───
 function showPage(id) {
   document.getElementById('pg-home').style.display    = 'none';
   document.getElementById('pg-workout').style.display = 'none';
@@ -249,9 +645,6 @@ function showPage(id) {
   window.scrollTo(0, 0);
 }
 
-// ═══════════════════════════════════════════
-//  HOME
-// ═══════════════════════════════════════════
 function renderHome() {
   document.getElementById('home-list').innerHTML = WORKOUTS.map(w =>
     `<div class="wcard" onclick="startWorkout('${w.id}')">
@@ -268,21 +661,13 @@ function renderHome() {
 
 function goHome() { stopTicker(); showPage('pg-home'); }
 
-// ═══════════════════════════════════════════
-//  START WORKOUT
-// ═══════════════════════════════════════════
 function startWorkout(id) {
   W = WORKOUTS.find(w => w.id === id);
-  phIdx = 0; itIdx = 0; setN = 1;
-  stopTicker(); tLeft = null; resting = false;
-  buildOverview();
-  render();
-  showPage('pg-workout');
+  phIdx=0; itIdx=0; setN=1;
+  stopTicker(); tLeft=null; resting=false;
+  buildOverview(); render(); showPage('pg-workout');
 }
 
-// ═══════════════════════════════════════════
-//  HELPERS
-// ═══════════════════════════════════════════
 const ph      = () => W.phases[phIdx];
 const it      = () => ph().items[itIdx];
 const isWork  = () => ph().id === 'work';
@@ -290,170 +675,127 @@ const isBicep = () => isWork() && !!it().bicep;
 const color   = () => isBicep() ? '#e05cff' : (PCOLS[ph().id] || W.accent);
 const workPh  = () => W.phases.find(p => p.id === 'work');
 
-// ═══════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════
 function render() {
-  const item = it(), c = color();
-
+  const item=it(), c=color();
   document.getElementById('phaseLbl').textContent   = ph().label;
   document.getElementById('phaseLbl').style.color   = c;
   document.getElementById('phaseCount').textContent = ph().label;
   document.getElementById('phaseCount').style.color = c;
   document.getElementById('itemCount').textContent  = `${itIdx+1} / ${ph().items.length}`;
-
-  const wi = workPh().items, wpi = W.phases.findIndex(p=>p.id==='work');
-  const prog = phIdx > wpi ? wi.length : phIdx === wpi ? itIdx : 0;
+  const wi=workPh().items, wpi=W.phases.findIndex(p=>p.id==='work');
+  const prog = phIdx>wpi ? wi.length : phIdx===wpi ? itIdx : 0;
   document.getElementById('progBar').style.width      = `${(prog/wi.length)*100}%`;
   document.getElementById('progBar').style.background = W.accent;
-
-  document.getElementById('exBar').style.background  = c;
-  document.getElementById('bicepTag').style.display  = isBicep() ? 'inline-block' : 'none';
-  document.getElementById('exEmoji').textContent     = item.icon;
-  document.getElementById('exName').textContent      = item.name;
-
-  if (isWork()) {
-    document.getElementById('exStats').innerHTML =
-      `<div class="stats">
+  document.getElementById('exBar').style.background   = c;
+  document.getElementById('bicepTag').style.display   = isBicep() ? 'inline-block' : 'none';
+  document.getElementById('exEmoji').textContent      = item.icon;
+  document.getElementById('exName').textContent       = item.name;
+  document.getElementById('exStats').innerHTML = isWork()
+    ? `<div class="stats">
         <div><div class="stat-lbl">Set</div><div class="stat-val" style="color:${c}">${setN}<span class="stat-sub">/${item.sets}</span></div></div>
         <div><div class="stat-lbl">Reps</div><div class="stat-val">${item.reps}</div></div>
         <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
-      </div>`;
-  } else {
-    document.getElementById('exStats').innerHTML = `<div class="dur" style="color:${c}">${item.dur}s</div>`;
-  }
-
+      </div>`
+    : `<div class="dur" style="color:${c}">${item.dur}s</div>`;
   document.getElementById('exDesc').textContent = item.desc;
-  document.getElementById('exMuscle').innerHTML = (isWork() && item.muscle)
+  document.getElementById('exMuscle').innerHTML = (isWork()&&item.muscle)
     ? `<span class="muscle-lbl">TARGETS · </span><span style="color:${c};font-weight:700">${item.muscle}</span>` : '';
-
-  // Demo GIF
-  const demoArea = document.getElementById('demoArea');
-  if (item.gif) {
-    demoArea.innerHTML = `
-      <div class="demo-wrap">
-        <img src="${item.gif}" alt="${item.name} demo" loading="lazy" />
-        <div class="demo-label">How to perform</div>
-      </div>`;
-  } else {
-    demoArea.innerHTML = '';
-  }
-
-  // Weight tracker (only for work phase)
-  const weightArea = document.getElementById('weightArea');
-  if (isWork()) {
-    let rows = '';
-    for (let s = 1; s <= item.sets; s++) {
-      const prev = getPrevWeight(W.id, item.name, s);
-      const prevHtml = prev
-        ? `<div class="weight-prev">Last: <span>${prev} lbs</span></div>`
-        : `<div class="weight-prev" style="color:#2a2a2a">No data</div>`;
-      const isCurrent = s === setN;
-      rows += `
-        <div class="weight-row">
-          <div class="weight-set-lbl" style="color:${isCurrent ? c : '#444'}">SET ${s}</div>
-          <div class="weight-input-wrap">
-            <input class="weight-input" id="wi_${s}" type="number" inputmode="decimal"
-              placeholder="0" value="${getWeight(W.id, item.name, s)}"
-              style="border-color:${isCurrent ? c : '#2a2a2a'};color:${isCurrent ? '#f5f0e8' : '#666'}"
-              onchange="saveWeight('${W.id}','${item.name}',${s},this.value)" />
-            <div class="weight-unit">LBS</div>
-          </div>
-          ${prevHtml}
-        </div>`;
-    }
-    weightArea.innerHTML = `
-      <div class="weight-section">
-        <div class="weight-hd">⚖️ Weight Log</div>
-        <div class="weight-rows">${rows}</div>
-      </div>`;
-  } else {
-    weightArea.innerHTML = '';
-  }
-
+  const svg = DEMOS[item.name];
+  document.getElementById('exDemo').innerHTML = svg
+    ? `<div class="demo-wrap"><div class="demo-label">Animation · How to perform</div>${svg}</div>` : '';
+  renderWeightLog();
   renderTimer();
-
-  document.getElementById('restArea').innerHTML = (isWork() && !resting && tLeft === null)
+  document.getElementById('restArea').innerHTML = (isWork()&&!resting&&tLeft===null)
     ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
-
-  const fb = document.getElementById('fwdBtn');
+  const fb=document.getElementById('fwdBtn');
   fb.style.background = c;
-  fb.textContent = (isWork() && setN < item.sets) ? `Next Set (${setN+1}/${item.sets})` : 'Next →';
-
+  fb.textContent = (isWork()&&setN<item.sets) ? `Next Set (${setN+1}/${item.sets})` : 'Next →';
   highlightOverview();
 }
 
-// ═══════════════════════════════════════════
-//  TIMER
-// ═══════════════════════════════════════════
+function renderWeightLog() {
+  const wl=document.getElementById('weightLog');
+  if (!isWork()) { wl.innerHTML=''; return; }
+  const item=it(), saved=loadW(W.id,item.name)||{}, prev=loadPrev(W.id,item.name)||{};
+  let rows='';
+  for (let s=1; s<=item.sets; s++) {
+    const active=s===setN, val=saved[s]!==undefined?saved[s]:'';
+    const pv=prev[s]!==undefined?prev[s]:null;
+    rows+=`<div class="wlog-row">
+      <div class="wlog-label ${active?'active-set':''}">SET ${s}</div>
+      <div class="wlog-input-wrap">
+        <input class="wlog-input ${active?'active-input':''}" type="number" inputmode="decimal"
+          placeholder="0" value="${val}"
+          oninput="saveSetWeight(${s},this.value)"/>
+        <span class="wlog-unit">LBS</span>
+      </div>
+      <div class="wlog-prev ${pv!==null?'has-data':''}">${pv!==null?pv+' lbs':'No data'}</div>
+    </div>`;
+  }
+  wl.innerHTML=`<div class="weight-log"><div class="wlog-title">⚖️ &nbsp;Weight Log</div>${rows}</div>`;
+}
+
+function saveSetWeight(s, val) {
+  const saved=loadW(W.id,it().name)||{};
+  if (val==='') delete saved[s]; else saved[s]=parseFloat(val);
+  saveW(W.id,it().name,saved);
+}
+
 function renderTimer() {
-  const item = it(), area = document.getElementById('timerArea');
-  const hasDur = !isWork() && item.dur;
-  if (!hasDur && !resting) { area.innerHTML = ''; return; }
-  const c = resting ? '#e8c547' : '#5ecb8a';
-  const label = resting ? '⏸ REST' : '⏱ WORK';
-  const num = tLeft !== null ? tLeft : (resting ? item.rest : item.dur);
-  const btn = ticker
+  const item=it(), area=document.getElementById('timerArea');
+  const hasDur=!isWork()&&item.dur;
+  if (!hasDur&&!resting) { area.innerHTML=''; return; }
+  const c=resting?'#e8c547':'#5ecb8a', label=resting?'⏸ REST':'⏱ WORK';
+  const num=tLeft!==null?tLeft:(resting?item.rest:item.dur);
+  const btn=ticker
     ? `<button class="timer-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTicker()">PAUSE</button>`
     : `<button class="timer-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTicker()">START TIMER</button>`;
-  area.innerHTML =
-    `<div class="timer-box ${resting?'rest-mode':'work-mode'}">
-      <div class="timer-lbl" style="color:${c}">${label}</div>
-      <div class="timer-num" style="color:${c}">${num}</div>
-      ${btn}
-    </div>`;
+  area.innerHTML=`<div class="timer-box ${resting?'rest-mode':'work-mode'}">
+    <div class="timer-lbl" style="color:${c}">${label}</div>
+    <div class="timer-num" style="color:${c}">${num}</div>${btn}</div>`;
 }
 
 function playTicker() {
   if (ticker) return;
-  const item = it();
-  if (tLeft === null) tLeft = resting ? item.rest : item.dur;
-  ticker = setInterval(() => {
+  const item=it();
+  if (tLeft===null) tLeft=resting?item.rest:item.dur;
+  ticker=setInterval(()=>{
     tLeft--;
-    if (tLeft <= 0) {
+    if (tLeft<=0) {
       stopTicker();
-      if (!resting && !isWork() && item.rest > 0) {
-        resting = true; tLeft = item.rest; playTicker();
-      } else {
-        resting = false; tLeft = null;
-        document.getElementById('restArea').innerHTML = isWork()
-          ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
-      }
+      if (!resting&&!isWork()&&item.rest>0) { resting=true; tLeft=item.rest; playTicker(); }
+      else { resting=false; tLeft=null; }
     }
     renderTimer();
-  }, 1000);
+    if (isWork()&&!resting&&tLeft===null)
+      document.getElementById('restArea').innerHTML=
+        `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>`;
+  },1000);
   renderTimer();
 }
 function pauseTicker() { stopTicker(); renderTimer(); }
-function stopTicker()  { clearInterval(ticker); ticker = null; }
-function startRest()   { resting = true; tLeft = it().rest; document.getElementById('restArea').innerHTML = ''; renderTimer(); playTicker(); }
+function stopTicker()  { clearInterval(ticker); ticker=null; }
+function startRest()   { resting=true; tLeft=it().rest; document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
 
-// ═══════════════════════════════════════════
-//  NAVIGATION
-// ═══════════════════════════════════════════
 function nextItem() {
-  stopTicker(); tLeft = null; resting = false;
-  if (isWork() && setN < it().sets) { setN++; render(); return; }
-  setN = 1;
-  if (itIdx + 1 < ph().items.length) { itIdx++; }
-  else if (phIdx + 1 < W.phases.length) { phIdx++; itIdx = 0; }
+  if (isWork()) { const s=loadW(W.id,it().name); if(s) archiveW(W.id,it().name,s); }
+  stopTicker(); tLeft=null; resting=false;
+  if (isWork()&&setN<it().sets) { setN++; render(); return; }
+  setN=1;
+  if (itIdx+1<ph().items.length) itIdx++;
+  else if (phIdx+1<W.phases.length) { phIdx++; itIdx=0; }
   else { showPage('pg-done'); return; }
-  render();
-  window.scrollTo(0, 0);
+  render(); window.scrollTo(0,0);
 }
 function prevItem() {
-  stopTicker(); tLeft = null; resting = false; setN = 1;
-  if (itIdx > 0) { itIdx--; }
-  else if (phIdx > 0) { phIdx--; itIdx = W.phases[phIdx].items.length - 1; }
-  render();
-  window.scrollTo(0, 0);
+  stopTicker(); tLeft=null; resting=false; setN=1;
+  if (itIdx>0) itIdx--;
+  else if (phIdx>0) { phIdx--; itIdx=W.phases[phIdx].items.length-1; }
+  render(); window.scrollTo(0,0);
 }
 
-// ═══════════════════════════════════════════
-//  OVERVIEW LIST
-// ═══════════════════════════════════════════
 function buildOverview() {
-  document.getElementById('overviewList').innerHTML = workPh().items.map((ex, i) =>
+  document.getElementById('overviewList').innerHTML=workPh().items.map((ex,i)=>
     `<div class="ex-row" id="er${i}">
       <div class="ex-num" id="en${i}" style="background:#1e1e1e;color:#444">${i+1}</div>
       <div class="ex-row-name" id="ern${i}" style="color:#666">${ex.name}</div>
@@ -462,25 +804,17 @@ function buildOverview() {
   ).join('');
 }
 function highlightOverview() {
-  workPh().items.forEach((ex, i) => {
-    const num  = document.getElementById(`en${i}`);
-    const name = document.getElementById(`ern${i}`);
-    const row  = document.getElementById(`er${i}`);
+  workPh().items.forEach((ex,i)=>{
+    const num=document.getElementById(`en${i}`), nm=document.getElementById(`ern${i}`), row=document.getElementById(`er${i}`);
     if (!row) return;
-    const active = ph().id === 'work' && i === itIdx;
-    const past   = ph().id === 'cooldown' || (ph().id === 'work' && i < itIdx);
-    const c = ex.bicep ? '#e05cff' : W.accent;
-    row.style.opacity     = past ? '0.25' : active ? '1' : '0.45';
-    name.style.color      = active ? '#f5f0e8' : '#666';
-    name.style.fontWeight = active ? '700' : '400';
-    num.style.background  = active ? c : '#1e1e1e';
-    num.style.color       = active ? '#0a0a0a' : '#444';
+    const active=ph().id==='work'&&i===itIdx, past=ph().id==='cooldown'||(ph().id==='work'&&i<itIdx);
+    const c=ex.bicep?'#e05cff':W.accent;
+    row.style.opacity=past?'0.25':active?'1':'0.45';
+    nm.style.color=active?'#f5f0e8':'#666'; nm.style.fontWeight=active?'700':'400';
+    num.style.background=active?c:'#1e1e1e'; num.style.color=active?'#0a0a0a':'#444';
   });
 }
 
-// ═══════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════
 renderHome();
 showPage('pg-home');
 </script>
