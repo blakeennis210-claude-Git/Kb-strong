@@ -325,6 +325,76 @@ const DEMOS = {
   <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">FULL STRETCH · ELBOW PAST HIP</text>
 </svg>`,
 
+"Bent Over Row": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bor-arms { animation: bor-pull 2s ease-in-out infinite; transform-origin: 140px 92px; }
+      @keyframes bor-pull {
+        0%,15% { transform: rotate(0deg); }
+        45%,55% { transform: rotate(-32deg); }
+        85%,100% { transform: rotate(0deg); }
+      }
+    </style>
+  </defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <!-- head -->
+  <circle cx="140" cy="58" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+  <!-- hinged torso -->
+  <line x1="140" y1="69" x2="130" y2="105" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <!-- legs -->
+  <line x1="130" y1="105" x2="116" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="116" y1="138" x2="104" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="130" y1="105" x2="148" y2="138" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+  <line x1="148" y1="138" x2="162" y2="150" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated arms + bar -->
+  <g class="bor-arms">
+    <line x1="135" y1="82" x2="105" y2="96" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="105" y1="96" x2="88" y2="112" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="135" y1="82" x2="165" y2="96" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="165" y1="96" x2="182" y2="112" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- barbell -->
+    <line x1="72" y1="112" x2="198" y2="112" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+    <rect x="68" y="108" width="10" height="12" rx="2" fill="#e8c547" fill-opacity="0.3" stroke="#e8c547" stroke-width="1.5"/>
+    <rect x="192" y="108" width="10" height="12" rx="2" fill="#e8c547" fill-opacity="0.3" stroke="#e8c547" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">HINGE 45° · DRIVE ELBOWS BACK · SQUEEZE TOP</text>
+</svg>`,
+
+"Ring Rows": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .rr-body { animation: rr-pull 2s ease-in-out infinite; transform-origin: 140px 72px; }
+      @keyframes rr-pull {
+        0%,15% { transform: translateY(0px); }
+        45%,55% { transform: translateY(-22px); }
+        85%,100% { transform: translateY(0px); }
+      }
+    </style>
+  </defs>
+  <!-- anchor bar at top -->
+  <line x1="60" y1="18" x2="220" y2="18" stroke="#444" stroke-width="4" stroke-linecap="round"/>
+  <!-- ring straps -->
+  <line x1="105" y1="18" x2="105" y2="52" stroke="#666" stroke-width="2"/>
+  <line x1="175" y1="18" x2="175" y2="52" stroke="#666" stroke-width="2"/>
+  <!-- rings -->
+  <circle cx="105" cy="58" r="7" fill="none" stroke="#888" stroke-width="2"/>
+  <circle cx="175" cy="58" r="7" fill="none" stroke="#888" stroke-width="2"/>
+  <!-- ground -->
+  <line x1="40" y1="148" x2="240" y2="148" stroke="#222" stroke-width="1.5"/>
+  <!-- animated body hanging/pulling -->
+  <g class="rr-body">
+    <circle cx="140" cy="85" r="11" fill="none" stroke="#e8c547" stroke-width="2.5"/>
+    <!-- body rigid like plank -->
+    <line x1="140" y1="96" x2="140" y2="130" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="130" x2="120" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="130" x2="160" y2="148" stroke="#e8c547" stroke-width="3" stroke-linecap="round"/>
+    <!-- arms holding rings -->
+    <line x1="140" y1="100" x2="105" y2="65" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="140" y1="100" x2="175" y2="65" stroke="#e8c547" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="158" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">BODY RIGID · PULL CHEST TO RINGS · SQUEEZE</text>
+</svg>`,
+
 "KB Hammer Curl": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
@@ -600,7 +670,7 @@ const WORKOUTS = [
   {
     id: "pull",
     name: "Pull · Back & Biceps",
-    duration: "~35 min",
+    duration: "~30 min",
     icon: "⛏️",
     accent: "#e8c547",
     phases: [
@@ -610,9 +680,8 @@ const WORKOUTS = [
         { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
       ]},
       { id: "work", label: "MAIN WORK", items: [
-        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
-        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
-        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪" },
+        { name: "Bent Over Row",         sets:5, reps:"5",      rest:90, desc:"Hinge 45°, barbell or KB gripped just outside knees. Drive elbows back past your hips, squeeze shoulder blades hard at top. Go heavy.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Ring Rows",             sets:4, reps:"8",      rest:75, desc:"Adjust body angle to control difficulty — more horizontal = harder. Pull chest to rings, keep body rigid as a plank. Squeeze at top.", muscle:"Lats, Rear Delt, Biceps, Core", icon:"⭕" },
         { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
         { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true }
       ]},
