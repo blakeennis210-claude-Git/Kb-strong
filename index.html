@@ -633,6 +633,137 @@ const DEMOS = {
   <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">REACH LONG · BREATHE INTO LATS · HOLD</text>
 </svg>`,
 
+
+"Band Pull-Apart": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    .bpa-arms { animation: bpa-pull 2s ease-in-out infinite; }
+    .bpa-arm-l { animation: bpa-left 2s ease-in-out infinite; transform-origin: 140px 80px; }
+    .bpa-arm-r { animation: bpa-right 2s ease-in-out infinite; transform-origin: 140px 80px; }
+    @keyframes bpa-left { 0%,15%{transform:rotate(0deg)} 45%,55%{transform:rotate(-35deg)} 85%,100%{transform:rotate(0deg)} }
+    @keyframes bpa-right { 0%,15%{transform:rotate(0deg)} 45%,55%{transform:rotate(35deg)} 85%,100%{transform:rotate(0deg)} }
+  </style></defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <circle cx="140" cy="42" r="11" fill="none" stroke="#5b8dee" stroke-width="2.5"/>
+  <line x1="140" y1="53" x2="140" y2="105" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="125" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="155" y2="138" stroke="#5b8dee" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="138" x2="118" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <line x1="155" y1="138" x2="162" y2="150" stroke="#5b8dee" stroke-width="2" stroke-linecap="round"/>
+  <g class="bpa-arm-l">
+    <line x1="140" y1="72" x2="105" y2="80" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="100" cy="81" r="4" fill="#5b8dee" fill-opacity="0.5"/>
+  </g>
+  <g class="bpa-arm-r">
+    <line x1="140" y1="72" x2="175" y2="80" stroke="#5b8dee" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="180" cy="81" r="4" fill="#5b8dee" fill-opacity="0.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">PULL APART TO CHEST · SQUEEZE SHOULDER BLADES</text>
+</svg>`,
+
+"KB Shoulder Press": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    .sp-arms { animation: sp-press 2s ease-in-out infinite; transform-origin: 140px 85px; }
+    @keyframes sp-press {
+      0%,15%{transform:translateY(0)} 45%,55%{transform:translateY(-28px)} 85%,100%{transform:translateY(0)}
+    }
+  </style></defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <circle cx="140" cy="48" r="11" fill="none" stroke="#e05cff" stroke-width="2.5"/>
+  <line x1="140" y1="59" x2="140" y2="110" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="110" x2="125" y2="140" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="110" x2="155" y2="140" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="140" x2="118" y2="150" stroke="#e05cff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="155" y1="140" x2="162" y2="150" stroke="#e05cff" stroke-width="2" stroke-linecap="round"/>
+  <g class="sp-arms">
+    <line x1="140" y1="72" x2="108" y2="82" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="108" y1="82" x2="100" y2="68" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="140" y1="72" x2="172" y2="82" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="172" y1="82" x2="180" y2="68" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="93" y="60" width="10" height="13" rx="2" fill="#e05cff" fill-opacity="0.25" stroke="#e05cff" stroke-width="1.5"/>
+    <rect x="177" y="60" width="10" height="13" rx="2" fill="#e05cff" fill-opacity="0.25" stroke="#e05cff" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">RACK POSITION · PRESS OVERHEAD · LOCK OUT</text>
+</svg>`,
+
+"KB Tricep Overhead Extension": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    .toe-forearms { animation: toe-extend 2s ease-in-out infinite; transform-origin: 140px 68px; }
+    @keyframes toe-extend {
+      0%,15%{transform:rotate(0deg)} 45%,55%{transform:rotate(55deg)} 85%,100%{transform:rotate(0deg)}
+    }
+  </style></defs>
+  <line x1="40" y1="150" x2="240" y2="150" stroke="#222" stroke-width="1.5"/>
+  <circle cx="140" cy="42" r="11" fill="none" stroke="#e05cff" stroke-width="2.5"/>
+  <line x1="140" y1="53" x2="140" y2="105" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="125" y2="138" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="105" x2="155" y2="138" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="125" y1="138" x2="118" y2="150" stroke="#e05cff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="155" y1="138" x2="162" y2="150" stroke="#e05cff" stroke-width="2" stroke-linecap="round"/>
+  <!-- upper arms fixed overhead -->
+  <line x1="140" y1="62" x2="118" y2="55" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="140" y1="62" x2="162" y2="55" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated forearms -->
+  <g class="toe-forearms">
+    <line x1="118" y1="55" x2="118" y2="30" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="162" y1="55" x2="162" y2="30" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="122" y="18" width="36" height="14" rx="3" fill="#e05cff" fill-opacity="0.25" stroke="#e05cff" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="158" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">ELBOWS FORWARD · LOWER BEHIND HEAD · EXTEND</text>
+</svg>`,
+
+"KB Pushups": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    .kbpu-body { animation: kbpu-press 2s ease-in-out infinite; transform-origin: 140px 95px; }
+    @keyframes kbpu-press {
+      0%,15%{transform:translateY(0)} 45%,55%{transform:translateY(18px)} 85%,100%{transform:translateY(0)}
+    }
+  </style></defs>
+  <line x1="40" y1="148" x2="240" y2="148" stroke="#222" stroke-width="1.5"/>
+  <!-- KBs on ground -->
+  <rect x="78" y="118" width="16" height="22" rx="3" fill="#1e1e1e" stroke="#e05cff" stroke-width="1.5"/>
+  <rect x="186" y="118" width="16" height="22" rx="3" fill="#1e1e1e" stroke="#e05cff" stroke-width="1.5"/>
+  <line x1="82" y1="118" x2="90" y2="118" stroke="#e05cff" stroke-width="1.5"/>
+  <line x1="190" y1="118" x2="198" y2="118" stroke="#e05cff" stroke-width="1.5"/>
+  <!-- animated pushup body -->
+  <g class="kbpu-body">
+    <circle cx="220" cy="78" r="10" fill="none" stroke="#e05cff" stroke-width="2.5"/>
+    <line x1="210" y1="82" x2="140" y2="95" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="140" y1="95" x2="62" y2="108" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+    <line x1="185" y1="90" x2="185" y2="116" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="95" y1="103" x2="86" y2="116" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">DEEP RANGE ON HANDLES · BODY RIGID · EXPLODE UP</text>
+</svg>`,
+
+"KB Chest Press": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+  <defs><style>
+    .cp-arms { animation: cp-press 2s ease-in-out infinite; transform-origin: 140px 95px; }
+    @keyframes cp-press {
+      0%,15%{transform:translateY(0)} 45%,55%{transform:translateY(-22px)} 85%,100%{transform:translateY(0)}
+    }
+  </style></defs>
+  <!-- floor/bench -->
+  <rect x="50" y="118" width="180" height="10" rx="3" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+  <line x1="40" y1="148" x2="240" y2="148" stroke="#222" stroke-width="1.5"/>
+  <!-- lying body -->
+  <circle cx="224" cy="95" r="11" fill="none" stroke="#e05cff" stroke-width="2.5"/>
+  <line x1="213" y1="98" x2="140" y2="108" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="108" x2="68" y2="112" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="140" y1="108" x2="130" y2="118" stroke="#e05cff" stroke-width="3" stroke-linecap="round"/>
+  <line x1="130" y1="118" x2="115" y2="118" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="155" y1="110" x2="168" y2="118" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- animated arms pressing -->
+  <g class="cp-arms">
+    <line x1="175" y1="102" x2="160" y2="88" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="160" y1="88" x2="148" y2="80" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="105" y1="106" x2="118" y2="90" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="118" y1="90" x2="132" y2="80" stroke="#e05cff" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="140" y="74" width="12" height="10" rx="2" fill="#e05cff" fill-opacity="0.25" stroke="#e05cff" stroke-width="1.5"/>
+    <rect x="143" y="74" width="12" height="10" rx="2" fill="#e05cff" fill-opacity="0.25" stroke="#e05cff" stroke-width="1.5"/>
+  </g>
+  <text x="140" y="16" fill="#555" font-size="9" font-family="sans-serif" text-anchor="middle" letter-spacing="1">PALMS IN · PRESS UP AND IN · SQUEEZE CHEST</text>
+</svg>`,
+
 "Supine Twist": `<svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
@@ -690,6 +821,31 @@ const WORKOUTS = [
         { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
         { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
         { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine after deadlifts", icon:"🌀" }
+      ]}
+    ]
+  },
+  {
+    id: "push",
+    name: "Push · Chest, Shoulders & Triceps",
+    duration: "~35 min",
+    icon: "💥",
+    accent: "#e05cff",
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Band Pull-Apart",    dur: 40, rest: 10, desc: "Hands in front, pull band apart to chest level. Activates rear delts and opens the chest before pressing.", icon: "↔️" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — prep the posterior chain even on push days", icon: "📐" }
+      ]},
+      { id: "work", label: "MAIN WORK", items: [
+        { name: "KB Shoulder Press",  sets:4, reps:"8",      rest:75, desc:"Clean KBs to rack position at shoulders. Press straight up, lock out overhead, lower with control. Keep core tight — no back arch.", muscle:"Shoulders, Triceps, Upper Chest", icon:"🏋️" },
+        { name: "KB Tricep Overhead Extension", sets:3, reps:"10",     rest:60, desc:"Hold one KB with both hands overhead. Lower behind head bending at elbows, keeping elbows pointed forward. Press back up. Full stretch at bottom.", muscle:"Triceps (Long Head)", icon:"💪", tricep:true },
+        { name: "KB Pushups",         sets:4, reps:"10",     rest:60, desc:"Hands on KB handles — this deepens your range of motion past the floor. Keep body rigid, chest to KB level, press explosively.", muscle:"Chest, Triceps, Shoulders", icon:"⬇️" },
+        { name: "KB Chest Press",     sets:4, reps:"8",      rest:75, desc:"Lie on bench or floor. KBs at chest, palms facing in. Press up and slightly in, squeeze chest at top. Slow 3-count lower.", muscle:"Chest, Triceps, Anterior Delt", icon:"🎯" }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders after all the pressing", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
       ]}
     ]
   }
