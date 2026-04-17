@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -15,80 +14,102 @@
     html, body { height: 100%; background: #0a0a0a; color: #f5f0e8; font-family: 'DM Sans', sans-serif; }
     body { padding: env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px); }
 
-```
-/* Pages — JS sets display directly, never rely on CSS classes for show/hide */
-#pg-home, #pg-workout, #pg-done { width: 100%; min-height: 100vh; background: #0a0a0a; }
+    #pg-home, #pg-workout, #pg-done { width: 100%; min-height: 100vh; background: #0a0a0a; }
 
-/* HOME */
-#pg-home { padding: 2.5rem 1.5rem 2rem; }
-.eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: #555; text-transform: uppercase; margin-bottom: 0.5rem; }
-.app-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.88; }
-.app-title span { color: #e8c547; }
-.tagline { margin-top: 1rem; font-size: 1rem; color: #888; line-height: 1.5; }
-.divider { width: 40px; height: 2px; background: #e8c547; margin: 1.5rem 0; }
-.wcard { background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; position: relative; overflow: hidden; cursor: pointer; }
-.wcard:active { opacity: 0.7; }
-.wcard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: #e8c547; }
-.wcard-icon { font-size: 1.8rem; }
-.wcard-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; line-height: 1; }
-.wcard-meta { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
-.wcard-arr { color: #555; margin-left: auto; font-size: 1.2rem; }
-.home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; margin-top: 2rem; }
+    /* HOME */
+    #pg-home { padding: 2.5rem 1.5rem 2rem; }
+    .eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: #555; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.88; }
+    .app-title span { color: #e8c547; }
+    .tagline { margin-top: 1rem; font-size: 1rem; color: #888; line-height: 1.5; }
+    .divider { width: 40px; height: 2px; background: #e8c547; margin: 1.5rem 0; }
+    .wcard { background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; position: relative; overflow: hidden; cursor: pointer; }
+    .wcard:active { opacity: 0.7; }
+    .wcard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+    .wcard-icon { font-size: 1.8rem; }
+    .wcard-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; line-height: 1; }
+    .wcard-meta { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
+    .wcard-arr { color: #555; margin-left: auto; font-size: 1.2rem; }
+    .home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; margin-top: 2rem; }
 
-/* WORKOUT */
-#pg-workout { padding: 0 0 3rem; }
-.w-head { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
-.back-btn { background: none; border: none; color: #888; font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; display: block; margin-bottom: 3px; }
-.w-appname { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; line-height: 1; }
-.w-phase-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; }
-.w-head-right { text-align: right; font-size: 0.75rem; color: #555; }
-.w-phase-count { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
-.prog { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
-.prog-inner { height: 100%; border-radius: 2px; transition: width 0.3s; }
-.excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; padding: 1.5rem; border: 1px solid #222; position: relative; overflow: hidden; }
-.excard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
-.bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin-bottom: 0.6rem; margin-left: 0.5rem; text-transform: uppercase; }
-.excard-body { margin-left: 0.5rem; }
-.excard-top { display: flex; gap: 0.85rem; align-items: flex-start; }
-.ex-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
-.ex-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1; }
-.stats { display: flex; gap: 1.5rem; margin-top: 0.6rem; }
-.stat-lbl { font-size: 0.6rem; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; }
-.stat-sub { font-size: 0.9rem; color: #444; }
-.dur { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 0.3rem; }
-.ex-desc { margin-top: 1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
-.ex-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
-.muscle-lbl { color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.timer-box { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
-.timer-box.work-mode { background: #0e1a12; border: 1px solid #0f3021; }
-.timer-box.rest-mode { background: #1a1208; border: 1px solid #3d2c05; }
-.timer-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
-.timer-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; }
-.timer-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-.rest-row { margin: 0.85rem 1.5rem 0; text-align: center; }
-.rest-row button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-.nav { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
-.nav-back { flex: 1; background: #141414; color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
-.nav-fwd { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
-.overview { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
-.overview-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
-.ex-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #161616; }
-.ex-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
-.ex-row-name { flex: 1; font-size: 0.82rem; }
-.ex-row-sets { font-size: 0.7rem; }
-.tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
-.tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
-.tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
+    /* WORKOUT */
+    #pg-workout { padding: 0 0 3rem; }
+    .w-head { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
+    .back-btn { background: none; border: none; color: #888; font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; display: block; margin-bottom: 3px; }
+    .w-appname { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; line-height: 1; }
+    .w-phase-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; }
+    .w-head-right { text-align: right; font-size: 0.75rem; color: #555; }
+    .w-phase-count { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
+    .prog { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
+    .prog-inner { height: 100%; border-radius: 2px; transition: width 0.3s; }
 
-/* DONE */
-#pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
-.done-fire { font-size: 5rem; }
-.done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
-.done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
-.done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
-```
+    /* EXERCISE CARD */
+    .excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; border: 1px solid #222; position: relative; overflow: hidden; }
+    .excard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin: 0.75rem 0 0 1rem; text-transform: uppercase; }
+    .excard-body { padding: 0.75rem 1.25rem 1.25rem 1.25rem; margin-left: 0.25rem; }
+    .excard-top { display: flex; gap: 0.85rem; align-items: flex-start; }
+    .ex-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
+    .ex-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1; }
+    .stats { display: flex; gap: 1.5rem; margin-top: 0.6rem; }
+    .stat-lbl { font-size: 0.6rem; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; }
+    .stat-sub { font-size: 0.9rem; color: #444; }
+    .dur { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 0.3rem; }
+    .ex-desc { margin-top: 1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
+    .ex-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
+    .muscle-lbl { color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
+    /* DEMO GIF */
+    .demo-wrap { margin-top: 1rem; border-radius: 6px; overflow: hidden; background: #1a1a1a; border: 1px solid #2a2a2a; text-align: center; }
+    .demo-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+    .demo-label { font-size: 0.65rem; color: #555; padding: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* WEIGHT TRACKER */
+    .weight-section { margin-top: 1rem; background: #0f0f0f; border-radius: 6px; border: 1px solid #1e1e1e; overflow: hidden; }
+    .weight-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #555; text-transform: uppercase; padding: 0.6rem 0.85rem 0.4rem; }
+    .weight-rows { padding: 0 0.85rem 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .weight-row { display: flex; align-items: center; gap: 0.75rem; }
+    .weight-set-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; color: #555; width: 36px; flex-shrink: 0; }
+    .weight-input-wrap { flex: 1; position: relative; }
+    .weight-input { width: 100%; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 3px; color: #f5f0e8; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; padding: 0.4rem 2.2rem 0.4rem 0.75rem; letter-spacing: 0.05em; outline: none; -webkit-appearance: none; }
+    .weight-input:focus { border-color: #e8c547; }
+    .weight-unit { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); font-size: 0.65rem; color: #555; font-weight: 700; letter-spacing: 0.1em; pointer-events: none; }
+    .weight-prev { font-size: 0.7rem; color: #444; white-space: nowrap; min-width: 60px; text-align: right; }
+    .weight-prev span { color: #666; }
+
+    /* TIMER */
+    .timer-box { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
+    .timer-box.work-mode { background: #0e1a12; border: 1px solid #0f3021; }
+    .timer-box.rest-mode { background: #1a1208; border: 1px solid #3d2c05; }
+    .timer-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
+    .timer-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; }
+    .timer-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+    .rest-row { margin: 0.85rem 1.5rem 0; text-align: center; }
+    .rest-row button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+
+    /* NAV */
+    .nav { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
+    .nav-back { flex: 1; background: #141414; color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+    .nav-fwd { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
+
+    /* OVERVIEW */
+    .overview { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
+    .overview-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
+    .ex-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #161616; }
+    .ex-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
+    .ex-row-name { flex: 1; font-size: 0.82rem; }
+    .ex-row-sets { font-size: 0.7rem; }
+    .tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
+    .tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
+
+    /* DONE */
+    #pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+    .done-fire { font-size: 5rem; }
+    .done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
+    .done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
+    .done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
   </style>
 </head>
 <body>
@@ -128,6 +149,8 @@
       </div>
       <div class="ex-desc" id="exDesc"></div>
       <div class="ex-muscle" id="exMuscle"></div>
+      <div id="demoArea"></div>
+      <div id="weightArea"></div>
     </div>
   </div>
   <div id="timerArea"></div>
@@ -155,7 +178,7 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  WORKOUTS — add new workouts here when needed
+//  WORKOUTS DATA
 // ═══════════════════════════════════════════════════════
 const WORKOUTS = [
   {
@@ -166,16 +189,24 @@ const WORKOUTS = [
     accent: "#e8c547",
     phases: [
       { id: "warmup", label: "WARM-UP", items: [
-        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
-        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — push hips back, flat back, feel the hamstring load", icon: "📐" },
-        { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
+        { name: "Arm Circles",        dur:40, rest:10, desc:"Big controlled circles forward & backward — loosen the shoulder capsule", icon:"🔄",
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
+        { name: "Hip Hinge Practice", dur:40, rest:10, desc:"Bodyweight only — push hips back, flat back, feel the hamstring load", icon:"📐",
+          gif:"https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" },
+        { name: "Scapular Pulls",     dur:40, rest:10, desc:"Retract and depress shoulder blades — activates the lats before lifting", icon:"🦅",
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" }
       ]},
       { id: "work", label: "MAIN WORK", items: [
-        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
-        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
-        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪" },
-        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
-        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true }
+        { name: "KB Deadlift",           sets:5, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️",
+          gif:"https://media.giphy.com/media/xT9IgG50Lg7rusQ5i8/giphy.gif" },
+        { name: "Two-Hand KB Row",       sets:5, reps:"5",      rest:90, desc:"Hinge 45°, row both hands to hips, squeeze shoulder blades HARD at top. Use the heaviest KB you can control.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️",
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
+        { name: "Single-Arm KB Row",     sets:3, reps:"5 each", rest:75, desc:"Brace on knee. Full stretch at bottom, pull elbow past your hip. Heavy. 3-count lower.", muscle:"Lats, Rear Delt, Biceps", icon:"💪",
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
+        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true,
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" },
+        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true,
+          gif:"https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" }
       ]},
       { id: "cooldown", label: "COOLDOWN", items: [
         { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
@@ -186,22 +217,41 @@ const WORKOUTS = [
   }
 ];
 
-// ─── STATE ───
-let W, phIdx, itIdx, setN, ticker, tLeft, resting;
+// ═══════════════════════════════════════════
+//  STORAGE HELPERS
+// ═══════════════════════════════════════════
+function saveWeight(workoutId, exerciseName, setIndex, value) {
+  const key = `w_${workoutId}_${exerciseName}_${setIndex}`;
+  localStorage.setItem(key, value);
+}
+function getWeight(workoutId, exerciseName, setIndex) {
+  return localStorage.getItem(`w_${workoutId}_${exerciseName}_${setIndex}`) || '';
+}
+function getPrevWeight(workoutId, exerciseName, setIndex) {
+  // We store current session separately so "prev" = last committed value
+  return localStorage.getItem(`w_${workoutId}_${exerciseName}_${setIndex}`) || null;
+}
 
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let W, phIdx, itIdx, setN, ticker, tLeft, resting;
 const PCOLS = { warmup:"#5b8dee", work:"#e8c547", cooldown:"#5ecb8a" };
 
-// ─── PAGE NAVIGATION — pure inline style, no CSS classes ───
+// ═══════════════════════════════════════════
+//  PAGE NAVIGATION
+// ═══════════════════════════════════════════
 function showPage(id) {
   document.getElementById('pg-home').style.display    = 'none';
   document.getElementById('pg-workout').style.display = 'none';
   document.getElementById('pg-done').style.display    = 'none';
-  const el = document.getElementById(id);
-  el.style.display = (id === 'pg-done') ? 'flex' : 'block';
+  document.getElementById(id).style.display = (id === 'pg-done') ? 'flex' : 'block';
   window.scrollTo(0, 0);
 }
 
-// ─── HOME ───
+// ═══════════════════════════════════════════
+//  HOME
+// ═══════════════════════════════════════════
 function renderHome() {
   document.getElementById('home-list').innerHTML = WORKOUTS.map(w =>
     `<div class="wcard" onclick="startWorkout('${w.id}')">
@@ -216,12 +266,11 @@ function renderHome() {
   ).join('');
 }
 
-function goHome() {
-  stopTicker();
-  showPage('pg-home');
-}
+function goHome() { stopTicker(); showPage('pg-home'); }
 
-// ─── START ───
+// ═══════════════════════════════════════════
+//  START WORKOUT
+// ═══════════════════════════════════════════
 function startWorkout(id) {
   W = WORKOUTS.find(w => w.id === id);
   phIdx = 0; itIdx = 0; setN = 1;
@@ -231,7 +280,9 @@ function startWorkout(id) {
   showPage('pg-workout');
 }
 
-// ─── HELPERS ───
+// ═══════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════
 const ph      = () => W.phases[phIdx];
 const it      = () => ph().items[itIdx];
 const isWork  = () => ph().id === 'work';
@@ -239,12 +290,14 @@ const isBicep = () => isWork() && !!it().bicep;
 const color   = () => isBicep() ? '#e05cff' : (PCOLS[ph().id] || W.accent);
 const workPh  = () => W.phases.find(p => p.id === 'work');
 
-// ─── RENDER ───
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
 function render() {
   const item = it(), c = color();
 
-  document.getElementById('phaseLbl').textContent  = ph().label;
-  document.getElementById('phaseLbl').style.color  = c;
+  document.getElementById('phaseLbl').textContent   = ph().label;
+  document.getElementById('phaseLbl').style.color   = c;
   document.getElementById('phaseCount').textContent = ph().label;
   document.getElementById('phaseCount').style.color = c;
   document.getElementById('itemCount').textContent  = `${itIdx+1} / ${ph().items.length}`;
@@ -254,7 +307,7 @@ function render() {
   document.getElementById('progBar').style.width      = `${(prog/wi.length)*100}%`;
   document.getElementById('progBar').style.background = W.accent;
 
-  document.getElementById('exBar').style.background = c;
+  document.getElementById('exBar').style.background  = c;
   document.getElementById('bicepTag').style.display  = isBicep() ? 'inline-block' : 'none';
   document.getElementById('exEmoji').textContent     = item.icon;
   document.getElementById('exName').textContent      = item.name;
@@ -274,6 +327,50 @@ function render() {
   document.getElementById('exMuscle').innerHTML = (isWork() && item.muscle)
     ? `<span class="muscle-lbl">TARGETS · </span><span style="color:${c};font-weight:700">${item.muscle}</span>` : '';
 
+  // Demo GIF
+  const demoArea = document.getElementById('demoArea');
+  if (item.gif) {
+    demoArea.innerHTML = `
+      <div class="demo-wrap">
+        <img src="${item.gif}" alt="${item.name} demo" loading="lazy" />
+        <div class="demo-label">How to perform</div>
+      </div>`;
+  } else {
+    demoArea.innerHTML = '';
+  }
+
+  // Weight tracker (only for work phase)
+  const weightArea = document.getElementById('weightArea');
+  if (isWork()) {
+    let rows = '';
+    for (let s = 1; s <= item.sets; s++) {
+      const prev = getPrevWeight(W.id, item.name, s);
+      const prevHtml = prev
+        ? `<div class="weight-prev">Last: <span>${prev} lbs</span></div>`
+        : `<div class="weight-prev" style="color:#2a2a2a">No data</div>`;
+      const isCurrent = s === setN;
+      rows += `
+        <div class="weight-row">
+          <div class="weight-set-lbl" style="color:${isCurrent ? c : '#444'}">SET ${s}</div>
+          <div class="weight-input-wrap">
+            <input class="weight-input" id="wi_${s}" type="number" inputmode="decimal"
+              placeholder="0" value="${getWeight(W.id, item.name, s)}"
+              style="border-color:${isCurrent ? c : '#2a2a2a'};color:${isCurrent ? '#f5f0e8' : '#666'}"
+              onchange="saveWeight('${W.id}','${item.name}',${s},this.value)" />
+            <div class="weight-unit">LBS</div>
+          </div>
+          ${prevHtml}
+        </div>`;
+    }
+    weightArea.innerHTML = `
+      <div class="weight-section">
+        <div class="weight-hd">⚖️ Weight Log</div>
+        <div class="weight-rows">${rows}</div>
+      </div>`;
+  } else {
+    weightArea.innerHTML = '';
+  }
+
   renderTimer();
 
   document.getElementById('restArea').innerHTML = (isWork() && !resting && tLeft === null)
@@ -286,6 +383,9 @@ function render() {
   highlightOverview();
 }
 
+// ═══════════════════════════════════════════
+//  TIMER
+// ═══════════════════════════════════════════
 function renderTimer() {
   const item = it(), area = document.getElementById('timerArea');
   const hasDur = !isWork() && item.dur;
@@ -304,7 +404,6 @@ function renderTimer() {
     </div>`;
 }
 
-// ─── TIMER ───
 function playTicker() {
   if (ticker) return;
   const item = it();
@@ -329,7 +428,9 @@ function pauseTicker() { stopTicker(); renderTimer(); }
 function stopTicker()  { clearInterval(ticker); ticker = null; }
 function startRest()   { resting = true; tLeft = it().rest; document.getElementById('restArea').innerHTML = ''; renderTimer(); playTicker(); }
 
-// ─── NAVIGATION ───
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
 function nextItem() {
   stopTicker(); tLeft = null; resting = false;
   if (isWork() && setN < it().sets) { setN++; render(); return; }
@@ -348,7 +449,9 @@ function prevItem() {
   window.scrollTo(0, 0);
 }
 
-// ─── OVERVIEW ───
+// ═══════════════════════════════════════════
+//  OVERVIEW LIST
+// ═══════════════════════════════════════════
 function buildOverview() {
   document.getElementById('overviewList').innerHTML = workPh().items.map((ex, i) =>
     `<div class="ex-row" id="er${i}">
@@ -367,18 +470,19 @@ function highlightOverview() {
     const active = ph().id === 'work' && i === itIdx;
     const past   = ph().id === 'cooldown' || (ph().id === 'work' && i < itIdx);
     const c = ex.bicep ? '#e05cff' : W.accent;
-    row.style.opacity        = past ? '0.25' : active ? '1' : '0.45';
-    name.style.color         = active ? '#f5f0e8' : '#666';
-    name.style.fontWeight    = active ? '700' : '400';
-    num.style.background     = active ? c : '#1e1e1e';
-    num.style.color          = active ? '#0a0a0a' : '#444';
+    row.style.opacity     = past ? '0.25' : active ? '1' : '0.45';
+    name.style.color      = active ? '#f5f0e8' : '#666';
+    name.style.fontWeight = active ? '700' : '400';
+    num.style.background  = active ? c : '#1e1e1e';
+    num.style.color       = active ? '#0a0a0a' : '#444';
   });
 }
 
-// ─── INIT ───
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
 renderHome();
 showPage('pg-home');
 </script>
-
 </body>
 </html>
