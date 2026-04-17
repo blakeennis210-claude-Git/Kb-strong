@@ -26,13 +26,13 @@
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+    html, body { height: 100%; width: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden; position: fixed; }
     body { padding-top: var(--safe-top); padding-bottom: var(--safe-bottom); }
     .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.08em; }
 
 ```
 /* ── SCREENS ── */
-.screen { display: none; min-height: 100dvh; flex-direction: column; }
+.screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .screen.active { display: flex; }
 
 /* ── HOME ── */
