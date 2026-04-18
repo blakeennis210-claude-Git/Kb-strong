@@ -181,6 +181,7 @@
       </div>
       <div class="ex-desc" id="exDesc"></div>
       <div class="ex-muscle" id="exMuscle"></div>
+      <div id="inlineWeight"></div>
       <div id="exDemo"></div>
     </div>
   </div>
@@ -433,13 +434,13 @@ function render() {
   document.getElementById('exDemo').innerHTML = gif
     ? `<div class="demo-wrap" style="margin-top:1rem;border-radius:4px;overflow:hidden;border:1px solid #1e1e1e"><div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#444;text-transform:uppercase;padding:0.5rem 0.75rem 0.3rem">How to perform</div>${gif}</div>` : '';
   renderWeightLog();
+  renderInlineWeight();
   renderTimer();
   // Auto-start timer for circuit work items
   if (W.isCircuit && isWork() && !ticker && tLeft === null && !resting) {
     setTimeout(() => playTicker(), 300);
   }
-  document.getElementById('restArea').innerHTML = (isWork()&&!resting&&tLeft===null)
-    ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
+  document.getElementById('restArea').innerHTML = '';
   const fb=document.getElementById('fwdBtn');
   fb.style.background = c;
   fb.textContent = (isWork()&&setN<item.sets) ? `Next Set (${setN+1}/${item.sets})` : 'Next →';
@@ -448,24 +449,138 @@ function render() {
 
 function renderWeightLog() {
   const wl=document.getElementById('weightLog');
-  if (!isWork() || W.isCircuit) { wl.innerHTML=''; return; }
-  const item=it(), saved=loadW(W.id,item.name)||{}, prev=loadPrev(W.id,item.name)||{};
-  let rows='';
-  for (let s=1; s<=item.sets; s++) {
-    const active=s===setN, val=saved[s]!==undefined?saved[s]:'';
-    const pv=prev[s]!==undefined?prev[s]:null;
-    rows+=`<div class="wlog-row">
-      <div class="wlog-label ${active?'active-set':''}">SET ${s}</div>
-      <div class="wlog-input-wrap">
-        <input class="wlog-input ${active?'active-input':''}" type="number" inputmode="decimal"
-          placeholder="0" value="${val}"
-          oninput="saveSetWeight(${s},this.value)"/>
-        <span class="wlog-unit">LBS</span>
+  wl.innerHTML='';
+  if (!isWork() || W.isCircuit) return;
+  // Inline weight input is now rendered inside the card via renderInlineWeight()
+}
+
+function getSuggestion(item) {
+  // Check last 2 sessions - if same weight used both times, suggest +5
+  const prev  = loadPrev(W.id, item.name) || {};
+  const prev2 = loadPrev2(W.id, item.name) || {};
+  if (!prev[1] || !prev2[1]) return null;
+  if (parseFloat(prev[1]) === parseFloat(prev2[1])) {
+    return { weight: parseFloat(prev[1]) + 5, reason: 'You hit ' + prev[1] + ' lbs two sessions in a row — time to go up!' };
+  }
+  return null;
+}
+
+function loadPrev2(wid, name) {
+  try { const d=localStorage.getItem(sKey(wid,name)+'_prev2'); return d?JSON.parse(d):null; } catch(e){return null;}
+}
+function archiveW2(wid, name, data) {
+  // shift: prev -> prev2, current -> prev
+  try {
+    const old = localStorage.getItem(sKey(wid,name)+'_prev');
+    if (old) localStorage.setItem(sKey(wid,name)+'_prev2', old);
+    localStorage.setItem(sKey(wid,name)+'_prev', JSON.stringify(data));
+  } catch(e){}
+}
+
+function renderInlineWeight() {
+  const item = it();
+  const el = document.getElementById('inlineWeight');
+  if (!isWork() || W.isCircuit) { el.innerHTML=''; return; }
+
+  const saved = loadW(W.id, item.name) || {};
+  const prev  = loadPrev(W.id, item.name) || {};
+  const c     = color();
+  const suggestion = getSuggestion(item);
+
+  // Best default: saved top-input OR suggestion OR prev session weight
+  const topDefault = saved['_top'] !== undefined ? saved['_top']
+    : suggestion ? suggestion.weight
+    : prev[1] !== undefined ? prev[1] : '';
+
+  // Build set rows
+  let rows = '';
+  for (let s = 1; s <= item.sets; s++) {
+    const isDone = s < setN;
+    const isActive = s === setN;
+    const val = saved[s] !== undefined ? saved[s] : topDefault;
+    const pv  = prev[s]  !== undefined ? prev[s]  : null;
+    const rowBg     = isActive ? '#1a1800' : isDone ? '#0a0a0a' : '#111';
+    const rowBorder = isActive ? c : isDone ? '#1e1e1e' : '#1a1a1a';
+    const numCol    = isActive ? c : isDone ? '#444' : '#888';
+
+    rows += `<div style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.75rem;background:${rowBg};border:1px solid ${rowBorder};border-radius:3px;margin-bottom:0.35rem">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.1em;color:${numCol};width:38px;flex-shrink:0">SET ${s}</div>
+      <div style="position:relative;flex:1">
+        <input id="wi_${s}" type="number" inputmode="decimal" placeholder="${pv !== null ? pv : '0'}"
+          value="${val}"
+          style="width:100%;background:#1e1e1e;border:1px solid ${isActive ? c : '#2a2a2a'};border-radius:3px;padding:0.4rem 2.2rem 0.4rem 0.6rem;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:${isDone?'#555':'#f5f0e8'};-webkit-appearance:none;outline:none;"
+          oninput="onSetInput(${s},this.value)" ${isDone?'disabled':''} />
+        <span style="position:absolute;right:0.45rem;top:50%;transform:translateY(-50%);font-size:0.58rem;font-weight:700;color:#555;letter-spacing:0.08em">LBS</span>
       </div>
-      <div class="wlog-prev ${pv!==null?'has-data':''}">${pv!==null?pv+' lbs':'No data'}</div>
+      ${pv !== null ? `<div style="font-size:0.62rem;color:#5ecb8a;width:46px;text-align:right;flex-shrink:0;line-height:1.3">${pv}<br><span style="color:#444;font-size:0.55rem">last</span></div>` : '<div style="width:46px;flex-shrink:0"></div>'}
+      ${isDone
+        ? `<div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#5ecb8a;width:52px;text-align:center;flex-shrink:0">✓</div>`
+        : `<button onclick="completeSet(${s})" style="background:${isActive?c:'#1e1e1e'};color:${isActive?'#0a0a0a':'#555'};border:1px solid ${isActive?c:'#2a2a2a'};padding:0.4rem 0.65rem;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.08em;cursor:pointer;border-radius:3px;flex-shrink:0;white-space:nowrap">DONE</button>`
+      }
     </div>`;
   }
-  wl.innerHTML=`<div class="weight-log"><div class="wlog-title">⚖️ &nbsp;Weight Log</div>${rows}</div>`;
+
+  const suggBanner = suggestion
+    ? `<div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.75rem;background:#0e1a00;border:1px solid #2a4a00;border-radius:3px;margin-bottom:0.75rem">
+        <span style="font-size:1rem">💡</span>
+        <div>
+          <div style="font-size:0.65rem;font-weight:700;color:#8ecb5e;letter-spacing:0.1em;text-transform:uppercase">Progression Suggestion</div>
+          <div style="font-size:0.78rem;color:#aaa;margin-top:1px">${suggestion.reason}</div>
+        </div>
+      </div>` : '';
+
+  el.innerHTML = `
+    <div style="margin-top:1rem;padding:0.85rem;background:#0d0d0d;border-radius:4px;border:1px solid #1e1e1e">
+      ${suggBanner}
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#555;text-transform:uppercase;margin-bottom:0.5rem">⚖️ &nbsp;Today's Weight</div>
+      <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem">
+        <div style="position:relative;flex:1">
+          <input id="topWeightInput" type="number" inputmode="decimal"
+            placeholder="${suggestion ? suggestion.weight : (prev[1] || '0')}"
+            value="${topDefault}"
+            style="width:100%;background:#1e1e1e;border:2px solid ${c};border-radius:4px;padding:0.65rem 2.5rem 0.65rem 0.8rem;font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#f5f0e8;-webkit-appearance:none;outline:none;"
+            oninput="onTopWeightInput(this.value)" />
+          <span style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);font-size:0.65rem;font-weight:700;color:#666;letter-spacing:0.1em">LBS</span>
+        </div>
+        ${prev[1] !== undefined ? `<div style="font-size:0.72rem;color:#5ecb8a;text-align:right;line-height:1.4;flex-shrink:0">${prev[1]} lbs<br><span style="color:#444;font-size:0.62rem">last session</span></div>` : ''}
+      </div>
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#444;text-transform:uppercase;margin-bottom:0.5rem">All Sets</div>
+      ${rows}
+    </div>`;
+
+  // Focus top input
+  setTimeout(() => {
+    const inp = document.getElementById('topWeightInput');
+    if (inp) { inp.focus(); inp.select(); }
+  }, 120);
+}
+
+function onTopWeightInput(val) {
+  const item = it();
+  const saved = loadW(W.id, item.name) || {};
+  saved['_top'] = val === '' ? undefined : parseFloat(val);
+  // Fill all undone sets
+  for (let s = setN; s <= item.sets; s++) {
+    const inp = document.getElementById('wi_' + s);
+    if (inp) inp.value = val;
+    saved[s] = val === '' ? undefined : parseFloat(val);
+  }
+  saveW(W.id, item.name, saved);
+}
+
+function onSetInput(s, val) {
+  saveSetWeight(s, val);
+}
+
+function completeSet(s) {
+  const inp = document.getElementById('wi_' + s);
+  if (inp && inp.value !== '') saveSetWeight(s, parseFloat(inp.value));
+  setN = s + 1 <= it().sets ? s + 1 : s + 1;
+  resting = true;
+  tLeft = it().rest;
+  renderTimer();
+  playTicker();
+  renderInlineWeight();
 }
 
 function saveSetWeight(s, val) {
@@ -524,11 +639,19 @@ function playTicker() {
         if (isCircuitWork) {
           // Circuit: auto-advance to next exercise/round
           setTimeout(() => nextItem(), 400);
+        } else if (isWork()) {
+          // Strength: rest done -> if all sets done advance exercise, else just re-render
+          if (setN > it().sets) {
+            setTimeout(() => nextItem(), 400);
+          } else {
+            resting = false;
+            tLeft = null;
+            render();
+          }
+          return;
         } else {
-          // Strength warmup/cooldown: just stop
+          // Warmup/cooldown: just stop
           renderTimer();
-          document.getElementById('restArea').innerHTML =
-            isWork() ? `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>` : '';
         }
         return;
       }
@@ -545,7 +668,7 @@ function stopTicker()  { clearInterval(ticker); ticker = null; }
 function startRest()   { resting=true; tLeft=it().rest; document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
 
 function nextItem() {
-  if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW(W.id,it().name,s); }
+  if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW2(W.id,it().name,s); }
   stopTicker(); tLeft=null; resting=false;
 
   // Circuit mode: go through all exercises, then increment round
