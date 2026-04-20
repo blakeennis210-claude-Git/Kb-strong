@@ -1,2531 +1,726 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="The Lab">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#9333ea">
-<title>THE LAB</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet"></noscript>
-<style>
-:root {
-  --bg: #0d0a14;
-  --surface: #130f1e;
-  --card: #1a1428;
-  --card2: #1f1930;
-  --border: #2a2040;
-  --border2: #3a2f55;
-  --accent: #9333ea;
-  --accent-bright: #b060f8;
-  --accent2: #c084fc;
-  --accent3: #ffffff;
-  --accent4: #7c3aed;
-  --accent5: #e879f9;
-  --text: #ffffff;
-  --text2: #c4b5d8;
-  --muted: #6b5a85;
-  --dish-accent: #b060f8;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',arial,sans-serif;min-height:100vh;overflow-x:hidden;padding-top:52px;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="KB Strong" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>KB Strong</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; background: #0a0a0a; color: #f5f0e8; font-family: 'DM Sans', sans-serif; }
+    body { padding: env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px); }
+    #pg-home, #pg-workout, #pg-done { width: 100%; min-height: 100vh; background: #0a0a0a; }
+    #pg-home { padding: 2.5rem 1.5rem 2rem; }
+    .eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; color: #555; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .app-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.88; }
+    .app-title span { color: #e8c547; }
+    .tagline { margin-top: 1rem; font-size: 1rem; color: #888; line-height: 1.5; }
+    .divider { width: 40px; height: 2px; background: #e8c547; margin: 1.5rem 0; }
+    .wcard { background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; position: relative; overflow: hidden; cursor: pointer; }
+    .wcard:active { opacity: 0.7; }
+    .wcard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+    .wcard-icon { font-size: 1.8rem; }
+    .wcard-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; line-height: 1; }
+    .wcard-meta { font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
+    .wcard-arr { color: #555; margin-left: auto; font-size: 1.2rem; }
+    .home-foot { font-size: 0.65rem; color: #2a2a2a; text-align: center; margin-top: 2rem; }
+    #pg-workout { padding: 0 0 3rem; }
+    .w-head { padding: 1.25rem 1.5rem 0; display: flex; justify-content: space-between; align-items: flex-start; }
+    .back-btn { background: none; border: none; color: #888; font-size: 0.8rem; font-family: 'DM Sans', sans-serif; cursor: pointer; padding: 0; display: block; margin-bottom: 3px; }
+    .w-appname { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; line-height: 1; }
+    .w-phase-lbl { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; }
+    .w-head-right { text-align: right; font-size: 0.75rem; color: #555; }
+    .w-phase-count { font-size: 0.85rem; font-weight: 700; margin-bottom: 2px; }
+    .prog { margin: 0.9rem 1.5rem 0; height: 3px; background: #1e1e1e; border-radius: 2px; }
+    .prog-inner { height: 100%; border-radius: 2px; transition: width 0.3s; }
+    .excard { margin: 1.25rem 1.5rem 0; background: #141414; border-radius: 4px; padding: 1.5rem; border: 1px solid #222; position: relative; overflow: hidden; }
+    .excard-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+    .bicep-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #e05cff; background: #1e0a2a; padding: 2px 8px; border-radius: 2px; margin-bottom: 0.6rem; margin-left: 0.5rem; text-transform: uppercase; }
+    .excard-body { margin-left: 0.5rem; }
+    .excard-top { display: flex; gap: 0.85rem; align-items: flex-start; }
+    .ex-emoji { font-size: 2.2rem; line-height: 1; flex-shrink: 0; margin-top: 3px; }
+    .ex-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1; }
+    .stats { display: flex; gap: 1.5rem; margin-top: 0.6rem; }
+    .stat-lbl { font-size: 0.6rem; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; }
+    .stat-sub { font-size: 0.9rem; color: #444; }
+    .dur { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-top: 0.3rem; }
+    .ex-desc { margin-top: 1rem; font-size: 0.875rem; color: #aaa; line-height: 1.6; }
+    .ex-muscle { margin-top: 0.6rem; font-size: 0.7rem; }
+    .muscle-lbl { color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .demo-wrap { margin-top: 1.1rem; background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 4px; overflow: hidden; }
+    .demo-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; color: #444; text-transform: uppercase; padding: 0.5rem 0.75rem 0; }
+    .demo-wrap svg { display: block; width: 100%; height: auto; }
+    .weight-log { margin: 1.1rem 1.5rem 0; background: #141414; border: 1px solid #222; border-radius: 4px; padding: 1rem 1.25rem; }
+    .wlog-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #555; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .wlog-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+    .wlog-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; color: #555; width: 42px; flex-shrink: 0; }
+    .wlog-label.active-set { color: #e8c547; }
+    .wlog-input-wrap { flex: 1; position: relative; }
+    .wlog-input { width: 100%; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 3px; padding: 0.5rem 2.5rem 0.5rem 0.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: #f5f0e8; letter-spacing: 0.05em; -webkit-appearance: none; }
+    .wlog-input:focus { outline: none; border-color: #e8c547; }
+    .wlog-input.active-input { border-color: #e8c547; background: #1a1800; }
+    .wlog-unit { position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%); font-size: 0.65rem; font-weight: 700; color: #555; letter-spacing: 0.1em; }
+    .wlog-prev { font-size: 0.7rem; color: #444; width: 64px; flex-shrink: 0; text-align: right; line-height: 1.3; }
+    .wlog-prev.has-data { color: #5ecb8a; }
+    .timer-box { margin: 1.1rem 1.5rem 0; border-radius: 4px; padding: 1.1rem; text-align: center; }
+    .timer-box.work-mode { background: #0e1a12; border: 1px solid #0f3021; }
+    .timer-box.rest-mode { background: #1a1208; border: 1px solid #3d2c05; }
+    .timer-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2px; }
+    .timer-num { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 1; }
+    .timer-btn { margin-top: 0.5rem; border: none; padding: 0.55rem 1.75rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+    .rest-row { margin: 0.85rem 1.5rem 0; text-align: center; }
+    .rest-row button { background: #1a1a1a; color: #777; border: 1px solid #2a2a2a; padding: 0.6rem 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+    .nav { display: flex; gap: 0.75rem; margin: 1.25rem 1.5rem 1.5rem; }
+    .nav-back { flex: 1; background: #141414; color: #777; border: 1px solid #2a2a2a; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; }
+    .nav-fwd { flex: 2; color: #0a0a0a; border: none; padding: 0.9rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; cursor: pointer; border-radius: 2px; font-weight: 700; }
+    .overview { margin: 0 1.5rem 2rem; border-top: 1px solid #1e1e1e; padding-top: 1rem; }
+    .overview-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; color: #444; margin-bottom: 0.75rem; text-transform: uppercase; }
+    .ex-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid #161616; }
+    .ex-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
+    .ex-row-name { flex: 1; font-size: 0.82rem; }
+    .ex-row-sets { font-size: 0.7rem; }
+    .tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
+    .tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
+    #pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+    .done-fire { font-size: 5rem; }
+    .done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
+    .done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
+    .done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
 
-/* ── HAMBURGER NAV ── */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(13,10,20,0.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;height:52px;}
-.hamburger-btn{background:none;border:none;cursor:pointer;padding:8px;display:flex;flex-direction:column;gap:5px;justify-content:center;flex-shrink:0;}
-.ham-line{display:block;width:22px;height:2px;background:var(--text2);border-radius:2px;transition:all .25s;}
-.hamburger-btn.open .ham-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hamburger-btn.open .ham-line:nth-child(2){opacity:0;}
-.hamburger-btn.open .ham-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-.menu-section-label{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;padding:12px 20px 6px;text-transform:uppercase;}
-.menu-item{width:100%;background:none;border:none;border-left:3px solid transparent;padding:12px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .1s;text-align:left;}
-.menu-item:hover{background:var(--card);border-left-color:var(--border2);}
-.menu-item.active{background:rgba(147,51,234,.1);border-left-color:var(--accent2);}
-.menu-icon{font-size:18px;width:24px;text-align:center;flex-shrink:0;}
-.menu-label{font-family:'Barlow Condensed','Arial Narrow',arial,sans-serif;font-weight:700;font-size:16px;color:var(--text);}
-.menu-item.active .menu-label{color:var(--accent2);}
-.menu-pip{flex-shrink:0;}
-
-/* ── NAV TABS ── */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,8,8,0.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0;padding:0 16px;height:52px;}
-.nav-logo{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;letter-spacing:2px;color:var(--accent);margin-right:10px;white-space:nowrap;line-height:1.1;}
-.nav-logo span{color:var(--text);}
-/* nav-tab CSS removed - using hamburger menu */
-
-/* ── PAGES ── */
-.page{display:none;min-height:100vh;}
-.page.active{display:block;}
-
-/* ── SHARED LAYOUT ── */
-.page-layout{display:grid;grid-template-columns:230px 1fr;min-height:100vh;}
-.sidebar{border-right:1px solid var(--border);padding:14px 0;overflow-y:auto;max-height:80vh;}
-.sidebar::-webkit-scrollbar{width:3px;}
-.sidebar::-webkit-scrollbar-thumb{background:var(--border2);}
-.content{padding:20px;overflow-y:auto;}
-
-.sidebar-label{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:2px;padding:0 14px 8px;text-transform:uppercase;}
-.sidebar-divider{height:1px;background:var(--border);margin:10px 14px;}
-
-.cat-btn{width:100%;text-align:left;background:none;border:none;border-left:3px solid transparent;padding:9px 14px;cursor:pointer;display:flex;align-items:center;gap:9px;transition:all .1s;}
-.cat-btn:hover{background:var(--surface);}
-.cat-btn.active{background:var(--card);border-left-color:var(--accent-bright);}
-.cat-btn .ci{font-size:15px;width:20px;text-align:center;flex-shrink:0;}
-.cat-btn .cn{font-weight:700;font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.cat-btn.active .cn{color:var(--accent2);}
-.cat-btn .cc{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:1px;}
-
-/* ── SECTION HEADER ── */
-.sec-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
-.sec-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:32px;letter-spacing:3px;line-height:1;color:var(--text);}
-.sec-sub{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:1px;}
-.btn-row{display:flex;gap:6px;flex-wrap:wrap;}
-
-/* ── BUTTONS ── */
-.btn{font-family:'Bebas Neue','Arial Black',impact,sans-serif;letter-spacing:2px;font-size:13px;border:none;cursor:pointer;padding:7px 16px;border-radius:2px;transition:all .15s;white-space:nowrap;}
-.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted);}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
-.btn-primary{background:var(--accent);color:#fff;}
-.btn-primary:hover{background:var(--accent-bright);}
-.btn-primary:disabled{background:#1a1428;color:var(--muted);cursor:not-allowed;}
-.btn-orange{background:var(--accent4);color:#fff;}
-.btn-orange:hover{background:var(--accent);}
-.btn-green{background:#ffffff;color:#0d0a14;}
-.btn-green:hover{background:#e0d0f8;}
-.btn-blue{background:var(--accent);color:#fff;}
-.btn-blue:hover{background:var(--accent-bright);}
-.btn-purple{background:var(--accent5);color:#fff;}
-.btn-purple:hover{background:#9333ea;}
-.btn-sm{font-size:11px;padding:4px 10px;}
-
-/* ── SKILLS GRID ── */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px;}
-.skill-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:11px 13px;cursor:pointer;transition:all .12s;position:relative;user-select:none;}
-.skill-card:hover{background:var(--card2);border-color:var(--border2);}
-.skill-card.selected{border-color:var(--accent);background:rgba(147,51,234,.1);}
-.skill-card.selected::after{content:'✓';position:absolute;top:8px;right:9px;font-size:10px;color:var(--accent2);}
-.skill-name{font-weight:700;font-size:13px;line-height:1.3;padding-right:14px;}
-.skill-card.selected .skill-name{color:var(--accent2);}
-.skill-tag{display:inline-block;margin-top:5px;font-family:'Space Mono','Courier New',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-
-/* ── FINISH PICKER ── */
-.finish-bar{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;}
-.finish-chip{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:3px 7px;border-radius:100px;border:1px solid var(--border2);color:var(--muted);cursor:pointer;transition:all .1s;letter-spacing:.5px;}
-.finish-chip:hover{border-color:var(--accent2);color:var(--accent2);}
-.finish-chip.active-rim{background:rgba(147,51,234,.2);border-color:var(--accent-bright);color:var(--accent2);}
-.finish-chip.active-middy{background:rgba(192,132,252,.15);border-color:var(--accent2);color:var(--accent2);}
-.finish-chip.active-three{background:rgba(255,255,255,.1);border-color:#fff;color:#fff;}
-
-/* ── ALL VIEW ── */
-.all-cols{columns:2;column-gap:14px;}
-@media(max-width:700px){.all-cols{columns:1;}}
-.all-block{break-inside:avoid;margin-bottom:14px;background:var(--card);border:1px solid var(--border);border-radius:3px;overflow:hidden;}
-.all-block-hdr{background:var(--surface);padding:9px 13px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--border);}
-.all-block-icon{font-size:13px;}
-.all-block-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:15px;letter-spacing:2px;color:var(--accent2);flex:1;}
-.all-block-count{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);}
-.all-row{padding:7px 13px;border-bottom:1px solid rgba(255,255,255,.025);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .1s;font-size:13px;font-weight:600;}
-.all-row:last-child{border-bottom:none;}
-.all-row:hover{background:rgba(255,255,255,.025);}
-.all-row.selected{background:rgba(147,51,234,.12);color:var(--accent2);}
-.all-check{font-size:10px;color:var(--accent2);opacity:0;}
-.all-row.selected .all-check{opacity:1;}
-
-/* ── WORKOUT PANEL ── */
-.panel-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;}
-.panel-overlay.open{display:flex;}
-.panel-modal{background:var(--surface);border:1px solid var(--border2);border-radius:4px;width:100%;max-width:620px;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;}
-.panel-hdr{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);}
-.panel-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:26px;letter-spacing:3px;color:var(--accent2);}
-.panel-close{background:none;border:1px solid var(--border2);color:var(--muted);width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;border-radius:2px;transition:all .12s;}
-.panel-close:hover{border-color:var(--accent);color:var(--accent);}
-.panel-body{flex:1;overflow-y:auto;padding:16px 22px;}
-.panel-body::-webkit-scrollbar{width:3px;}
-.panel-body::-webkit-scrollbar-thumb{background:var(--border2);}
-.panel-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
-
-/* workout items */
-.w-item{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:11px 13px;margin-bottom:6px;}
-.w-item-top{display:flex;align-items:center;gap:10px;}
-.w-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:22px;color:var(--accent2);width:28px;flex-shrink:0;text-align:center;}
-.w-info{flex:1;min-width:0;}
-.w-name{font-weight:700;font-size:14px;}
-.w-meta{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:2px;}
-.w-rm{background:none;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:3px 6px;border-radius:2px;transition:all .12s;}
-.w-rm:hover{color:var(--accent);background:rgba(232,65,10,.1);}
-.w-finish-row{margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.w-finish-label{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;}
-.finish-badge{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:3px 8px;border-radius:100px;letter-spacing:.5px;}
-.badge-rim{background:rgba(147,51,234,.2);color:var(--accent2);border:1px solid var(--accent2);}
-.badge-middy{background:rgba(192,132,252,.15);color:var(--accent2);border:1px solid var(--accent2);}
-.badge-three{background:rgba(255,255,255,.08);color:#ffffff;border:1px solid rgba(255,255,255,.4);}
-.badge-handles{background:rgba(147,51,234,.2);color:var(--accent2);border:1px solid var(--accent2);}
-.finish-rand{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:11px;letter-spacing:1px;padding:3px 8px;border:1px solid var(--border2);background:none;color:var(--muted);cursor:pointer;border-radius:2px;transition:all .12s;}
-.finish-rand:hover{border-color:var(--accent2);color:var(--accent2);}
-
-/* ── HANDLES PAGE ── */
-.handles-intro{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:18px;margin-bottom:20px;}
-.handles-intro h2{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:22px;letter-spacing:3px;color:var(--text);margin-bottom:6px;}
-.handles-intro p{font-size:13px;color:var(--text2);line-height:1.6;}
-
-.handle-section{margin-bottom:28px;}
-.handle-section-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;letter-spacing:2px;color:var(--accent2);border-bottom:1px solid rgba(192,132,252,.2);padding-bottom:6px;margin-bottom:12px;}
-
-.phil-builder{background:var(--card);border:1px solid rgba(147,51,234,.3);border-radius:4px;padding:18px;margin-top:20px;}
-.phil-header{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:20px;letter-spacing:3px;color:var(--text);margin-bottom:4px;}
-.phil-sub{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-bottom:14px;}
-.phil-workout-item{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:10px 13px;margin-bottom:6px;}
-.phil-step-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;color:var(--accent2);}
-.phil-step-name{font-weight:700;font-size:14px;}
-.phil-step-cues{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-top:4px;line-height:1.6;}
-.phil-reps{display:inline-block;background:rgba(147,51,234,.15);border:1px solid rgba(192,132,252,.3);color:var(--accent2);font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:2px 7px;border-radius:100px;margin-top:5px;}
-
-/* ── DR DISH PAGE ── */
-.dish-page-bg{background:linear-gradient(135deg,rgba(147,51,234,.08) 0%,transparent 60%);min-height:calc(100vh - 52px);padding:24px;}
-.dish-header{text-align:center;margin-bottom:28px;}
-.dish-logo{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:48px;letter-spacing:6px;color:var(--accent2);line-height:1;}
-.dish-logo span{color:var(--text);}
-.dish-tagline{font-family:'Space Mono','Courier New',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:4px;}
-
-.dish-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;max-width:900px;margin:0 auto 28px;}
-.dish-control-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;}
-.dish-control-label{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:10px;}
-.dish-control-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:16px;letter-spacing:2px;color:var(--dish-accent);margin-bottom:8px;}
-.dish-select{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',arial,sans-serif;font-weight:600;font-size:14px;padding:8px 10px;border-radius:2px;cursor:pointer;appearance:none;}
-.dish-select:focus{outline:none;border-color:var(--accent2);}
-.dish-radio-group{display:flex;gap:6px;flex-wrap:wrap;}
-.dish-radio{display:none;}
-.dish-radio-label{font-family:'Space Mono','Courier New',monospace;font-size:9px;padding:5px 10px;border:1px solid var(--border2);color:var(--muted);cursor:pointer;border-radius:2px;transition:all .12s;letter-spacing:.5px;}
-.dish-radio:checked + .dish-radio-label{border-color:var(--accent2);color:var(--accent2);background:rgba(147,51,234,.15);}
-
-.dish-generate-row{text-align:center;margin-bottom:28px;}
-.dish-generate-row .btn{font-size:16px;padding:12px 40px;letter-spacing:3px;}
-
-.dish-workout-output{max-width:900px;margin:0 auto;}
-.dish-workout-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:28px;letter-spacing:4px;color:var(--accent2);margin-bottom:6px;}
-.dish-workout-meta{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:18px;}
-.dish-station{background:var(--card);border:1px solid var(--border);border-radius:4px;margin-bottom:12px;overflow:hidden;}
-.dish-station-hdr{background:var(--surface);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
-.dish-station-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:24px;color:var(--accent2);width:36px;flex-shrink:0;}
-.dish-station-info{flex:1;}
-.dish-station-name{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;letter-spacing:2px;}
-.dish-station-sub{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:2px;}
-.dish-station-badge{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:3px 8px;border-radius:100px;}
-.badge-catch{background:rgba(147,51,234,.15);color:var(--accent2);border:1px solid var(--accent2);}
-.badge-off-dribble{background:rgba(124,58,237,.2);color:var(--accent-bright);border:1px solid var(--accent-bright);}
-.badge-combo{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3);}
-
-.dish-station-body{padding:14px 16px;}
-.dish-athlete-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);}
-.dish-athlete-row:last-child{border-bottom:none;}
-.dish-athlete-label{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--dish-accent);width:60px;flex-shrink:0;margin-top:2px;letter-spacing:.5px;}
-.dish-athlete-task{flex:1;}
-.dish-task-name{font-weight:700;font-size:14px;}
-.dish-task-detail{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-top:3px;line-height:1.6;}
-.dish-reps-badge{display:inline-flex;align-items:center;gap:6px;margin-top:5px;background:rgba(147,51,234,.1);border:1px solid rgba(192,132,252,.25);border-radius:100px;padding:3px 9px;}
-.dish-reps-text{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--accent2);}
-
-.dish-timing-bar{background:var(--surface);border-top:1px solid var(--border);padding:10px 16px;display:flex;gap:16px;flex-wrap:wrap;}
-.dish-timing-item{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);}
-.dish-timing-item span{color:var(--text);font-weight:700;}
-
-.dish-summary{background:var(--card);border:1px solid rgba(147,51,234,.3);border-radius:4px;padding:16px;margin-top:16px;}
-.dish-summary-title{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);margin-bottom:10px;}
-.dish-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
-.dish-stat{text-align:center;}
-.dish-stat-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:28px;color:var(--accent2);}
-.dish-stat-label{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;}
-
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  .page-layout{grid-template-columns:1fr;}
-  .sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:4px;padding:8px;}
-  .sidebar-label,.sidebar-divider{display:none;}
-  .cat-btn{width:auto;border:1px solid var(--border);border-left:none;border-radius:2px;padding:5px 10px;}
-  .cat-btn.active{border-color:var(--accent);border-left:none;}
-  .cat-btn .cc{display:none;}
-}
-
-/* ── AUTH / LOGIN ── */
-.auth-overlay{position:fixed;inset:0;z-index:1000;background:#0d0a14;display:flex;align-items:center;justify-content:center;padding:20px;}
-.auth-box{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border2);border-radius:6px;overflow:hidden;}
-.auth-logo{text-align:center;padding:28px 24px 16px;border-bottom:1px solid var(--border);}
-.auth-logo-img{width:56px;height:56px;filter:invert(60%) sepia(80%) saturate(500%) hue-rotate(240deg) brightness(110%);}
-.auth-logo-name{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:32px;letter-spacing:5px;color:var(--text);margin-top:6px;}
-.auth-logo-name span{color:var(--accent2);}
-.auth-logo-slogan{font-family:'Space Mono','Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);margin-top:4px;}
-.auth-body{padding:24px;}
-.auth-tabs{display:flex;gap:4px;margin-bottom:20px;}
-.auth-tab{flex:1;font-family:'Bebas Neue','Arial Black',impact,sans-serif;letter-spacing:2px;font-size:14px;padding:8px;border:1px solid var(--border2);background:none;color:var(--muted);cursor:pointer;border-radius:3px;transition:all .15s;}
-.auth-tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
-.auth-field{margin-bottom:14px;}
-.auth-label{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:5px;display:block;}
-.auth-input{width:100%;background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',arial,sans-serif;font-size:16px;padding:10px 12px;border-radius:3px;outline:none;transition:border-color .15s;}
-.auth-input:focus{border-color:var(--accent2);}
-.auth-btn{width:100%;font-family:'Bebas Neue','Arial Black',impact,sans-serif;letter-spacing:3px;font-size:16px;padding:12px;border:none;border-radius:3px;cursor:pointer;background:var(--accent);color:#fff;transition:all .15s;margin-top:4px;}
-.auth-btn:hover{background:var(--accent-bright);}
-.auth-btn:disabled{background:var(--muted);cursor:not-allowed;}
-.auth-msg{font-family:'Space Mono','Courier New',monospace;font-size:10px;text-align:center;margin-top:12px;padding:8px;border-radius:3px;}
-.auth-msg.error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);}
-.auth-msg.success{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2);}
-.auth-msg.pending{background:rgba(245,166,35,.1);color:var(--accent2);border:1px solid rgba(245,166,35,.2);}
-
-/* ── PLAYER DASHBOARD ── */
-.player-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.player-welcome{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;letter-spacing:2px;color:var(--accent2);}
-.player-email{font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-top:2px;}
-
-/* ── SAVED WORKOUTS ── */
-.saved-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:8px;cursor:pointer;transition:all .12s;}
-.saved-card:hover{border-color:var(--accent2);}
-.saved-card-name{font-weight:700;font-size:15px;color:var(--text);}
-.saved-card-meta{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:4px;letter-spacing:1px;}
-.saved-card-actions{display:flex;gap:6px;margin-top:10px;}
-
-/* ── HIGHLIGHTS ── */
-.highlight-card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:8px;}
-.highlight-title{font-weight:700;font-size:14px;}
-.highlight-meta{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:3px;}
-.highlight-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--accent2);text-decoration:none;border:1px solid rgba(192,132,252,.3);padding:4px 10px;border-radius:100px;transition:all .12s;}
-.highlight-link:hover{background:rgba(192,132,252,.1);}
-
-/* ── ADMIN ── */
-.admin-player-row{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
-.admin-player-email{flex:1;font-size:13px;font-weight:600;}
-.admin-player-status{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:3px 8px;border-radius:100px;}
-.status-pending{background:rgba(245,166,35,.1);color:var(--accent2);border:1px solid rgba(245,166,35,.3);}
-.status-approved{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
-.status-denied{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);}
-
-/* ── SESSION PLAN ── */
-.sp-card{background:var(--card);border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden;}
-.sp-card-hdr{background:var(--surface);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
-.sp-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:22px;color:var(--accent2);width:28px;flex-shrink:0;text-align:center;}
-.sp-move{flex:1;}
-.sp-move-name{font-weight:700;font-size:15px;color:var(--text);}
-.sp-move-cat{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:2px;letter-spacing:1px;}
-.sp-badge{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:3px 8px;border-radius:100px;}
-.sp-body{padding:12px 14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
-.sp-stat{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:9px 11px;text-align:center;}
-.sp-stat-val{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:22px;color:var(--accent2);line-height:1;}
-.sp-stat-label{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;margin-top:3px;text-transform:uppercase;}
-.sp-cues{padding:0 14px 12px;}
-.sp-cue-row{display:flex;gap:8px;margin-bottom:5px;align-items:flex-start;}
-.sp-cue-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;}
-.sp-cue-text{font-size:12px;color:var(--text2);line-height:1.5;}
-.sp-hand-row{padding:0 14px 12px;display:flex;gap:6px;flex-wrap:wrap;}
-.sp-hand-chip{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:4px 10px;border-radius:100px;border:1px solid var(--accent2);color:var(--accent2);background:rgba(192,132,252,.08);}
-.sp-summary{background:var(--card);border:1px solid rgba(192,132,252,.2);border-radius:4px;padding:14px;margin-bottom:14px;}
-.sp-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
-.sp-summary-stat{text-align:center;}
-.sp-summary-num{font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:26px;color:var(--accent2);}
-.sp-summary-lbl{font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-.dish-station{animation:fadeIn .25s ease both;}
-.dish-station:nth-child(1){animation-delay:.03s;}
-.dish-station:nth-child(2){animation-delay:.07s;}
-.dish-station:nth-child(3){animation-delay:.11s;}
-.dish-station:nth-child(4){animation-delay:.15s;}
-.dish-station:nth-child(5){animation-delay:.19s;}
-.dish-station:nth-child(6){animation-delay:.23s;}
-
-.tab-pip{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:5px;vertical-align:middle;}
-.pip-red{background:var(--accent2);}
-.pip-orange{background:var(--accent-bright);}
-.pip-blue{background:var(--accent2);}
-
-.toggle-group{display:flex;gap:4px;flex-wrap:wrap;}
-.tog{font-family:'Space Mono','Courier New',monospace;font-size:8px;padding:4px 9px;border:1px solid var(--border2);color:var(--text2);background:none;cursor:pointer;border-radius:2px;transition:all .12s;letter-spacing:.5px;}
-.tog:hover{border-color:var(--text2);color:var(--text2);}
-.tog.on-rim{border-color:var(--accent2);color:var(--accent2);background:rgba(147,51,234,.12);}
-.tog.on-middy{border-color:var(--accent2);color:var(--accent2);background:rgba(192,132,252,.1);}
-.tog.on-three{border-color:#fff;color:#fff;background:rgba(255,255,255,.06);}
-
-.info-box{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:3px;padding:12px 14px;margin-bottom:16px;}
-.info-box p{font-size:13px;color:var(--text2);line-height:1.6;}
-.info-box strong{color:var(--text);}
-</style>
+    /* ── ANIMATIONS ── */
+    @keyframes deadlift {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 75px; }
+      50% { transform: rotate(-35deg); transform-origin: 60px 75px; }
+    }
+    @keyframes row-arms {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes curl-up {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 58px; }
+      50% { transform: rotate(-70deg); transform-origin: 60px 58px; }
+    }
+    @keyframes hinge {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 72px; }
+      50% { transform: rotate(40deg); transform-origin: 160px 72px; }
+    }
+    @keyframes arm-circle {
+      0% { transform: rotate(0deg); transform-origin: 160px 55px; }
+      100% { transform: rotate(360deg); transform-origin: 160px 55px; }
+    }
+    @keyframes scap-squeeze {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+    @keyframes scap-squeeze-r {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(-6px); }
+    }
+    @keyframes twist {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 80px; }
+      50% { transform: rotate(30deg); transform-origin: 160px 80px; }
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    @keyframes kb-float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes kb-float-ground {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
+  </style>
 </head>
 <body>
 
-<div id="debug-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#ff0000;color:white;font-size:11px;padding:6px;z-index:9999;font-family:monospace;word-break:break-all;"></div>
-
-<!-- AUTH OVERLAY -->
-<div class="auth-overlay" id="authOverlay">
-  <div class="auth-box">
-    <div class="auth-logo">
-      <img src="https://blakeennis210-claude-git.github.io/The-Lab/wildcat.png" class="auth-logo-img" alt="wildcat">
-      <div class="auth-logo-name">THE<span>LAB</span></div>
-      <div class="auth-logo-slogan">INTENTIONAL REPS. UNDENIABLE RESULTS.</div>
-    </div>
-    <div class="auth-body">
-      <div class="auth-tabs">
-        <button class="auth-tab active" onclick="switchAuthTab('login')">LOGIN</button>
-        <button class="auth-tab" onclick="switchAuthTab('signup')">SIGN UP</button>
-      </div>
-      <div id="authForm">
-        <div class="auth-field">
-          <label class="auth-label">EMAIL</label>
-          <input class="auth-input" type="email" id="authEmail" placeholder="your@email.com">
-        </div>
-        <div class="auth-field" id="authNameField" style="display:none;">
-          <label class="auth-label">FULL NAME</label>
-          <input class="auth-input" type="text" id="authName" placeholder="First Last">
-        </div>
-        <div class="auth-field">
-          <label class="auth-label">PASSWORD</label>
-          <input class="auth-input" type="password" id="authPassword" placeholder="••••••••">
-        </div>
-        <button class="auth-btn" id="authSubmitBtn" onclick="handleAuth()">LOGIN</button>
-        <div id="authMsg" class="auth-msg" style="display:none;"></div>
-      </div>
-    </div>
-  </div>
+<div id="pg-home">
+  <div class="eyebrow">Workout Tracker</div>
+  <div class="app-title">KB<br/><span>Strong</span></div>
+  <div class="tagline">Push. Pull. Progress.</div>
+  <div class="divider"></div>
+  <div id="home-list"></div>
+  <div class="home-foot">Open in Safari · Add to Home Screen to install</div>
 </div>
 
-<nav class="top-nav">
-  <!-- Left: Hamburger -->
-  <button class="hamburger-btn" onclick="toggleMenu()" id="hamburgerBtn" aria-label="Menu">
-    <span class="ham-line"></span>
-    <span class="ham-line"></span>
-    <span class="ham-line"></span>
-  </button>
-
-  <!-- Center: Logo -->
-  <div style="display:flex;align-items:center;gap:8px;position:absolute;left:50%;transform:translateX(-50%);">
-    <img src="https://blakeennis210-claude-git.github.io/The-Lab/wildcat.png" width="34" height="34" style="filter:invert(60%) sepia(80%) saturate(500%) hue-rotate(240deg) brightness(110%);" alt="wildcat">
-    <div class="nav-logo" style="margin-right:0;">THE<span>LAB</span></div>
-  </div>
-
-  <!-- Right: current section indicator -->
-  <div id="currentSection" style="font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;margin-left:auto;">BAG WORK</div>
-</nav>
-
-<!-- SLIDE-OUT MENU OVERLAY -->
-<div id="menuOverlay" onclick="toggleMenu()" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);"></div>
-
-<!-- SLIDE-OUT DRAWER -->
-<div id="menuDrawer" style="position:fixed;top:0;left:-280px;width:280px;height:100vh;z-index:400;background:var(--surface);border-right:1px solid var(--border2);transition:left .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;">
-  <!-- Drawer header -->
-  <div style="padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <img src="https://blakeennis210-claude-git.github.io/The-Lab/wildcat.png" width="36" height="36" style="filter:invert(60%) sepia(80%) saturate(500%) hue-rotate(240deg) brightness(110%);" alt="wildcat">
+<div id="pg-workout" style="display:none">
+  <div class="w-head">
     <div>
-      <div style="font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:22px;letter-spacing:4px;color:var(--text);">THE<span style="color:var(--accent2);">LAB</span></div>
-      <div style="font-family:'Space Mono','Courier New',monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">INTENTIONAL REPS. UNDENIABLE RESULTS.</div>
+      <button class="back-btn" onclick="goHome()">← Workouts</button>
+      <div class="w-appname">KB Strong</div>
+      <div class="w-phase-lbl" id="phaseLbl"></div>
+    </div>
+    <div class="w-head-right">
+      <div class="w-phase-count" id="phaseCount"></div>
+      <div id="itemCount"></div>
     </div>
   </div>
-
-  <!-- Menu items -->
-  <div style="flex:1;padding:8px 0;">
-    <div class="menu-section-label">TRAIN</div>
-    <button class="menu-item active" id="menu-bag" onclick="menuNav('bag')">
-      <span class="menu-icon">🥊</span><span class="menu-label">Bag Work</span>
-      <span class="tab-pip pip-red menu-pip" id="pip-bag" style="display:none;margin-left:auto;"></span>
-    </button>
-    <button class="menu-item" id="menu-handles" onclick="menuNav('handles')">
-      <span class="menu-icon">🔁</span><span class="menu-label">Handles</span>
-    </button>
-    <button class="menu-item" id="menu-workout" onclick="menuNav('workout')">
-      <span class="menu-icon">📋</span><span class="menu-label">My Workout</span>
-      <span class="tab-pip pip-red menu-pip" id="pip-workout" style="display:none;margin-left:auto;"></span>
-    </button>
-    <button class="menu-item" id="menu-dish" onclick="menuNav('dish')">
-      <span class="menu-icon">📡</span><span class="menu-label">Dr. Dish</span>
-    </button>
-
-    <div class="menu-section-label" style="margin-top:8px;">MY ACCOUNT</div>
-    <button class="menu-item" id="menu-saved" onclick="menuNav('saved')" style="display:none;">
-      <span class="menu-icon">💾</span><span class="menu-label">Saved Workouts</span>
-    </button>
-    <button class="menu-item" id="menu-highlights" onclick="menuNav('highlights')" style="display:none;">
-      <span class="menu-icon">🎬</span><span class="menu-label">My Highlights</span>
-    </button>
-    <button class="menu-item" id="menu-admin" onclick="menuNav('admin')" style="display:none;">
-      <span class="menu-icon">⚙️</span><span class="menu-label">Admin</span>
-    </button>
-  </div>
-
-  <!-- Drawer footer: user + logout -->
-  <div id="menuFooter" style="padding:14px 20px;border-top:1px solid var(--border);display:none;">
-    <div id="menuUserEmail" style="font-family:'Space Mono','Courier New',monospace;font-size:9px;color:var(--muted);margin-bottom:10px;"></div>
-    <button class="btn btn-ghost" style="width:100%;color:#f87171;border-color:rgba(248,113,113,.3);" onclick="handleLogout()">LOGOUT</button>
-  </div>
-</div>
-<div style="background:var(--surface);border-bottom:1px solid rgba(147,51,234,.3);padding:10px 16px;text-align:center;">
-  <span style="font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:18px;letter-spacing:5px;background:linear-gradient(90deg,var(--accent2),#fff,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">INTENTIONAL REPS. UNDENIABLE RESULTS.</span>
-</div>
-
-<!-- ══════════ BAG WORK PAGE ══════════ -->
-<div class="page active" id="page-bag">
-  <div class="page-layout">
-    <nav class="sidebar" id="bag-sidebar"></nav>
-    <main class="content" id="bag-content"></main>
-  </div>
-</div>
-
-<!-- ══════════ HANDLES PAGE ══════════ -->
-<div class="page" id="page-handles">
-  <div style="padding:22px;max-width:900px;margin:0 auto;">
-    <div class="sec-header">
-      <div>
-        <div class="sec-title" style="color:var(--accent2)">HANDLES</div>
-        <div class="sec-sub">BALL SKILL DEVELOPMENT · PHIL HANDY STYLE</div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-orange" onclick="generatePhilWorkout()">⚡ GENERATE PHIL WORKOUT</button>
-        <button class="btn btn-ghost" onclick="addHandlesToWorkout()">+ ADD TO WORKOUT</button>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <p><strong>Phil Handy style</strong> — select the handles you want to work on, then generate a structured combo workout. The generator chains moves in a progressive order: stationary → walking → game-speed bursts, mixing unilateral and bilateral patterns.</p>
-    </div>
-
-    <div id="handles-grid"></div>
-    <div id="phil-output"></div>
-  </div>
-</div>
-
-<!-- ══════════ MY WORKOUT PAGE ══════════ -->
-<div class="page" id="page-workout">
-  <div style="padding:22px;max-width:700px;margin:0 auto;">
-    <div class="sec-header">
-      <div>
-        <div class="sec-title">MY WORKOUT</div>
-        <div class="sec-sub" id="workout-sub">0 MOVES · BUILD YOUR SESSION</div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-purple" onclick="generateSessionPlan()">⚡ SESSION PLAN</button>
-        <button class="btn btn-ghost" onclick="shuffleWorkout()">⇄ SHUFFLE</button>
-        <button class="btn btn-ghost" onclick="clearWorkout()">CLEAR ALL</button>
-        <button class="btn btn-primary" onclick="saveCurrentWorkout()">💾 SAVE WORKOUT</button>
-      </div>
-    </div>
-    <div id="full-workout-list">
-      <div style="text-align:center;padding:60px 20px;color:var(--muted);">
-        <div style="font-size:40px;margin-bottom:12px;">📋</div>
-        <div style="font-family:'Space Mono','Courier New',monospace;font-size:10px;">SELECT MOVES FROM BAG WORK OR HANDLES TO BUILD YOUR SESSION</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ DR. DISH PAGE ══════════ -->
-<div class="page" id="page-dish">
-  <div class="dish-page-bg">
-    <div class="dish-header">
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:4px;">
-        <img src="https://blakeennis210-claude-git.github.io/The-Lab/wildcat.png" width="58" height="58" style="filter:invert(60%) sepia(80%) saturate(500%) hue-rotate(240deg) brightness(110%) drop-shadow(0 0 12px rgba(192,132,252,0.7));" alt="wildcat">
-        <div class="dish-logo" style="color:var(--accent2);">THE<span style="color:var(--text);">LAB</span></div>
-      </div>
-      <div class="dish-tagline">DR. DISH GENERATOR · INTENTIONAL REPS. UNDENIABLE RESULTS.</div>
-    </div>
-
-    <div class="dish-controls">
-      <div class="dish-control-card">
-        <div class="dish-control-label">ATHLETES</div>
-        <div class="dish-control-title">GROUP SIZE</div>
-        <select class="dish-select" id="dish-athletes">
-          <option value="3">3 Athletes</option>
-          <option value="4" selected>4 Athletes</option>
-          <option value="5">5 Athletes</option>
-          <option value="6">6 Athletes</option>
-        </select>
-      </div>
-      <div class="dish-control-card">
-        <div class="dish-control-label">DURATION</div>
-        <div class="dish-control-title">SESSION LENGTH</div>
-        <select class="dish-select" id="dish-duration">
-          <option value="20">20 Minutes</option>
-          <option value="30" selected>30 Minutes</option>
-          <option value="45">45 Minutes</option>
-          <option value="60">60 Minutes</option>
-        </select>
-      </div>
-      <div class="dish-control-card">
-        <div class="dish-control-label">FOCUS</div>
-        <div class="dish-control-title">WORKOUT TYPE</div>
-        <select class="dish-select" id="dish-focus">
-          <option value="shooting">Shooting — Catch & Shoot</option>
-          <option value="finishing">Finishing — Off-Dribble Layups</option>
-          <option value="combo" selected>Combo — Shoot + Finish</option>
-          <option value="competitive">Competitive — Games & Drills</option>
-          <option value="transition">Transition Offense</option>
-        </select>
-      </div>
-      <div class="dish-control-card">
-        <div class="dish-control-label">INTENSITY</div>
-        <div class="dish-control-title">TEMPO</div>
-        <div class="dish-radio-group">
-          <input type="radio" name="dish-tempo" id="t-dev" value="development" class="dish-radio">
-          <label for="t-dev" class="dish-radio-label">DEVELOPMENT</label>
-          <input type="radio" name="dish-tempo" id="t-comp" value="competitive" class="dish-radio" checked>
-          <label for="t-comp" class="dish-radio-label">COMPETITIVE</label>
-          <input type="radio" name="dish-tempo" id="t-elite" value="elite" class="dish-radio">
-          <label for="t-elite" class="dish-radio-label">ELITE</label>
+  <div class="prog"><div class="prog-inner" id="progBar"></div></div>
+  <div class="excard" id="exCard">
+    <div class="excard-bar" id="exBar"></div>
+    <div id="bicepTag" class="bicep-tag" style="display:none">Bicep Isolation</div>
+    <div class="excard-body">
+      <div class="excard-top">
+        <div class="ex-emoji" id="exEmoji"></div>
+        <div>
+          <div class="ex-name" id="exName"></div>
+          <div id="exStats"></div>
         </div>
       </div>
-      <div class="dish-control-card">
-        <div class="dish-control-label">SPOTS</div>
-        <div class="dish-control-title">SHOOTING ZONES</div>
-        <div class="dish-radio-group">
-          <input type="radio" name="dish-zones" id="z-all" value="all" class="dish-radio" checked>
-          <label for="z-all" class="dish-radio-label">ALL ZONES</label>
-          <input type="radio" name="dish-zones" id="z-mid" value="midrange" class="dish-radio">
-          <label for="z-mid" class="dish-radio-label">MID RANGE</label>
-          <input type="radio" name="dish-zones" id="z-three" value="threes" class="dish-radio">
-          <label for="z-three" class="dish-radio-label">THREES ONLY</label>
-          <input type="radio" name="dish-zones" id="z-paint" value="paint" class="dish-radio">
-          <label for="z-paint" class="dish-radio-label">PAINT / RIM</label>
-        </div>
-      </div>
-      <div class="dish-control-card">
-        <div class="dish-control-label">ACTIVE SPOTS</div>
-        <div class="dish-control-title">SIMULTANEOUS SPOTS</div>
-        <div class="dish-radio-group">
-          <input type="radio" name="dish-rotation" id="r-auto" value="auto" class="dish-radio" checked>
-          <label for="r-auto" class="dish-radio-label">AUTO (1–2)</label>
-          <input type="radio" name="dish-rotation" id="r-one" value="one" class="dish-radio">
-          <label for="r-one" class="dish-radio-label">1 SPOT</label>
-          <input type="radio" name="dish-rotation" id="r-two" value="two" class="dish-radio">
-          <label for="r-two" class="dish-radio-label">2 SPOTS</label>
-          <input type="radio" name="dish-rotation" id="r-three" value="three" class="dish-radio">
-          <label for="r-three" class="dish-radio-label">3 SPOTS</label>
-        </div>
-      </div>
+      <div class="ex-desc" id="exDesc"></div>
+      <div class="ex-muscle" id="exMuscle"></div>
+      <div id="inlineWeight"></div>
+      <div id="exDemo"></div>
     </div>
-
-    <div class="dish-generate-row">
-      <button class="btn btn-blue" onclick="generateDishWorkout()">📡 GENERATE DR. DISH WORKOUT</button>
+  </div>
+  <div id="weightLog"></div>
+  <div id="timerArea"></div>
+  <div id="restArea"></div>
+  <div class="nav">
+    <button class="nav-back" onclick="prevItem()">← Back</button>
+    <button class="nav-fwd" id="fwdBtn" onclick="nextItem()">Next →</button>
+  </div>
+  <div class="overview">
+    <div class="overview-hd" id="overviewHd">Workout Overview</div>
+    <div id="overviewList"></div>
+    <div class="tip">
+      <div class="tip-hd">💡 Beginner Strength Tip</div>
+      <div class="tip-body">Add <strong style="color:#e8c547">2.5–5 lbs each week</strong> to your deadlift and rows. Progressive overload is what builds strength.</div>
     </div>
-
-    <div class="dish-workout-output" id="dish-output"></div>
   </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<div id="pg-done" style="display:none">
+  <div class="done-fire">🔥</div>
+  <div class="done-title"><div style="color:#e8c547">WORKOUT</div><div>COMPLETE</div></div>
+  <div class="done-sub">Strength is built one session at a time. Go crush performance academy. Eat protein. Come back heavier next week.</div>
+  <button class="done-btn" onclick="goHome()">Back to Workouts</button>
+</div>
 
 <script>
-// Safe onclick wrappers - defined first so HTML onclick attrs always work
-function generateSessionPlan(){ if(window._generateSessionPlan) window._generateSessionPlan(); else setTimeout(generateSessionPlan,100); }
-function closeSessionPlan(){ if(window._closeSessionPlan) window._closeSessionPlan(); }
-function printSessionPlan(){ if(window._printSessionPlan) window._printSessionPlan(); }
-
-// ══════════════════════════════════════════
-// DATA
-// ══════════════════════════════════════════
-
-const RIM_FINISHES = [
-  'Normal Scoop','High Pickup','Same Foot Layup','OG Reverse','Pinoy Reverse',
-  'Euro Step','Pro Hop','Power Dribble Finish','Floater','Runner','Swing Step Finish',
-  'Tuck Bump','Veer Bump','Two-Foot Floater','Inside Hand Scoop','Hook Shot',
-  'Pinoy Step','Wrap Finish','Spin Finish','Up and Under'
-];
-const MIDDY_FINISHES = [
-  'Hop Mini Fade','Half Spin Mini Fade','1-2 Mini Fade','Forward Pivot Hook',
-  'Forward Pivot Shot','BTB Step Back','Crossover Step Back','Punch Middy',
-  'Ball on Foot Step Back','Tween Hop Back','Pull Up J','Turnaround Fade'
-];
-const THREE_FINISHES = [
-  'Spot Up Catch & Shoot','Step Back Three','Pull Up Three','Corner Three',
-  'Wing Three','Top of Key Three','Drag Three','Momentum Three','Kick-out Three'
-];
-
-const CATEGORIES = [
-  {id:'bag',icon:'🥊',name:'Bag Work',desc:'Dribble moves & combos',skills:['Simple Cross','Blow By','Push Cross','Put in Jail','In-Out','In and Out','Iverson Cross','Tween Blow By','Tween Cross','BTB Speed Stop','Punch Speed Stop','Hesi Counter','1-2 Pull Up','Quick Pause with Step on Defense','Push Float','Cross Float','Tween Float','BTB Float','Wrap','Cross Step','Power Dribble','Power Dribble Spin','Bump','Veer Bump','Euro','Pinoy','In-Out Euro','Floater','Runner','Cross Jab','Swing Step High Pick Up','Swing Step Low Pick Up','Swing Step Tuck','Level Change','Speed Change','Rip and Go','Sweep and Go','Jab and Go','Slap Hands to Prevent Steals']},
-  {id:'power',icon:'💥',name:'Power Dribble',desc:'Power dribble counters',skills:['Bump to Floater','Bump to Layup','To Swing Step','To Laylah Spin','To Euro']},
-  {id:'prohop',icon:'🐇',name:'Pro Hop',desc:'Pro hop variations',skills:['To Floater','To Step Through','Pump Bump and Shoot','To Reverse Pivot','To Slide By']},
-  {id:'traffic',icon:'🚦',name:'Finish in Traffic',desc:'Contact finishes',skills:['Pinoy Step','Euro','Power Dribble Euro','Tuck Bump','Veer Bump','Swing Step High Pickup','Pro Hop']},
-  {id:'downhill',icon:'⬇️',name:'Downhill Attacks',desc:'Transition attacks',skills:['Euro','In-Out','In-Out Euro']},
-  {id:'space',icon:'🔭',name:'Create Space',desc:'Space-creating moves',skills:['Float','Quick Float','Bump to Step Back','Retreat to Attack','Spin and Seal']},
-  {id:'touch',icon:'🤌',name:'Touch Finishes',desc:'Soft touch finishes',skills:['Two Foot Floater Both Hands','Downhill Runner','Across the Lane Runner','Inside Hand Scoop','Outside the Lane Hook']},
-  {id:'layups',icon:'🏀',name:'Layups',desc:'Layup variations',skills:['Normal Scoop','High Pickup','Same Foot','OG Reverse','Pinoy Reverse']},
-  {id:'stride',icon:'🦶',name:'Stride Stop',desc:'Stride stop counters',skills:['To Forward Pivot Hook / Floater','To Forward Pivot Shot','To Forward Pivot Up and Under','To Forward / Reverse Layup']},
-  {id:'crossovers',icon:'✂️',name:'Crossovers',desc:'Cross variations',skills:['Iverson Cross','Tween Cross','BTB Cross','In/Out Cross','Scissor Cross','Float Crossover','Push Cross']},
-  {id:'cutoff',icon:'🚫',name:'Cut Off Counters',desc:'Beat the cut off',skills:['BTB and Go','Anchor Step and Go','Scissor and Go','Ball on Foot to Wrap and Go','Punch and Scissor']},
-  {id:'pressure',icon:'🔥',name:'Dealing With Pressure',desc:'Beat the press',skills:['Cross Step Pound to Scissor Attack','Retreat and Attack']},
-  {id:'live',icon:'⚡',name:'Live Dribble Attack',desc:'Off the catch attacks',skills:['Quick Blow By','Float and Go','Float and Cross','Double Tween']},
-  {id:'speed',icon:'🏎️',name:'Changing Speed',desc:'Tempo manipulation',skills:['Slow Ball on Foot to Fast Ball on Foot','Push Out Float and Cross','Slow Tween Float to Fast Cross Tween and Go']},
-  {id:'stops',icon:'🛑',name:'Speed Stops',desc:'Stop and go attacks',skills:['BTB Speed Stop','Punch']},
-  {id:'middy',icon:'🎯',name:'Short Middy Moves',desc:'10–15 feet pull-up game',skills:['Hop Mini Fade','Half Spin Mini Fade','1-2 Mini Fade','Ball on Foot Forward Pivot','BTB Step Back','Crossover Step Back','Punch Middy','Ball on Foot Step Back','Ball on Foot Tween Hop Back']}
-];
-
-const HANDLE_SECTIONS = [
-  {id:'foundation',name:'Foundation Handles',color:'var(--accent2)',handles:[
-    {name:'Pound Dribble',cues:'Strong base · Eyes up · Pound through the floor · 2 hands alternating',reps:'3×20 each hand'},
-    {name:'Figure 8',cues:'Low stance · No crossing yet · Around both legs · Maintain pressure',reps:'3×30 sec'},
-    {name:'One Hand Control',cues:'Dominant hand only · Eyes up · Waist level → knee level → ankle level',reps:'3×20 each height'},
-    {name:'Two Ball Alternating',cues:'Same time → then alternating → then staggered rhythm · Eyes forward',reps:'3×30 sec'},
-    {name:'Fingertip Taps',cues:'Full extension overhead · Down through legs · Builds hand strength and feel',reps:'3×20 trips'}
-  ]},
-  {id:'stationary',name:'Stationary Ball Skill',color:'var(--accent2)',handles:[
-    {name:'Single Leg Pound',cues:'One foot up · Drive into floor · Don\'t let ball control you',reps:'3×15 each side'},
-    {name:'Crossover Walk',cues:'In place first → then moving · Shoulder dip with every cross · Keep it tight',reps:'4×10 crosses'},
-    {name:'Between Legs (BL)',cues:'Front to back · Back to front · Quick hands · Stay low',reps:'4×20 BL'},
-    {name:'Behind Back (BTB)',cues:'Drive the ball around · Stay low · Don\'t let it drop · Rhythm first',reps:'3×15 each direction'},
-    {name:'In-Out',cues:'Sell the cross without going · Load the defense · Explode out',reps:'4×10 each hand'},
-    {name:'Tween (Between Legs Walk)',cues:'Step through each time · Low and tight · Build rhythm before speed',reps:'3×10 trips'}
-  ]},
-  {id:'movement',name:'Movement Handles',color:'var(--accent2)',handles:[
-    {name:'Cone Cross Series',cues:'5 cones · Cross at each · Change direction after each cone · Build to game speed',reps:'4×trips'},
-    {name:'Speed Dribble Full Court',cues:'Low to high finish · Ball ahead of body · Eyes on rim at end',reps:'4×full court'},
-    {name:'Hesitation Dribble',cues:'Sell the stop · Load weight back · Explode forward · Change tempo not just speed',reps:'4×10 hesis'},
-    {name:'Retreat and Re-attack',cues:'Push out → stop → gather → explode · Reset defender with every retreat',reps:'3×8 reps'},
-    {name:'Snake Dribble',cues:'Weave between cones · Low and under · Outside hand on each gate',reps:'4×trips'},
-    {name:'Chair Work Combo',cues:'Attack chair → pull up or cross · Simulate defender reads · Add counter each round',reps:'3×5 combos'}
-  ]},
-  {id:'combo',name:'Phil Handy Combos',color:'var(--accent2)',handles:[
-    {name:'Cross → BTB → Go',cues:'Full speed · Cross to set up BTB · BTB as separation move · Finish strong',reps:'4×5 each side'},
-    {name:'In-Out → Tween → Blow By',cues:'3-move chain · Each move must be convincing · Game-speed finish',reps:'4×5 each side'},
-    {name:'Pound → Hesi → Cross Attack',cues:'Pound to load → sell hesi → attack off the cross · Control tempo',reps:'3×6 each side'},
-    {name:'Retreat → Float → Go',cues:'Push back → let it float out front → explode past defender',reps:'4×5 each side'},
-    {name:'2-Ball Alternating → Drop to 1 → Attack',cues:'2 ball rhythm → drop left → cross right → finish',reps:'3×5 combos'},
-    {name:'Iverson Cross → Level Change → Blow By',cues:'High cross → drop body level → burst through · Shoulders must change',reps:'4×5 each side'}
-  ]}
-];
-
-// ══════════════════════════════════════════
-// CATEGORY MODES
-// start → Power Dribble, Pro Hop, Finish in Traffic, Touch Finishes, Layups
-// spot  → Short Middy Moves
-// finish → everything else
-// ══════════════════════════════════════════
-const START_CATS = new Set(["power","prohop","traffic","touch","layups"]);
-const SPOT_CATS  = new Set(["middy"]);
-
-const START_OPTIONS = {
-  power:   ["Pound Dribble","Cross","Hesi","BTB","In-Out","Tween"],
-  prohop:  ["Live Dribble Attack","Catch and Go","Drive from Wing","Drive from Elbow","One Dribble","Pull Back and Attack"],
-  traffic: ["Pound into Paint","Drive Right","Drive Left","Elbow Attack","Baseline Drive","Middle Drive"],
-  touch:   ["Catch in Paint","Drive to Paint","Drop Step Entry","Post Feed","Baseline Drive","Wing Drive"],
-  layups:  ["Left Side Approach","Right Side Approach","Middle Drive","Baseline Drive","Catch at Block","Speed Dribble"],
+// ═══════════════════════════════════════
+// ANIMATED SVG DEMOS
+// ═══════════════════════════════════════
+const DEMOS = {
+  "Bent Over Row": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Bent-Over-Dumbbell-Row.gif" alt="Bent Over Row" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Ring Rows": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/09/Ring-Row.gif" alt="Ring Rows" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Deadlift": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Barbell-Deadlift.gif" alt="KB Deadlift" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Hammer Curl": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Hammer-Curl.gif" alt="KB Hammer Curl" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Concentration Curl": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Concentration-Curl.gif" alt="KB Concentration Curl" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Shoulder Press": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Shoulder-Press.gif" alt="KB Shoulder Press" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Tricep Overhead Extension": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Triceps-Extension.gif" alt="KB Tricep Overhead Extension" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Pushups": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/push-up.gif" alt="KB Pushups" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "KB Chest Press": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Dumbbell-Floor-Press.gif" alt="KB Chest Press" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Arm Circles": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Arm-Circles.gif" alt="Arm Circles" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Hip Hinge Practice": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/02/Good-Morning.gif" alt="Hip Hinge Practice" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Scapular Pulls": `<img src="https://fitnessprogramer.com/wp-content/uploads/2022/04/Scapular-Pull-Up.gif" alt="Scapular Pulls" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Band Pull-Apart": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Band-Pull-Apart.gif" alt="Band Pull-Apart" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Chest Opener": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Standing-Chest-Stretch.gif" alt="Chest Opener" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Child's Pose Reach": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Child-Pose.gif" alt="Child's Pose Reach" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
+  "Supine Twist": `<img src="https://fitnessprogramer.com/wp-content/uploads/2021/06/Lying-Spinal-Twist.gif" alt="Supine Twist" style="width:100%;border-radius:4px;display:block;background:#111" onerror="this.parentElement.style.display='none'" />`,
 };
 
-const MIDDY_SPOTS = [
-  "Right Elbow","Left Elbow","Right Wing Mid","Left Wing Mid",
-  "Nail (FT Line)","Right Short Corner","Left Short Corner",
-  "Right Baseline Mid","Left Baseline Mid","Top of Key Mid",
+// ═══════════════════════════════════════════════════════
+//  WORKOUTS DATA
+// ═══════════════════════════════════════════════════════
+const WORKOUTS = [
+  {
+    id: "pull",
+    name: "Pull · Back & Biceps",
+    duration: "~35 min",
+    icon: "⛏️",
+    accent: "#e8c547",
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — push hips back, flat back, feel the hamstring load", icon: "📐" },
+        { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
+      ]},
+      { id: "work", label: "MAIN WORK", items: [
+        { name: "Bent Over Row",         sets:5, reps:"5",      rest:90, desc:"Hinge 45°, barbell or KB gripped just outside knees. Drive elbows back past your hips, squeeze shoulder blades hard at top. Go heavy.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Ring Rows",             sets:4, reps:"8",      rest:75, desc:"Adjust body angle to control difficulty — more horizontal = harder. Pull chest to rings, keep body rigid as a plank. Squeeze at top.", muscle:"Lats, Rear Delt, Biceps, Core", icon:"⭕" },
+        { name: "KB Deadlift",           sets:4, reps:"5",      rest:90, desc:"Your main strength lift. Hip hinge, flat back, chest proud. Drive the floor away. Add weight each week.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
+        { name: "KB Hammer Curl",        sets:3, reps:"8",      rest:60, desc:"Neutral grip, palms facing each other. Slow 3-count lower. Hits the brachialis — makes your arms look thick.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
+        { name: "KB Concentration Curl", sets:3, reps:"8 each", rest:60, desc:"Elbow braced on inner thigh. Full stretch at bottom, hard squeeze at top. No swinging — pure isolation.", muscle:"Biceps Peak", icon:"💥", bicep:true }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine after deadlifts", icon:"🌀" }
+      ]}
+    ]
+  },
+  {
+    id: "push",
+    name: "Push · Chest, Shoulders & Triceps",
+    duration: "~35 min",
+    icon: "💥",
+    accent: "#e05cff",
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Band Pull-Apart",    dur: 40, rest: 10, desc: "Hands in front, pull band apart to chest level. Activates rear delts and opens the chest before pressing.", icon: "↔️" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — prep the posterior chain even on push days", icon: "📐" }
+      ]},
+      { id: "work", label: "MAIN WORK", items: [
+        { name: "KB Shoulder Press",  sets:4, reps:"8",      rest:75, desc:"Clean KBs to rack position at shoulders. Press straight up, lock out overhead, lower with control. Keep core tight — no back arch.", muscle:"Shoulders, Triceps, Upper Chest", icon:"🏋️" },
+        { name: "KB Tricep Overhead Extension", sets:3, reps:"10",     rest:60, desc:"Hold one KB with both hands overhead. Lower behind head bending at elbows, keeping elbows pointed forward. Press back up. Full stretch at bottom.", muscle:"Triceps (Long Head)", icon:"💪", tricep:true },
+        { name: "KB Pushups",         sets:4, reps:"10",     rest:60, desc:"Hands on KB handles — this deepens your range of motion past the floor. Keep body rigid, chest to KB level, press explosively.", muscle:"Chest, Triceps, Shoulders", icon:"⬇️" },
+        { name: "KB Chest Press",     sets:4, reps:"8",      rest:75, desc:"Lie on bench or floor. KBs at chest, palms facing in. Press up and slightly in, squeeze chest at top. Slow 3-count lower.", muscle:"Chest, Triceps, Anterior Delt", icon:"🎯" }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders after all the pressing", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  },
+  {
+    id: "pull-circuit",
+    name: "Pull · Circuit",
+    duration: "~20 min",
+    icon: "🔄",
+    accent: "#e8c547",
+    isCircuit: true,
+    rounds: 3,
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — push hips back, flat back, feel the hamstring load", icon: "📐" },
+        { name: "Scapular Pulls",     dur: 40, rest: 10, desc: "Retract and depress shoulder blades — activates the lats before lifting", icon: "🦅" }
+      ]},
+      { id: "work", label: "CIRCUIT", items: [
+        { name: "Bent Over Row",         dur: 40, rest: 15, desc: "Hinge 45°, drive elbows back past your hips, squeeze shoulder blades hard at top. Keep moving — moderate weight.", muscle:"Lats, Rhomboids, Biceps", icon:"⛏️" },
+        { name: "Ring Rows",             dur: 40, rest: 15, desc: "Body rigid, pull chest to rings. Keep moving — adjust angle if needed.", muscle:"Lats, Rear Delt, Biceps", icon:"⭕" },
+        { name: "KB Deadlift",           dur: 40, rest: 15, desc: "Hip hinge, flat back, chest proud. Drive through heels. Controlled reps.", muscle:"Lats, Erectors, Glutes", icon:"🏋️" },
+        { name: "KB Hammer Curl",        dur: 40, rest: 15, desc: "Neutral grip, controlled pace. Keep tension on the muscle the whole time.", muscle:"Biceps, Brachialis", icon:"🔨", bicep:true },
+        { name: "KB Concentration Curl", dur: 40, rest: 60, desc: "Elbow braced, full stretch, hard squeeze. Last exercise — give it everything. Then rest before next round.", muscle:"Biceps Peak", icon:"💥", bicep:true }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  },
+  {
+    id: "push-circuit",
+    name: "Push · Circuit",
+    duration: "~20 min",
+    icon: "🔁",
+    accent: "#e05cff",
+    isCircuit: true,
+    rounds: 3,
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Arm Circles",        dur: 40, rest: 10, desc: "Big controlled circles forward & backward — loosen the shoulder capsule", icon: "🔄" },
+        { name: "Band Pull-Apart",    dur: 40, rest: 10, desc: "Hands in front, pull band apart to chest level. Opens the chest before pressing.", icon: "↔️" },
+        { name: "Hip Hinge Practice", dur: 40, rest: 10, desc: "Bodyweight only — prep the posterior chain", icon: "📐" }
+      ]},
+      { id: "work", label: "CIRCUIT", items: [
+        { name: "KB Shoulder Press",             dur: 40, rest: 15, desc: "Clean to rack, press overhead, lower with control. Moderate weight — keep the pace.", muscle:"Shoulders, Triceps", icon:"🏋️" },
+        { name: "KB Tricep Overhead Extension",  dur: 40, rest: 15, desc: "Both hands on KB overhead, lower behind head, press back up. Elbows forward.", muscle:"Triceps Long Head", icon:"💪", tricep:true },
+        { name: "KB Pushups",                    dur: 40, rest: 15, desc: "Hands on KB handles, body rigid, chest to KB level. Push hard.", muscle:"Chest, Triceps, Shoulders", icon:"⬇️" },
+        { name: "KB Chest Press",                dur: 40, rest: 60, desc: "Floor press — KBs at chest, press up and in, squeeze at top. Last exercise — rest before next round.", muscle:"Chest, Triceps, Anterior Delt", icon:"🎯" }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Chest Opener",       dur:30, rest:0, desc:"Doorframe stretch — open chest and anterior shoulders after all the pressing", icon:"🚪" },
+        { name: "Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  }
 ];
 
-// ══════════════════════════════════════════
-// STATE
-// mode finish: { catId, skill, mode, finish, finishName }
-// mode start:  { catId, skill, mode, startName }
-// mode spot:   { catId, skill, mode, spotName }
-// ══════════════════════════════════════════
-let selected = {};
-let activePicker = null; // tracks which inline picker is open
-let workoutPicker = null; // tracks which workout tab picker is open
-let activeCat = "all";
-let selectedHandles = new Set();
-let philWorkout = [];
-let workoutOrder = [];
+// ─── STATE ───
+let W, phIdx, itIdx, setN, roundN, ticker, tLeft, resting;
+const PCOLS = { warmup:"#5b8dee", work:"#e8c547", cooldown:"#5ecb8a" };
 
-function getKey(catId, skill){ return catId+"||" +skill; }
-function getMode(catId){ return START_CATS.has(catId)?"start":SPOT_CATS.has(catId)?"spot":"finish"; }
+// ─── STORAGE ───
+function sKey(wid, name) { return 'kb_' + wid + '_' + name.replace(/\s+/g,'_'); }
+function saveW(wid, name, data) { try { localStorage.setItem(sKey(wid,name), JSON.stringify(data)); } catch(e){} }
+function loadW(wid, name) { try { const d=localStorage.getItem(sKey(wid,name)); return d?JSON.parse(d):null; } catch(e){return null;} }
+function loadPrev(wid, name) { try { const d=localStorage.getItem(sKey(wid,name)+'_prev'); return d?JSON.parse(d):null; } catch(e){return null;} }
+function archiveW(wid, name, data) { try { localStorage.setItem(sKey(wid,name)+'_prev', JSON.stringify(data)); } catch(e){} }
 
-// ══════════════════════════════════════════
-// TAB ROUTING
-// ══════════════════════════════════════════
-// ── HAMBURGER MENU ──
-function toggleMenu(){
-  const drawer = document.getElementById('menuDrawer');
-  const overlay = document.getElementById('menuOverlay');
-  const btn = document.getElementById('hamburgerBtn');
-  const isOpen = drawer.style.left === '0px';
-  drawer.style.left = isOpen ? '-280px' : '0px';
-  overlay.style.display = isOpen ? 'none' : 'block';
-  btn.classList.toggle('open', !isOpen);
+// ─── PAGE NAV ───
+function showPage(id) {
+  document.getElementById('pg-home').style.display    = 'none';
+  document.getElementById('pg-workout').style.display = 'none';
+  document.getElementById('pg-done').style.display    = 'none';
+  document.getElementById(id).style.display = (id === 'pg-done') ? 'flex' : 'block';
+  window.scrollTo(0, 0);
 }
 
-function menuNav(tab){
-  showTab(tab);
-  // Close menu
-  document.getElementById('menuDrawer').style.left = '-280px';
-  document.getElementById('menuOverlay').style.display = 'none';
-  document.getElementById('hamburgerBtn').classList.remove('open');
+function renderHome() {
+  document.getElementById('home-list').innerHTML = WORKOUTS.map(w =>
+    `<div class="wcard" onclick="startWorkout('${w.id}')">
+      <div class="wcard-bar" style="background:${w.accent}"></div>
+      <div class="wcard-icon">${w.icon}</div>
+      <div style="flex:1">
+        <div class="wcard-name">${w.name}</div>
+        <div class="wcard-meta">${w.duration} · ${w.isCircuit ? w.rounds+' rounds · ' : ''}${w.phases.find(p=>p.id==='work').items.length} exercises${w.isCircuit ? ' · timed' : ''}</div>
+      </div>
+      <div class="wcard-arr">›</div>
+    </div>`
+  ).join('');
 }
 
-function showTab(tab){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.menu-item').forEach(t=>t.classList.remove('active'));
-  const pg = document.getElementById('page-'+tab);
-  if(pg) pg.classList.add('active');
-  const mi = document.getElementById('menu-'+tab);
-  if(mi) mi.classList.add('active');
-  // Update section label in nav
-  const labels = {bag:'BAG WORK',handles:'HANDLES',workout:'MY WORKOUT',dish:'DR. DISH',saved:'SAVED',highlights:'HIGHLIGHTS',admin:'ADMIN'};
-  const cs = document.getElementById('currentSection');
-  if(cs) cs.textContent = labels[tab]||'';
-  if(tab==='workout') renderFullWorkout();
-  if(tab==='saved') loadSavedWorkouts();
-  if(tab==='highlights') loadHighlights();
-  if(tab==='admin') loadAdminData();
+function goHome() { stopTicker(); showPage('pg-home'); }
+
+function startWorkout(id) {
+  W = WORKOUTS.find(w => w.id === id);
+  phIdx=0; itIdx=0; setN=1; roundN=1;
+  stopTicker(); tLeft=null; resting=false;
+  buildOverview(); render(); showPage('pg-workout');
 }
 
-// ══════════════════════════════════════════
-// BAG WORK
-// ══════════════════════════════════════════
-function renderBagSidebar(){
-  const sb = document.getElementById('bag-sidebar');
-  const total = CATEGORIES.reduce((a,c)=>a+c.skills.length,0);
-  let h = `<div class="sidebar-label">CATEGORIES</div>`;
-  h += `<button class="cat-btn active" data-cat="all" onclick="selectCat('all',this)"><span class="ci">📋</span><div><div class="cn">All Skills</div><div class="cc">${total} moves</div></div></button>`;
-  h += `<div class="sidebar-divider"></div>`;
-  CATEGORIES.forEach(c=>{
-    h += `<button class="cat-btn" data-cat="${c.id}" onclick="selectCat('${c.id}',this)"><span class="ci">${c.icon}</span><div><div class="cn">${c.name}</div><div class="cc">${c.skills.length} moves</div></div></button>`;
-  });
-  sb.innerHTML = h;
-}
+const ph      = () => W.phases[phIdx];
+const it      = () => ph().items[itIdx];
+const isWork  = () => ph().id === 'work';
+const isBicep = () => isWork() && !!it().bicep;
+const color   = () => isBicep() ? '#e05cff' : (PCOLS[ph().id] || W.accent);
+const workPh  = () => W.phases.find(p => p.id === 'work');
 
-function selectCat(id, btn){
-  activeCat = id;
-  document.querySelectorAll('#bag-sidebar .cat-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  renderBagContent();
-}
-
-function renderBagContent(){
-  const content = document.getElementById('bag-content');
-  const cats = activeCat==='all' ? CATEGORIES : CATEGORIES.filter(c=>c.id===activeCat);
-  const total = cats.reduce((a,c)=>a+c.skills.length,0);
-  const selCount = cats.reduce((a,c)=>a+c.skills.filter(s=>selected[getKey(c.id,s)]).length,0);
-
-  const title = activeCat==='all' ? 'All Skills' : cats[0]?.name || '';
-  let h = `<div class="sec-header">
-    <div><div class="sec-title">${title}</div><div class="sec-sub">${total} MOVES · ${selCount} SELECTED</div></div>
-    <div class="btn-row">
-      <button class="btn btn-ghost btn-sm" onclick="deselAllCat()">DESELECT ALL</button>
-      <button class="btn btn-ghost btn-sm" onclick="selAllCat()">SELECT ALL</button>
-      <button class="btn btn-primary btn-sm" onclick="showTab('workout');renderFullWorkout()">VIEW WORKOUT (${Object.keys(selected).length})</button>
-    </div>
-  </div>`;
-
-  if(activeCat==='all'){
-    h += `<div class="all-cols">`;
-    CATEGORIES.forEach(cat=>{
-      const sc = cat.skills.filter(s=>selected[getKey(cat.id,s)]).length;
-      h += `<div class="all-block"><div class="all-block-hdr"><span class="all-block-icon">${cat.icon}</span><span class="all-block-title">${cat.name}</span><span class="all-block-count">${sc}/${cat.skills.length}</span></div>`;
-      cat.skills.forEach(skill=>{
-        const key = getKey(cat.id,skill);
-        const isSel = !!selected[key];
-        h += `<div class="all-row ${isSel?'selected':''}" onclick="toggleSkill('${cat.id}','${esc(skill)}')"><span>${skill}</span><span class="all-check">✓</span></div>`;
-      });
-      h += `</div>`;
-    });
-    h += `</div>`;
+function render() {
+  const item=it(), c=color();
+  document.getElementById('phaseLbl').textContent   = ph().label;
+  document.getElementById('phaseLbl').style.color   = c;
+  document.getElementById('phaseCount').textContent = ph().label;
+  document.getElementById('phaseCount').style.color = c;
+  document.getElementById('itemCount').textContent  = `${itIdx+1} / ${ph().items.length}`;
+  const wi=workPh().items, wpi=W.phases.findIndex(p=>p.id==='work');
+  const prog = phIdx>wpi ? wi.length : phIdx===wpi ? itIdx : 0;
+  document.getElementById('progBar').style.width      = `${(prog/wi.length)*100}%`;
+  document.getElementById('progBar').style.background = W.accent;
+  document.getElementById('exBar').style.background   = c;
+  document.getElementById('bicepTag').style.display   = isBicep() ? 'inline-block' : 'none';
+  document.getElementById('exEmoji').textContent      = item.icon;
+  document.getElementById('exName').textContent       = item.name;
+  const circuit = W.isCircuit && isWork();
+  if (circuit) {
+    document.getElementById('exStats').innerHTML =
+      `<div class="stats">
+        <div><div class="stat-lbl">Round</div><div class="stat-val" style="color:${c}">${roundN}<span class="stat-sub">/${W.rounds}</span></div></div>
+        <div><div class="stat-lbl">Work</div><div class="stat-val">${item.dur}s</div></div>
+        <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
+      </div>`;
+  } else if (isWork()) {
+    document.getElementById('exStats').innerHTML =
+      `<div class="stats">
+        <div><div class="stat-lbl">Set</div><div class="stat-val" style="color:${c}">${setN}<span class="stat-sub">/${item.sets}</span></div></div>
+        <div><div class="stat-lbl">Reps</div><div class="stat-val">${item.reps}</div></div>
+        <div><div class="stat-lbl">Rest</div><div class="stat-val">${item.rest}s</div></div>
+      </div>`;
   } else {
-    const cat = cats[0];
-    if(!cat){ content.innerHTML = h; return; }
-    const catMode = getMode(cat.id);
-    h += `<div class="skills-grid">`;
-    cat.skills.forEach(skill=>{
-      const key = getKey(cat.id,skill);
-      const entry = selected[key];
-      const isSel = !!entry;
-      h += `<div class="skill-card ${isSel?'selected':''}" id="card-${key}">
-        <div class="skill-name" onclick="toggleSkill('${cat.id}','${esc(skill)}')">${skill}</div>
-        <div class="skill-tag">${cat.icon} ${cat.name}</div>`;
-      if(isSel){
-        if(catMode==='finish'){
-          const finish = entry.finish||null;
-          const fname = entry.finishName;
-          h += `<div class="finish-bar">
-            <span class="finish-chip ${finish==='rim'?'active-rim':''}" onclick="setFinish('${key}','rim')">🏀 RIM</span>
-            <span class="finish-chip ${finish==='middy'?'active-middy':''}" onclick="setFinish('${key}','middy')">📍 MIDDY</span>
-            <span class="finish-chip ${finish==='three'?'active-three':''}" onclick="setFinish('${key}','three')">🎯 THREE</span>
-          </div>`;
-          if(finish){
-            const pickerKey = '${key}__finish__'+finish;
-            const isPickerOpen = activePicker === pickerKey;
-            const pool = finish==='rim'?RIM_FINISHES:finish==='middy'?MIDDY_FINISHES:THREE_FINISHES;
-            const dotClass = finish==='rim'?'dot-rim':finish==='middy'?'dot-mid':'dot-three';
-            h += `<div style="margin-top:6px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
-              <span style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);">FINISH:</span>
-              <span class="finish-badge badge-${finish}">${fname||'—'}</span>
-              <button class="finish-rand ${isPickerOpen?'active-middy':''}" onclick="pickFinish('${key}','${finish}')">${isPickerOpen?'CLOSE':'SELECT'}</button>
-              <button class="finish-rand" onclick="randomFinish('${key}','${finish}')">RANDOM</button>
-            </div>`;
-            if(isPickerOpen){
-              h += `<div class="inline-picker">`;
-              pool.forEach((f,pi)=>{
-                const isPicked = fname===f;
-                h += `<div class="picker-item ${isPicked?'picked':''}" onclick="applyFinish('${key}','${finish}','${f.replace(/'/g,"\\'")}')">
-                  <span class="picker-dot ${dotClass}"></span>${f}
-                </div>`;
-              });
-              h += `</div>`;
-            }
-          }
-        } else if(catMode==='start'){
-          const sname = entry.startName;
-          const startPickerKey = '${key}__start__${cat.id}';
-          const isStartOpen = activePicker === startPickerKey;
-          const startPool = START_OPTIONS['${cat.id}'] || [];
-          h += `<div style="margin-top:7px;">
-            <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--accent2);letter-spacing:1px;margin-bottom:5px;">BEGIN WITH</div>
-            <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
-              <span class="finish-badge badge-middy">${sname||'—'}</span>
-              <button class="finish-rand ${isStartOpen?'active-middy':''}" onclick="pickStart('${key}','${cat.id}')">${isStartOpen?'CLOSE':'SELECT'}</button>
-              <button class="finish-rand" onclick="randomStart('${key}','${cat.id}')">RANDOM</button>
-            </div>
-          </div>`;
-          if(isStartOpen){
-            h += `<div class="inline-picker">`;
-            startPool.forEach(f=>{
-              const isPicked = sname===f;
-              h += `<div class="picker-item ${isPicked?'picked-orange':''}" onclick="applyStart('${key}','${f.replace(/'/g,"\\'")}')">
-                <span class="picker-dot dot-start"></span>${f}
-              </div>`;
-            });
-            h += `</div>`;
-          }
-        } else if(catMode==='spot'){
-          const spotName = entry.spotName;
-          h += `<div style="margin-top:7px;">
-            <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--accent3);letter-spacing:1px;margin-bottom:5px;">MIDDY SPOT</div>
-            <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
-              <span class="finish-badge badge-three">${spotName||'—'}</span>
-              <button class="finish-rand" onclick="randomSpot('${key}')">RANDOM SPOT</button>
-            </div>
-          </div>`;
-        }
-      }
-      h += `</div>`;
-    });
-    h += `</div>`;
+    document.getElementById('exStats').innerHTML = `<div class="dur" style="color:${c}">${item.dur}s</div>`;
   }
-  content.innerHTML = h;
-  updatePip();
-}
-
-function esc(s){ return s.replace(/'/g,"&apos;"); }
-
-function toggleSkill(catId, skill){
-  const key = getKey(catId,skill);
-  if(selected[key]){ delete selected[key]; workoutOrder = workoutOrder.filter(k=>k!==key); }
-  else {
-    const mode = getMode(catId);
-    selected[key] = {catId, skill, mode, finish:null, finishName:null, startName:null, spotName:null};
-    workoutOrder.push(key);
+  document.getElementById('exDesc').textContent = item.desc;
+  document.getElementById('exMuscle').innerHTML = (isWork()&&item.muscle)
+    ? `<span class="muscle-lbl">TARGETS · </span><span style="color:${c};font-weight:700">${item.muscle}</span>` : '';
+  const gif = DEMOS[item.name];
+  document.getElementById('exDemo').innerHTML = gif
+    ? `<div class="demo-wrap" style="margin-top:1rem;border-radius:4px;overflow:hidden;border:1px solid #1e1e1e"><div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#444;text-transform:uppercase;padding:0.5rem 0.75rem 0.3rem">How to perform</div>${gif}</div>` : '';
+  renderWeightLog();
+  renderInlineWeight();
+  renderTimer();
+  // Auto-start timer for circuit work items
+  if (W.isCircuit && isWork() && !ticker && tLeft === null && !resting) {
+    setTimeout(() => playTicker(), 300);
   }
-  renderBagContent();
+  document.getElementById('restArea').innerHTML = '';
+  const fb=document.getElementById('fwdBtn');
+  fb.style.background = c;
+  fb.textContent = (isWork()&&setN<item.sets) ? `Next Set (${setN+1}/${item.sets})` : 'Next →';
+  highlightOverview();
 }
 
-function setFinish(key, type){
-  if(!selected[key]) return;
-  if(selected[key].finish === type){ selected[key].finish = null; selected[key].finishName = null; }
-  else { selected[key].finish = type; selected[key].finishName = null; }
-  activePicker = null;
-  renderBagContent();
+function renderWeightLog() {
+  const wl=document.getElementById('weightLog');
+  wl.innerHTML='';
+  if (!isWork() || W.isCircuit) return;
+  // Inline weight input is now rendered inside the card via renderInlineWeight()
 }
 
-function pickFinish(key, type){
-  if(!selected[key]) return;
-  // toggle inline picker
-  if(activePicker === key+'__finish__'+type){ activePicker = null; renderBagContent(); return; }
-  activePicker = key+'__finish__'+type;
-  renderBagContent();
-}
-
-function applyFinish(key, type, name){
-  if(!selected[key]) return;
-  selected[key].finish = type;
-  selected[key].finishName = name;
-  activePicker = null;
-  renderBagContent();
-}
-
-function applyStart(key, name){
-  if(!selected[key]) return;
-  selected[key].startName = name;
-  activePicker = null;
-  renderBagContent();
-}
-
-function randomFinish(key, type){
-  if(!selected[key]) return;
-  const pool = type==='rim'?RIM_FINISHES:type==='middy'?MIDDY_FINISHES:THREE_FINISHES;
-  selected[key].finishName = pool[Math.floor(Math.random()*pool.length)];
-  renderBagContent();
-}
-
-function pickStart(key, catId){
-  if(!selected[key]) return;
-  if(activePicker === key+'__start__'+catId){ activePicker = null; renderBagContent(); return; }
-  activePicker = key+'__start__'+catId;
-  renderBagContent();
-}
-
-function randomStart(key, catId){
-  if(!selected[key]) return;
-  const pool = START_OPTIONS[catId] || [];
-  if(!pool.length) return;
-  selected[key].startName = pool[Math.floor(Math.random()*pool.length)];
-  renderBagContent();
-}
-
-function randomSpot(key){
-  if(!selected[key]) return;
-  const current = selected[key].spotName;
-  const available = MIDDY_SPOTS.filter(s => s !== current);
-  selected[key].spotName = available[Math.floor(Math.random()*available.length)];
-  renderBagContent();
-}
-
-function selAllCat(){
-  const cats = activeCat==='all'?CATEGORIES:CATEGORIES.filter(c=>c.id===activeCat);
-  cats.forEach(cat=>{
-    const mode = getMode(cat.id);
-    cat.skills.forEach(s=>{
-      const k=getKey(cat.id,s);
-      if(!selected[k]){selected[k]={catId:cat.id,skill:s,mode,finish:null,finishName:null,startName:null,spotName:null};workoutOrder.push(k);}
-    });
-  });
-  renderBagContent();
-}
-
-function deselAllCat(){
-  const cats = activeCat==='all'?CATEGORIES:CATEGORIES.filter(c=>c.id===activeCat);
-  cats.forEach(cat=>cat.skills.forEach(s=>{const k=getKey(cat.id,s);delete selected[k];workoutOrder=workoutOrder.filter(x=>x!==k);}));
-  renderBagContent();
-}
-
-function updatePip(){
-  const n = Object.keys(selected).length;
-  const pip = document.getElementById('pip-bag');
-  const wpip = document.getElementById('pip-workout');
-  if(pip) pip.style.display = n>0?'inline-block':'none';
-  if(wpip) wpip.style.display = n>0?'inline-block':'none';
-}
-
-// ══════════════════════════════════════════
-// MY WORKOUT
-// ══════════════════════════════════════════
-function renderFullWorkout(){
-  const list = document.getElementById('full-workout-list');
-  const sub = document.getElementById('workout-sub');
-  const total = workoutOrder.length + (philWorkout.length>0?philWorkout.length:0);
-  const allItems = [...workoutOrder];
-
-  sub.textContent = `${allItems.length} MOVES${philWorkout.length>0?' + '+philWorkout.length+' HANDLE DRILLS':''} · YOUR SESSION`;
-
-  if(allItems.length===0 && philWorkout.length===0){
-    list.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted);"><div style="font-size:40px;margin-bottom:12px;">📋</div><div style="font-family:'Space Mono','Courier New',monospace;font-size:10px;">SELECT MOVES FROM BAG WORK OR HANDLES</div></div>`;
-    return;
+function getSuggestion(item) {
+  // Check last 2 sessions - if same weight used both times, suggest +5
+  const prev  = loadPrev(W.id, item.name) || {};
+  const prev2 = loadPrev2(W.id, item.name) || {};
+  if (!prev[1] || !prev2[1]) return null;
+  if (parseFloat(prev[1]) === parseFloat(prev2[1])) {
+    return { weight: parseFloat(prev[1]) + 5, reason: 'You hit ' + prev[1] + ' lbs two sessions in a row — time to go up!' };
   }
-
-  let h = '';
-  allItems.forEach((key,i)=>{
-    const entry = selected[key];
-    if(!entry) return;
-    const cat = CATEGORIES.find(c=>c.id===entry.catId);
-    const mode = entry.mode || getMode(entry.catId);
-    h += `<div class="w-item">
-      <div class="w-item-top">
-        <span class="w-num">${i+1}</span>
-        <div class="w-info">
-          <div class="w-name">${entry.skill}</div>
-          <div class="w-meta">${cat?cat.icon+' '+cat.name:''}</div>
-        </div>
-        <button class="w-rm" onclick="removeWorkoutItem('${key}')">✕</button>
-      </div>`;
-
-    if(mode === 'finish'){
-      const finish = entry.finish;
-      const fname = entry.finishName;
-      if(finish){
-        const wpKey = key+'__wfinish__'+finish;
-        const wpOpen = workoutPicker === wpKey;
-        const pool = finish==='rim'?RIM_FINISHES:finish==='middy'?MIDDY_FINISHES:THREE_FINISHES;
-        h += `<div class="w-finish-row">
-          <span class="w-finish-label">FINISH →</span>
-          <span class="finish-badge badge-${finish}">${finish.toUpperCase()}</span>
-          ${fname?`<span class="finish-badge badge-${finish}" style="font-style:italic;">${fname}</span>`:''}
-          <button class="finish-rand ${wpOpen?'active-middy':''}" onclick="toggleWorkoutPicker('${wpKey}')">
-            ${wpOpen?'CLOSE':'SELECT'}
-          </button>
-          <button class="finish-rand" onclick="randomWorkoutFinish('${key}','${finish}')">RANDOM</button>
-        </div>`;
-        if(wpOpen){
-          h += `<div class="inline-picker">`;
-          pool.forEach(f => {
-            const isPicked = fname===f;
-            h += `<div class="picker-item ${isPicked?'picked':''}" onclick="applyWorkoutFinish('${key}','${finish}','${f.replace(/'/g,"&apos;")}')">
-              <span class="picker-dot dot-${finish==='rim'?'rim':finish==='middy'?'mid':'three'}"></span>${f}
-            </div>`;
-          });
-          h += `</div>`;
-        }
-      } else {
-        h += `<div class="w-finish-row">
-          <span class="w-finish-label">FINISH →</span>
-          <button class="tog" onclick="setFinishWorkout('${key}','rim')">🏀 RIM</button>
-          <button class="tog" onclick="setFinishWorkout('${key}','middy')">📍 MIDDY</button>
-          <button class="tog" onclick="setFinishWorkout('${key}','three')">🎯 THREE</button>
-        </div>`;
-      }
-
-    } else if(mode === 'start'){
-      const sname = entry.startName;
-      const spKey = key+'__wstart';
-      const spOpen = workoutPicker === spKey;
-      const startPool = START_OPTIONS[entry.catId] || [];
-      h += `<div class="w-finish-row">
-        <span class="w-finish-label" style="color:var(--accent2);">BEGIN WITH →</span>
-        <span class="finish-badge badge-middy">${sname||'—'}</span>
-        <button class="finish-rand ${spOpen?'active-middy':''}" onclick="toggleWorkoutPicker('${spKey}')">
-          ${spOpen?'CLOSE':'SELECT'}
-        </button>
-        <button class="finish-rand" onclick="randomWorkoutStart('${key}')">RANDOM</button>
-      </div>`;
-      if(spOpen){
-        h += `<div class="inline-picker">`;
-        startPool.forEach(f => {
-          const isPicked = sname===f;
-          h += `<div class="picker-item ${isPicked?'picked-orange':''}" onclick="applyWorkoutStart('${key}','${f.replace(/'/g,"&apos;")}')">
-            <span class="picker-dot dot-start"></span>${f}
-          </div>`;
-        });
-        h += `</div>`;
-      }
-
-    } else if(mode === 'spot'){
-      const spotName = entry.spotName;
-      h += `<div class="w-finish-row">
-        <span class="w-finish-label" style="color:var(--accent3);">SPOT →</span>
-        <span class="finish-badge badge-three">${spotName||'—'}</span>
-        <button class="finish-rand" onclick="randomWorkoutSpot('${key}')">RANDOM SPOT</button>
-      </div>`;
-    }
-
-    h += `</div>`;
-  });
-
-  if(philWorkout.length>0){
-    h += `<div style="font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:20px;letter-spacing:3px;color:var(--accent2);margin:20px 0 10px;border-top:1px solid var(--border);padding-top:16px;">HANDLE WORK</div>`;
-    philWorkout.forEach((step,i)=>{
-      h += `<div class="phil-workout-item">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span class="phil-step-num">${allItems.length+i+1}</span>
-          <div><div class="phil-step-name">${step.name}</div><div class="phil-step-cues">${step.cues}</div><div class="phil-reps">${step.reps}</div></div>
-        </div>
-      </div>`;
-    });
-  }
-
-  list.innerHTML = h;
+  return null;
 }
 
-function setFinishWorkout(key, type){
-  if(!selected[key]) return;
-  selected[key].finish = type;
-  selected[key].finishName = null;
-  renderFullWorkout();
+function loadPrev2(wid, name) {
+  try { const d=localStorage.getItem(sKey(wid,name)+'_prev2'); return d?JSON.parse(d):null; } catch(e){return null;}
 }
-
-function randomWorkoutFinish(key, type){
-  if(!selected[key]) return;
-  let pool = type==='rim'?RIM_FINISHES:type==='middy'?MIDDY_FINISHES:THREE_FINISHES;
-  selected[key].finishName = pool[Math.floor(Math.random()*pool.length)];
-  renderFullWorkout();
-}
-
-function toggleWorkoutPicker(key){
-  workoutPicker = workoutPicker === key ? null : key;
-  renderFullWorkout();
-}
-
-function applyWorkoutFinish(key, type, name){
-  if(!selected[key]) return;
-  selected[key].finish = type;
-  selected[key].finishName = name;
-  workoutPicker = null;
-  renderFullWorkout();
-}
-
-function applyWorkoutStart(key, name){
-  if(!selected[key]) return;
-  selected[key].startName = name;
-  workoutPicker = null;
-  renderFullWorkout();
-}
-
-function randomWorkoutStart(key){
-  if(!selected[key]) return;
-  const pool = START_OPTIONS[selected[key].catId] || [];
-  if(!pool.length) return;
-  selected[key].startName = pool[Math.floor(Math.random()*pool.length)];
-  renderFullWorkout();
-}
-
-function randomWorkoutSpot(key){
-  if(!selected[key]) return;
-  const current = selected[key].spotName;
-  const available = MIDDY_SPOTS.filter(s => s !== current);
-  selected[key].spotName = available[Math.floor(Math.random()*available.length)];
-  renderFullWorkout();
-}
-
-function removeWorkoutItem(key){
-  delete selected[key];
-  workoutOrder = workoutOrder.filter(k=>k!==key);
-  renderFullWorkout();
-  renderBagContent();
-  updatePip();
-}
-
-function shuffleWorkout(){
-  for(let i=workoutOrder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[workoutOrder[i],workoutOrder[j]]=[workoutOrder[j],workoutOrder[i]];}
-  philWorkout.sort(()=>Math.random()-.5);
-  renderFullWorkout();
-}
-
-function clearWorkout(){
-  selected = {}; workoutOrder = []; philWorkout = [];
-  renderFullWorkout(); renderBagContent(); updatePip();
-}
-
-function printWorkout(){
-  const lines = workoutOrder.map((key,i)=>{
-    const e = selected[key];
-    if(!e) return '';
-    const cat = CATEGORIES.find(c=>c.id===e.catId);
-    let line = `${i+1}. ${e.skill} [${cat?cat.name:''}]`;
-    if(e.finish) line += ` → ${e.finish.toUpperCase()}${e.finishName?' ('+e.finishName+')':''}`;
-    return line;
-  }).filter(Boolean);
-  const pLines = philWorkout.map((s,i)=>`${workoutOrder.length+i+1}. HANDLE: ${s.name} — ${s.reps}`);
-  const w = window.open('','_blank');
-  w.document.write(`<html><head><title>THE LAB — My Workout</title><style>body{font-family:monospace;padding:32px;max-width:600px;background:#0d0a14;color:#fff;}h1{font-size:28px;letter-spacing:4px;color:#c084fc;margin-bottom:6px;}h2{font-size:18px;color:#c084fc;margin:20px 0 10px;}h3{font-size:11px;letter-spacing:3px;color:#6b5a85;margin-bottom:20px;font-weight:normal;}li{padding:7px 0;border-bottom:1px solid #2a2040;font-size:14px;}ul{list-style:none;padding:0;}</style></head><body><h1>THE LAB</h1><h3>INTENTIONAL REPS. UNDENIABLE RESULTS.</h3><ul>${lines.map(l=>`<li>${l}</li>`).join('')}</ul>${pLines.length?'<h2>HANDLE WORK</h2><ul>'+pLines.map(l=>`<li>${l}</li>`).join('')+'</ul>':''}</body></html>`);
-  w.document.close(); w.print();
-}
-
-// ══════════════════════════════════════════
-// HANDLES PAGE
-// ══════════════════════════════════════════
-function renderHandles(){
-  const grid = document.getElementById('handles-grid');
-  let h = '';
-  HANDLE_SECTIONS.forEach(section=>{
-    h += `<div class="handle-section"><div class="handle-section-title">${section.name}</div><div class="skills-grid">`;
-    section.handles.forEach(handle=>{
-      const isSel = selectedHandles.has(section.id+'||'+handle.name);
-      h += `<div class="skill-card ${isSel?'selected':''}" onclick="toggleHandle('${section.id}','${esc(handle.name)}')">
-        <div class="skill-name">${handle.name}</div>
-        <div class="skill-tag" style="color:var(--accent2);">${handle.reps}</div>
-        ${isSel?'':''}
-      </div>`;
-    });
-    h += `</div></div>`;
-  });
-  grid.innerHTML = h;
-}
-
-function toggleHandle(secId, name){
-  const key = secId+'||'+name;
-  if(selectedHandles.has(key)) selectedHandles.delete(key);
-  else selectedHandles.add(key);
-  renderHandles();
-}
-
-function generatePhilWorkout(){
-  const output = document.getElementById('phil-output');
-  let drills = [];
-
-  // Collect selected or use a default set if nothing selected
-  if(selectedHandles.size===0){
-    // Default Phil Handy style session
-    drills = [
-      {name:'Pound Dribble Warm-Up',cues:'2 hands alternating · Eyes up · Full floor pounding · Build intensity each set',reps:'3×20 each hand'},
-      {name:'Figure 8 → Cross Combo',cues:'Figure 8 first → then add cross at the end · Move with the ball → don\'t let it sit',reps:'4×30 sec'},
-      {name:'Iverson Cross Walking',cues:'Shoulder into every cross · Eyes on target · Walk → jog → full speed',reps:'4×full court'},
-      {name:'In-Out → Tween → Blow By',cues:'Sell every move · Don\'t rush the combo · Finish at the rim or pull up',reps:'4×5 each side'},
-      {name:'BTB Speed Stop × Cross Attack',cues:'Stop with BTB → load → explode across · Change of pace is the weapon',reps:'4×6 each side'},
-      {name:'Retreat and Re-attack',cues:'Push out 3 dribbles → stop → gather → burst · Reset the defender mentally',reps:'3×8 reps'},
-      {name:'Chair Work — 3-Move Combo',cues:'Attack chair → hesi → cross or BTB → finish · Simulate game reads',reps:'3×5 combos each side'},
-      {name:'Game Speed Full Court',cues:'Everything learned today at full speed · Make reads at the rim · Eyes up all the way',reps:'4×full court'}
-    ];
-  } else {
-    // Build from selected handles
-    const allHandles = HANDLE_SECTIONS.flatMap(s=>s.handles.map(h=>({...h,secId:s.id})));
-    const chosen = allHandles.filter(h=>selectedHandles.has(h.secId+'||'+h.name));
-
-    // Structure: foundation → stationary → movement → combo
-    const order = ['foundation','stationary','movement','combo'];
-    order.forEach(sid=>{
-      const section = HANDLE_SECTIONS.find(s=>s.id===sid);
-      const items = chosen.filter(h=>h.secId===sid);
-      items.forEach(h=>drills.push({name:h.name,cues:h.cues,reps:h.reps}));
-    });
-
-    // Add combo finish
-    const comboFinishers = [
-      {name:'Game Speed Full Court',cues:'String everything together at game speed · Make reads · Eyes on rim all the way',reps:'4×full court'},
-      {name:'Chair Work Consolidation',cues:'Take your 2 best moves today and chain them at game speed off a chair',reps:'3×5 each side'}
-    ];
-    comboFinishers.forEach(c=>drills.push(c));
-  }
-
-  philWorkout = drills;
-
-  let h = `<div class="phil-builder">
-    <div class="phil-header">⚡ PHIL HANDY HANDLE WORKOUT</div>
-    <div class="phil-sub">PROGRESSIVE · STATIONARY → MOVEMENT → GAME SPEED · ${drills.length} DRILLS</div>`;
-  drills.forEach((d,i)=>{
-    h += `<div class="phil-workout-item">
-      <div style="display:flex;align-items:flex-start;gap:10px;">
-        <span class="phil-step-num">${i+1}</span>
-        <div style="flex:1;">
-          <div class="phil-step-name">${d.name}</div>
-          <div class="phil-step-cues">${d.cues}</div>
-          <span class="phil-reps">${d.reps}</span>
-        </div>
-      </div>
-    </div>`;
-  });
-  h += `<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-    <button class="btn btn-orange" onclick="generatePhilWorkout()">↺ REGENERATE</button>
-    <button class="btn btn-ghost" onclick="addHandlesToWorkout()">+ ADD TO MY WORKOUT</button>
-  </div></div>`;
-  output.innerHTML = h;
-}
-
-function addHandlesToWorkout(){
-  if(philWorkout.length===0) generatePhilWorkout();
-  showTab('workout');
-  renderFullWorkout();
-}
-
-// ══════════════════════════════════════════
-// DR. DISH GENERATOR
-// ══════════════════════════════════════════
-// ══════════════════════════════════════════
-// DR. DISH — SPOTS-BASED SYSTEM
-// Every athlete is ALWAYS on the machine.
-// 1–2 spots active simultaneously (3 if needed for large groups).
-// Athletes rotate through spots; nobody sits out.
-// ══════════════════════════════════════════
-
-// SPOT DEFINITIONS — each spot has a position on the floor,
-// a machine delivery angle, and compatible drill types.
-const SPOTS = {
-  // Shooting spots
-  rightCorner:  { label:'Right Corner',     zone:'three', angle:'Corner (R)', icon:'📐' },
-  leftCorner:   { label:'Left Corner',      zone:'three', angle:'Corner (L)', icon:'📐' },
-  rightWing:    { label:'Right Wing',       zone:'three', angle:'Wing (R)',   icon:'🔼' },
-  leftWing:     { label:'Left Wing',        zone:'three', angle:'Wing (L)',   icon:'🔼' },
-  topKey:       { label:'Top of Key',       zone:'three', angle:'Top',        icon:'🔝' },
-  rightElbow:   { label:'Right Elbow',      zone:'mid',   angle:'Elbow (R)',  icon:'📍' },
-  leftElbow:    { label:'Left Elbow',       zone:'mid',   angle:'Elbow (L)',  icon:'📍' },
-  nail:         { label:'Nail (Free Throw)',zone:'mid',   angle:'Nail',       icon:'🎯' },
-  shortCornerR: { label:'Short Corner (R)', zone:'mid',   angle:'Baseline (R)',icon:'📌' },
-  shortCornerL: { label:'Short Corner (L)', zone:'mid',   angle:'Baseline (L)',icon:'📌' },
-  // Finishing spots
-  rightBlock:   { label:'Right Block',      zone:'paint', angle:'Block (R)',  icon:'🟥' },
-  leftBlock:    { label:'Left Block',       zone:'paint', angle:'Block (L)',  icon:'🟥' },
-  rightDrive:   { label:'Right Drive Lane', zone:'paint', angle:'Wing (R)',   icon:'➡️' },
-  leftDrive:    { label:'Left Drive Lane',  zone:'paint', angle:'Wing (L)',   icon:'⬅️' },
-  elbowDrive:   { label:'Elbow Drive',      zone:'paint', angle:'Elbow',      icon:'⬇️' },
-};
-
-// DRILL TEMPLATES — each drill defines:
-//   spots: which spots are active simultaneously (1–3)
-//   rotation: how athletes cycle through spots
-//   reps/cues per spot
-const DRILL_LIBRARY = {
-
-  shooting: [
-    {
-      name: 'Corner-to-Corner Rotation',
-      type: 'catch',
-      spots: ['rightCorner','leftCorner'],
-      machineDelivery: 'Alternates between corners each rep',
-      rotationNote: 'Athlete shoots → retrieves → passes to next → goes to back of opposite line',
-      perSpot: {
-        rightCorner: { task:'Catch & Shoot — Right Corner', cues:'Step into shot off catch · Hold follow-through · Sprint off after make · Rotate left line', finish:'Corner Three' },
-        leftCorner:  { task:'Catch & Shoot — Left Corner',  cues:'Mirror footwork · Square shoulders on catch · Hold follow-through · Rotate right line', finish:'Corner Three' },
-      }
-    },
-    {
-      name: 'Wing Catch & Shoot',
-      type: 'catch',
-      spots: ['rightWing','leftWing'],
-      machineDelivery: 'Alternates wings on a 2-second timer',
-      rotationNote: 'Shoot → retrieve → feed ball back to machine line → rotate to other wing',
-      perSpot: {
-        rightWing: { task:'Right Wing Three', cues:'Feet ready before catch · Inside pivot on late pass · Balanced release · High arc', finish:'Wing Three' },
-        leftWing:  { task:'Left Wing Three',  cues:'Mirror footwork · No drifting on the catch · Eyes on target early · Follow through', finish:'Wing Three' },
-      }
-    },
-    {
-      name: 'Elbow Mid-Range Rotation',
-      type: 'catch',
-      spots: ['rightElbow','leftElbow'],
-      machineDelivery: 'Delivers to elbows alternating',
-      rotationNote: 'Catch-shoot-rotate · One line feeds both elbows · Athlete goes to back of opposite elbow line after shooting',
-      perSpot: {
-        rightElbow: { task:'Right Elbow Pull-Up', cues:'Flat feet on catch · Slight forward lean · 1-2 rhythm · No fading', finish:'Elbow Mid' },
-        leftElbow:  { task:'Left Elbow Pull-Up',  cues:'Same form both sides · Don\'t let weak hand dominate · Compact motion', finish:'Elbow Mid' },
-      }
-    },
-    {
-      name: 'Three-Spot Arc Rotation',
-      type: 'catch',
-      spots: ['rightCorner','topKey','leftCorner'],
-      machineDelivery: 'Cycles through all 3 spots in order — corner → top → corner',
-      rotationNote: 'Three lines. Machine delivers to each spot in sequence. After shooting, sprint to back of next spot\'s line (rotate clockwise).',
-      perSpot: {
-        rightCorner: { task:'Right Corner Three', cues:'Baseline footwork · Turn into the shot · Don\'t fade baseline', finish:'Corner Three' },
-        topKey:      { task:'Top of Key Three',   cues:'Square up · Full extension · Don\'t rush — top of key has more time', finish:'Top Three' },
-        leftCorner:  { task:'Left Corner Three',  cues:'Step into shot · Catch with hands ready · Strong off both feet', finish:'Corner Three' },
-      }
-    },
-    {
-      name: 'Wing-Corner Combo',
-      type: 'catch',
-      spots: ['rightWing','rightCorner'],
-      machineDelivery: 'Alternates: Wing → Corner → Wing → Corner',
-      rotationNote: 'Two lines on right side. Shoot → retrieve → rotate to back of other line.',
-      perSpot: {
-        rightWing:   { task:'Wing Catch & Shoot', cues:'Read the machine pass · Hands up early · Set feet in rhythm', finish:'Wing Three' },
-        rightCorner: { task:'Corner Catch & Shoot', cues:'Baseline footwork · Toes to the corner · Strong hands on catch', finish:'Corner Three' },
-      }
-    },
-    {
-      name: 'Free Throw → Spot Up',
-      type: 'catch',
-      spots: ['nail','rightWing'],
-      machineDelivery: 'Nail delivery first (free throw) → then wing on a sequence',
-      rotationNote: 'Athlete 1 at nail, Athlete 2+ at wing. After FT make, sprint to wing line. Wing shooter rotates to nail.',
-      perSpot: {
-        nail:      { task:'Free Throw (Nail)', cues:'Full routine every rep · Bounce routine → breathe → shoot · No rushing', finish:'Free Throw' },
-        rightWing: { task:'Spot Up — Right Wing', cues:'Transition catch — feet moving into the shot · No standing flat-footed', finish:'Wing Three' },
-      }
-    },
-  ],
-
-  finishing: [
-    {
-      name: 'Block-to-Block Layup Wave',
-      type: 'finish',
-      spots: ['rightBlock','leftBlock'],
-      machineDelivery: 'Alternates block passes every rep — 1-second gap between athletes',
-      rotationNote: 'Two lines at half-court. Sprint → receive → finish → rebound own → outlet → back of opposite line.',
-      perSpot: {
-        rightBlock: { task:'Right Block Finish', cues:'Sprint full speed · Gather late · Use glass · High off board · Don\'t float under basket', finish:'Right Block Layup / Hook' },
-        leftBlock:  { task:'Left Block Finish',  cues:'Left hand strong · Same foot takeoff · High soft touch · Don\'t reach across body', finish:'Left Block Layup / Hook' },
-      }
-    },
-    {
-      name: 'Drive Lane Floater Circuit',
-      type: 'finish',
-      spots: ['rightDrive','leftDrive'],
-      machineDelivery: 'Pass delivered on drive angle as athlete attacks — timed to catch-and-go',
-      rotationNote: 'Two lines at top of key. Drive angle → gather → float → sprint to back of opposite line.',
-      perSpot: {
-        rightDrive: { task:'Right Side Floater', cues:'Attack at full speed · One hard dribble if needed · Gather early · Float over help with touch', finish:'Floater (R hand)' },
-        leftDrive:  { task:'Left Side Floater',  cues:'Left-hand float · Don\'t sling it · Controlled release · Extend fully', finish:'Floater (L hand)' },
-      }
-    },
-    {
-      name: 'Euro Step Wave',
-      type: 'finish',
-      spots: ['rightDrive','leftDrive'],
-      machineDelivery: 'Wing pass on angle as athlete drives — mimics live dribble attack',
-      rotationNote: 'One line at top. Attack right → euro left → reset. Next athlete goes opposite direction. Alternate each rep.',
-      perSpot: {
-        rightDrive: { task:'Euro — Attack Right, Step Left', cues:'Two-foot gather · Explosive first step · Step through the help · Finish soft off glass', finish:'Euro Step (L finish)' },
-        leftDrive:  { task:'Euro — Attack Left, Step Right', cues:'Mirror footwork · Don\'t gather too early · Drive first THEN step · Strong hands', finish:'Euro Step (R finish)' },
-      }
-    },
-    {
-      name: 'Pro Hop Circuit',
-      type: 'finish',
-      spots: ['elbowDrive','rightDrive'],
-      machineDelivery: 'Elbow/angle pass delivered on the drive — athlete catches in stride',
-      rotationNote: 'Two lines. Elbow drive → pro hop toward block → finish. Sprint to back of other line.',
-      perSpot: {
-        elbowDrive: { task:'Elbow Drive → Pro Hop',  cues:'Attack downhill · Two-foot gather off dribble or catch · Land balanced · Finish strong or soft', finish:'Pro Hop Layup or Floater' },
-        rightDrive: { task:'Right Drive → Pro Hop',  cues:'Right-side attack → hop toward left block · Eyes on rim · Strong two-foot land', finish:'Pro Hop (L side)' },
-      }
-    },
-    {
-      name: 'Swing Step Pickup',
-      type: 'finish',
-      spots: ['rightDrive','leftBlock'],
-      machineDelivery: 'Pass delivered to drive angle — athlete uses live dribble or pass-and-go',
-      rotationNote: 'Alternate sides. Drive with high pickup → swing step → finish at rim.',
-      perSpot: {
-        rightDrive: { task:'Right Drive — High Pickup Swing Step', cues:'Pick up the ball high · Swing inside leg through · Don\'t broad jump · Tight gather', finish:'Swing Step Finish (R)' },
-        leftBlock:  { task:'Left Block — Swing Step Finish',       cues:'Baseline attack · Swing step baseline side · Reach up high · Use glass or direct', finish:'Swing Step Finish (L)' },
-      }
-    },
-    {
-      name: 'Mikan + Block Finish',
-      type: 'finish',
-      spots: ['rightBlock','leftBlock'],
-      machineDelivery: 'Block passes alternating — machine on baseline angle',
-      rotationNote: 'Mikan rhythm. Athletes alternate blocks without a break. One line under the basket.',
-      perSpot: {
-        rightBlock: { task:'Right Block — Mikan Finish', cues:'High release · Off glass · Left hand goes immediately · No standing flat', finish:'Right Block Layup' },
-        leftBlock:  { task:'Left Block — Mikan Finish',  cues:'High release · Mirror right hand timing · Flow into next rep', finish:'Left Block Layup' },
-      }
-    },
-  ],
-
-  combo: [
-    {
-      name: 'Wing Read Drill',
-      type: 'combo',
-      spots: ['rightWing','leftWing'],
-      machineDelivery: 'Delivers to wing — athlete reads "shoot" or "drive" call from coach',
-      rotationNote: 'Two lines. Coach calls SHOOT or DRIVE as pass is in the air. Athlete reacts. Rotate to back of opposite line.',
-      perSpot: {
-        rightWing: { task:'Right Wing — Shoot or Drive Read', cues:'Hands ready before catch · Feet loaded · If SHOOT → square up; If DRIVE → one dribble attack left or right', finish:'Three or Drive Finish' },
-        leftWing:  { task:'Left Wing — Shoot or Drive Read',  cues:'Mirror reads · Don\'t cheat either way · True read off coach call · Aggressive regardless', finish:'Three or Drive Finish' },
-      }
-    },
-    {
-      name: 'Elbow Read — Pull Up or Attack',
-      type: 'combo',
-      spots: ['rightElbow','leftElbow'],
-      machineDelivery: 'Elbow delivery — athlete decides based on imaginary closeout speed',
-      rotationNote: 'Two elbow lines. Athlete self-reads: closeout hard = pull up, closeout slow = attack rim.',
-      perSpot: {
-        rightElbow: { task:'Right Elbow Read', cues:'Catch in rhythm · Read closeout · If tight → shoot; If slow → one dribble drive · Make a decision fast', finish:'Mid or Rim' },
-        leftElbow:  { task:'Left Elbow Read',  cues:'Same process left side · Don\'t favor one read · Mix it up each rep', finish:'Mid or Rim' },
-      }
-    },
-    {
-      name: 'Corner → Relocate → Shoot',
-      type: 'combo',
-      spots: ['rightCorner','leftWing'],
-      machineDelivery: 'Corner pass first → skip to wing (coach or player skip) → wing shoots',
-      rotationNote: 'Corner shooter catches → passes back to machine (or skips to wing) → sprints to wing → catches → shoots → rotates.',
-      perSpot: {
-        rightCorner: { task:'Right Corner — Catch, Skip, Relocate', cues:'Catch → look → skip to wing athlete · Sprint immediately to the wing · Simulate live game movement', finish:'Setup pass' },
-        leftWing:    { task:'Left Wing — Catch off Skip Pass',       cues:'Read the skip early · Catch in rhythm → shoot immediately · No gathering · Trust your feet', finish:'Wing Three' },
-      }
-    },
-    {
-      name: 'One Dribble Pull Up Circuit',
-      type: 'combo',
-      spots: ['rightElbow','nail'],
-      machineDelivery: 'Delivers to elbow or nail — athlete takes one dribble in a direction and pulls',
-      rotationNote: 'Two lines. Catch → one dribble left or right → pull up. Alternate direction each rep.',
-      perSpot: {
-        rightElbow: { task:'Elbow One-Dribble Pull', cues:'Catch → one hard dribble toward nail or baseline → gather → pull up · Footwork must be clean · Sell the drive', finish:'Mid Pull Up' },
-        nail:       { task:'Nail One-Dribble Pull',  cues:'Catch at nail → one dribble either direction → pull · Don\'t travel → quick gather', finish:'Mid Pull Up' },
-      }
-    },
-    {
-      name: 'Transition Shoot or Finish',
-      type: 'combo',
-      spots: ['rightWing','leftBlock'],
-      machineDelivery: 'Wing pass for shooter in transition; block pass for finisher in transition',
-      rotationNote: 'Two lines at half-court. Sprint to assigned spot → receive → execute. Alternate spots each round.',
-      perSpot: {
-        rightWing:  { task:'Transition Wing Shoot', cues:'Full sprint · Feet under you on catch · Don\'t slow down early · Attack the three in rhythm', finish:'Transition Three' },
-        leftBlock:  { task:'Transition Drive Finish',cues:'Full sprint → receive on the run · One dribble max → finish at rim · Eyes on rim all the way', finish:'Transition Layup' },
-      }
-    },
-    {
-      name: 'Spot Up → Step Back',
-      type: 'combo',
-      spots: ['rightWing','topKey'],
-      machineDelivery: 'Wing and top of key delivery alternating',
-      rotationNote: 'Two lines. Catch → shot fake → one dribble step back → shoot. Or straight catch and shoot. Coach calls which.',
-      perSpot: {
-        rightWing: { task:'Right Wing — Fake or Shoot', cues:'If FAKE called: catch → strong fake → one dribble step back → shoot · If SHOOT: immediate release', finish:'Step Back Three or Spot Up' },
-        topKey:    { task:'Top Key — Step Back or Shoot', cues:'Catch → feel the pressure → step back or fire · Don\'t hesitate on either option', finish:'Step Back or Spot Up' },
-      }
-    },
-  ],
-
-  competitive: [
-    {
-      name: 'First to 5 — Corner Race',
-      type: 'combo',
-      spots: ['rightCorner','leftCorner'],
-      machineDelivery: 'Alternates corners rapidly — pushes pace',
-      rotationNote: 'One athlete per corner. Both shooting simultaneously off alternating machine passes. First to 5 makes wins. Loser sprints a lane, winner stays.',
-      perSpot: {
-        rightCorner: { task:'Corner Race — Right', cues:'Every rep counts · Don\'t rush form · Consistent release · Beat your opponent', finish:'Corner Three' },
-        leftCorner:  { task:'Corner Race — Left',  cues:'Match the pace · Trust your shot · Pressure is the point', finish:'Corner Three' },
-      }
-    },
-    {
-      name: 'Beat the Machine — Make 10',
-      type: 'combo',
-      spots: ['rightWing','leftWing'],
-      machineDelivery: 'Rapid-fire alternating wings — machine counts deliveries',
-      rotationNote: 'Group must hit 10 makes before machine delivers 15 passes. All athletes rotate through 2 wing spots. Miss = lose one chance. Team counts together.',
-      perSpot: {
-        rightWing: { task:'Right Wing — Team Make', cues:'Every make is for the team · No bad shots · Quick release on open look · Sprint in and out', finish:'Wing Three or Drive' },
-        leftWing:  { task:'Left Wing — Team Make',  cues:'Same pressure · High IQ shot selection · If it\'s not there, skip it', finish:'Wing Three or Drive' },
-      }
-    },
-    {
-      name: 'Knockout — Last Shooter Standing',
-      type: 'combo',
-      spots: ['rightElbow','leftElbow'],
-      machineDelivery: 'Rapid delivery to both elbows simultaneously',
-      rotationNote: 'Two athletes compete at a time. Miss from either spot = you\'re out. Group cycles in. Last person without a miss wins the round.',
-      perSpot: {
-        rightElbow: { task:'Knockout — Right Elbow', cues:'Survive each round · Form over speed · Breathe between reps · Miss = done', finish:'Elbow Mid' },
-        leftElbow:  { task:'Knockout — Left Elbow',  cues:'Mirror pressure · Don\'t watch opponent · Own your shot', finish:'Elbow Mid' },
-      }
-    },
-    {
-      name: '21 — Team Make Game',
-      type: 'combo',
-      spots: ['rightWing','topKey','leftWing'],
-      machineDelivery: 'Three spots, three athletes going simultaneously',
-      rotationNote: 'Three athletes shoot simultaneously from 3 spots. Each make = 1 point. Team counts to 21. Misses don\'t count. Once 21 hit, rotate spots.',
-      perSpot: {
-        rightWing: { task:'21 — Right Wing',  cues:'Catch and fire · Hold form · Count loud', finish:'Wing Three' },
-        topKey:    { task:'21 — Top of Key',  cues:'Be the anchor · Most reps go through top · Be ready', finish:'Top Three' },
-        leftWing:  { task:'21 — Left Wing',   cues:'Match right wing tempo · Don\'t slow the group down', finish:'Wing Three' },
-      }
-    },
-    {
-      name: 'Pressure Free Throw Challenge',
-      type: 'catch',
-      spots: ['nail'],
-      machineDelivery: 'Simulates free throw pace — slower delivery',
-      rotationNote: 'One athlete at a time at the line. Must make 2-in-a-row. If they miss, everyone does 5 pushups and they restart. Group cycles through.',
-      perSpot: {
-        nail: { task:'Pressure Free Throw', cues:'Full routine every single time · Bounce → breathe → target · Never skip the routine under pressure', finish:'Free Throw' },
-      }
-    },
-  ],
-
-  transition: [
-    {
-      name: 'Outlet → Push → Finish Wave',
-      type: 'combo',
-      spots: ['rightDrive','leftBlock'],
-      machineDelivery: 'Machine simulates outlet pass ahead — athlete catches in stride at half-court or beyond',
-      rotationNote: 'Two lines at baseline. Sprint → machine delivers at speed → catch in stride → attack. Alternate sides. Finish and sprint to back of opposite line.',
-      perSpot: {
-        rightDrive: { task:'Right Side Transition Attack', cues:'Don\'t brake for the catch · Catch in stride · One dribble max → finish · Eyes on rim from half-court', finish:'Transition Layup or Floater' },
-        leftBlock:  { task:'Left Side Transition Finish',  cues:'Attack the left block angle · High soft touch · Don\'t overshoot the basket', finish:'Transition Layup (L)' },
-      }
-    },
-    {
-      name: 'Secondary Break — Shoot or Drive',
-      type: 'combo',
-      spots: ['rightWing','leftWing'],
-      machineDelivery: 'Wing pass in transition — athlete sprints to spot from baseline',
-      rotationNote: 'Two lines at baseline. Full sprint to wing → catch → read → shoot or drive. Rotate to back of opposite wing.',
-      perSpot: {
-        rightWing: { task:'Right Wing — Secondary Break', cues:'Sprint don\'t jog · Feet set before catch if possible · Attack if defender is behind you', finish:'Three or Drive' },
-        leftWing:  { task:'Left Wing — Secondary Break',  cues:'Same sprint effort · Don\'t wait for ball · Trust feet and shoot', finish:'Three or Drive' },
-      }
-    },
-    {
-      name: 'Trailer Three Wave',
-      type: 'catch',
-      spots: ['topKey','rightCorner'],
-      machineDelivery: 'Top of key delivery for trailers; corner delivery for spotting up',
-      rotationNote: 'Lead group attacks rim (simulated). Trailers sprint to top of key or corner for kick-out three. Machine delivers the kick.',
-      perSpot: {
-        topKey:      { task:'Trailer — Top of Key Three', cues:'Sprint into the catch · Don\'t stop short · Momentum into the shot → high arc', finish:'Trailer Three' },
-        rightCorner: { task:'Spot Up Corner — Kick Out',  cues:'Catch in corner · Feet ready · Fire on catch · High confidence shot', finish:'Corner Three' },
-      }
-    },
-    {
-      name: 'Full Court Layup Pairs',
-      type: 'finish',
-      spots: ['rightBlock','leftBlock'],
-      machineDelivery: 'Block delivery from baseline — athletes already sprinting full court',
-      rotationNote: 'Pairs sprint full court. Machine delivers to right block, then left block on return. Alternate pairs. Non-stop pace.',
-      perSpot: {
-        rightBlock: { task:'Full Court — Right Block Finish', cues:'Full speed · Don\'t brake · High off glass · Sprint immediately after finish', finish:'Right Block Layup' },
-        leftBlock:  { task:'Full Court — Left Block Finish',  cues:'Left hand strong · Same sprint effort · Touch and go', finish:'Left Block Layup' },
-      }
-    },
-  ],
-};
-
-// How athletes are assigned to spots based on group size
-function buildSpotRotation(athletes, drill, repsPerAthlete) {
-  const spots = drill.spots;
-  const numSpots = spots.length; // always 1, 2, or 3
-
-  // Build line assignments — each spot gets a line of athletes rotating through
-  const lines = spots.map((spotId, i) => {
-    const spot = SPOTS[spotId];
-    const perSpotData = drill.perSpot[spotId];
-    // Distribute athletes evenly across spots
-    const athletesInLine = [];
-    for (let a = i; a < athletes; a += numSpots) {
-      athletesInLine.push(a + 1); // athlete numbers
-    }
-    return {
-      spotId,
-      spot,
-      perSpotData,
-      athletesInLine,
-    };
-  });
-
-  return lines;
-}
-
-function generateDishWorkout(){
-  const athletes = parseInt(document.getElementById('dish-athletes').value);
-  const duration = parseInt(document.getElementById('dish-duration').value);
-  const focus = document.getElementById('dish-focus').value;
-  const tempo = document.querySelector('input[name="dish-tempo"]:checked').value;
-  const zones = document.querySelector('input[name="dish-zones"]:checked').value;
-
-  const stationTime = tempo==='elite' ? 4 : tempo==='competitive' ? 5 : 7;
-  const transitionTime = 1;
-  const numStations = Math.max(3, Math.floor(duration / (stationTime + transitionTime)));
-  const repsPerAthlete = tempo==='elite' ? 10 : tempo==='competitive' ? 8 : 6;
-
-  // Filter drills by zone if needed, and by spots count if forced
-  const spotsOverride = document.querySelector('input[name="dish-rotation"]:checked').value;
-  const drillPool = [...(DRILL_LIBRARY[focus] || DRILL_LIBRARY.combo)].filter(drill => {
-    if(zones === 'all') {
-      // filter by spots count if override
-      if(spotsOverride === 'one') return drill.spots.length === 1;
-      if(spotsOverride === 'two') return drill.spots.length === 2;
-      if(spotsOverride === 'three') return drill.spots.length === 3;
-      return true;
-    }
-    const spotZones = drill.spots.map(s => SPOTS[s]?.zone || 'all');
-    if(zones === 'threes') return spotZones.some(z => z === 'three');
-    if(zones === 'midrange') return spotZones.some(z => z === 'mid');
-    if(zones === 'paint') return spotZones.some(z => z === 'paint');
-    return true;
-  });
-
-  // Shuffle and fill to numStations
-  const shuffled = [...drillPool].sort(() => Math.random() - 0.5);
-  const stations = [];
-  for(let i = 0; i < numStations; i++){
-    const drill = shuffled[i % shuffled.length];
-    const lines = buildSpotRotation(athletes, drill, repsPerAthlete);
-    stations.push({ num: i+1, drill, lines, time: stationTime });
-  }
-
-  renderDishWorkout({ stations, athletes, duration, focus, tempo, zones, stationTime, numStations, repsPerAthlete });
-}
-
-function renderDishWorkout({ stations, athletes, duration, focus, tempo, zones, stationTime, numStations, repsPerAthlete }){
-  const output = document.getElementById('dish-output');
-  const focusLabel = {shooting:'Shooting',finishing:'Finishing',combo:'Shooting + Finishing',competitive:'Competitive',transition:'Transition Offense'}[focus]||focus;
-  const tempoLabel = {development:'Development',competitive:'Competitive',elite:'Elite'}[tempo]||tempo;
-  const totalReps = numStations * athletes * repsPerAthlete;
-
-  let h = `<div class="dish-workout-title">📡 DR. DISH SESSION</div>
-  <div class="dish-workout-meta">${athletes} ATHLETES · ${duration} MIN · ${focusLabel.toUpperCase()} · ${tempoLabel.toUpperCase()} · ${numStations} DRILLS</div>`;
-
-  stations.forEach((station) => {
-    const drill = station.drill;
-    const typeLabel = drill.type === 'catch' ? 'CATCH & SHOOT' : drill.type === 'finish' ? 'FINISHING' : drill.type === 'combo' ? 'COMBO READ' : drill.type.toUpperCase();
-    const badgeClass = drill.type === 'combo' ? 'badge-combo' : drill.type === 'finish' ? 'badge-off-dribble' : 'badge-catch';
-    const numSpots = station.lines.length;
-
-    h += `<div class="dish-station">
-      <div class="dish-station-hdr">
-        <span class="dish-station-num">${station.num}</span>
-        <div class="dish-station-info">
-          <div class="dish-station-name">${drill.name}</div>
-          <div class="dish-station-sub">${station.time} MIN · ${numSpots} ACTIVE SPOT${numSpots>1?'S':''} · ALL ${athletes} ATHLETES ON MACHINE</div>
-        </div>
-        <span class="dish-station-badge ${badgeClass}">${typeLabel}</span>
-      </div>
-      <div class="dish-station-body">`;
-
-    // Machine delivery info
-    h += `<div style="background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.12);border-radius:3px;padding:9px 12px;margin-bottom:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;">
-      <div style="flex:1;min-width:180px;">
-        <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--dish-accent);letter-spacing:1px;margin-bottom:3px;">📡 MACHINE DELIVERY</div>
-        <div style="font-size:13px;font-weight:600;">${drill.machineDelivery}</div>
-      </div>
-      <div style="flex:1;min-width:180px;">
-        <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;margin-bottom:3px;">🔄 ROTATION</div>
-        <div style="font-size:12px;color:var(--text2);">${drill.rotationNote}</div>
-      </div>
-    </div>`;
-
-    // Spots
-    station.lines.forEach((line, li) => {
-      const spot = line.spot;
-      const pd = line.perSpotData;
-      const athNums = line.athletesInLine;
-      const spotColor = spot.zone === 'three' ? 'var(--accent3)' : spot.zone === 'mid' ? 'var(--accent2)' : 'var(--accent)';
-      const spotBorder = spot.zone === 'three' ? 'rgba(34,197,94,.2)' : spot.zone === 'mid' ? 'rgba(245,166,35,.2)' : 'rgba(232,65,10,.2)';
-
-      h += `<div style="background:var(--surface);border:1px solid ${spotBorder};border-radius:3px;padding:12px 14px;margin-bottom:8px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <span style="font-size:18px;">${spot.icon}</span>
-          <div>
-            <div style="font-family:'Bebas Neue','Arial Black',impact,sans-serif;font-size:16px;letter-spacing:2px;color:${spotColor};">${spot.label}</div>
-            <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);">MACHINE ANGLE: ${spot.angle} · ATHLETES IN LINE: ${athNums.map(n=>'#'+n).join(', ')}</div>
-          </div>
-        </div>
-        <div class="dish-task-name">${pd.task}</div>
-        <div class="dish-task-detail" style="margin-top:4px;">${pd.cues}</div>
-        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <div class="dish-reps-badge"><span class="dish-reps-text">🎯 ${repsPerAthlete} MAKES / ATHLETE · ${pd.finish}</span></div>
-          <div style="font-family:'Space Mono','Courier New',monospace;font-size:8px;color:var(--muted);">${athNums.length} athlete${athNums.length>1?'s':''} in this line</div>
-        </div>
-      </div>`;
-    });
-
-    h += `</div>
-      <div class="dish-timing-bar">
-        <span class="dish-timing-item">⏱ <span>${station.time} min</span></span>
-        <span class="dish-timing-item">🔁 <span>All ${athletes} athletes rotating</span></span>
-        <span class="dish-timing-item">🎯 <span>${repsPerAthlete} makes/athlete</span></span>
-        <span class="dish-timing-item">📍 <span>Transition: 60 sec</span></span>
-      </div>
-    </div>`;
-  });
-
-  // Summary
-  h += `<div class="dish-summary">
-    <div class="dish-summary-title">📊 SESSION SUMMARY</div>
-    <div class="dish-summary-grid">
-      <div class="dish-stat"><div class="dish-stat-num">${numStations}</div><div class="dish-stat-label">DRILLS</div></div>
-      <div class="dish-stat"><div class="dish-stat-num">${athletes}</div><div class="dish-stat-label">ATHLETES</div></div>
-      <div class="dish-stat"><div class="dish-stat-num">${duration}</div><div class="dish-stat-label">MINUTES</div></div>
-      <div class="dish-stat"><div class="dish-stat-num">${totalReps}+</div><div class="dish-stat-label">TOTAL REPS</div></div>
-      <div class="dish-stat"><div class="dish-stat-num">${stationTime}</div><div class="dish-stat-label">MIN/DRILL</div></div>
-      <div class="dish-stat"><div class="dish-stat-num">${repsPerAthlete}</div><div class="dish-stat-label">MAKES/ATH</div></div>
-    </div>
-    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn btn-blue" onclick="generateDishWorkout()">↺ REGENERATE</button>
-      <button class="btn btn-ghost" onclick="printDishWorkout()">PRINT SESSION</button>
-    </div>
-  </div>`;
-
-  output.innerHTML = h;
-  output.scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function printDishWorkout(){
-  const content = document.getElementById('dish-output').innerText;
-  const w = window.open('','_blank');
-  w.document.write(`<html><head><title>Dr. Dish Session</title><style>body{font-family:monospace;padding:32px;max-width:700px;font-size:13px;line-height:1.6;}h1{color:#3b82f6;font-size:24px;letter-spacing:4px;margin-bottom:20px;}pre{white-space:pre-wrap;}
-/* ── INLINE PICKER ── */
-.inline-picker{margin-top:8px;background:var(--surface);border:1px solid var(--border2);border-radius:3px;overflow:hidden;max-height:220px;overflow-y:auto;}
-.inline-picker::-webkit-scrollbar{width:3px;}
-.inline-picker::-webkit-scrollbar-thumb{background:var(--border2);}
-.picker-item{padding:7px 11px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.03);transition:all .1s;display:flex;align-items:center;gap:7px;}
-.picker-item:last-child{border-bottom:none;}
-.picker-item:hover{background:rgba(255,255,255,.05);}
-.picker-item.picked{background:rgba(232,65,10,.1);color:var(--accent);}
-.picker-item.picked-orange{background:rgba(245,166,35,.1);color:var(--accent2);}
-.picker-item.picked-green{background:rgba(34,197,94,.1);color:var(--accent3);}
-.picker-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.dot-rim{background:var(--accent2);}
-.dot-mid{background:var(--accent2);}
-.dot-three{background:#ffffff;}
-.dot-start{background:var(--accent2);}
-</style></head><body><h1>DR. DISH SESSION</h1><pre>${content}</pre></body></html>`);
-  w.document.close(); w.print();
-}
-
-// ══════════════════════════════════════════
-// SESSION PLAN GENERATOR
-// ══════════════════════════════════════════
-
-// Per-skill prescription data
-const SKILL_PLANS = {
-  // BAG WORK
-  bag: {
-    default: { sets:4, reps:10, rest:'30s', time:'45s', volume:'40 quality reps', hands:['Both Hands'] },
-    'Simple Cross':           { sets:4, reps:12, rest:'30s', time:'45s', volume:'48 reps', hands:['Right→Left','Left→Right'], cues:['Stay low and tight through the cross','Shoulder dips with every rep','Eyes up -- feel the move, don\'t watch the ball'] },
-    'Blow By':                { sets:4, reps:8,  rest:'30s', time:'40s', volume:'32 reps', hands:['Right Hand','Left Hand'], cues:['Sell the hesitation first','Explode PAST the contact point -- not just to it','Low center of gravity on the go'] },
-    'Hesi Counter':           { sets:4, reps:8,  rest:'30s', time:'40s', volume:'32 reps', hands:['Right Hand','Left Hand'], cues:['Load the defender -- make them commit','Change speed not just direction','Go when they stop -- not before'] },
-    'In-Out':                 { sets:4, reps:10, rest:'25s', time:'40s', volume:'40 reps', hands:['Right Hand','Left Hand'], cues:['Sell the cross -- body language matters','Keep the ball in front','Quick gather after the out'] },
-    'Iverson Cross':          { sets:4, reps:8,  rest:'30s', time:'45s', volume:'32 reps', hands:['Right→Left','Left→Right'], cues:['Shoulder dip is the move -- not just the hand','Get the defender\'s eyes to follow','Low cross, tight, no daylight'] },
-    'BTB Float':              { sets:3, reps:8,  rest:'35s', time:'45s', volume:'24 reps', hands:['Right Hand','Left Hand'], cues:['Float the ball in front first','BTB as separator -- not first move','Stay balanced through the BTB'] },
-    'Euro':                   { sets:4, reps:6,  rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Two-foot gather -- no hopping','Step direction off the help side','Extend fully -- don\'t short-arm it'] },
-    'Floater':                { sets:4, reps:8,  rest:'30s', time:'45s', volume:'32 attempts', hands:['Right Hand','Left Hand'], cues:['Release point is higher than you think','Soft touch -- let the ball float, don\'t push','One gather step, then up'] },
-  },
-  // POWER DRIBBLE starts
-  power: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 quality reps', hands:['Both Sides'] },
-    'Bump to Floater':   { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Establish the pound first -- create the rhythm','Bump contact with inside shoulder','Float off the bump -- don\'t reset feet'] },
-    'Bump to Layup':     { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Go through the contact not around it','High soft pickup after the bump','Strong finish -- expect contact'] },
-    'To Swing Step':     { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Right Side','Left Side'], cues:['Power dribble to load -- swing through the leg','Tight gather -- no extra steps','Finish high with balance'] },
-    'To Euro':           { sets:4, reps:5, rest:'45s', time:'50s', volume:'20 makes', hands:['Right Side','Left Side'], cues:['Power dribble draws help -- euro off the help side','Two steps -- no gather hop','Stay low through the step'] },
-    'To Laylah Spin':    { sets:3, reps:5, rest:'45s', time:'50s', volume:'15 reps', hands:['Right Side','Left Side'], cues:['Spin tight -- no wide circles','Same foot plant going into spin','Finish on the near side of the rim'] },
-  },
-  // PRO HOP starts
-  prohop: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Both Sides'] },
-    'To Floater':         { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Middle','Right Lane','Left Lane'], cues:['Two-foot gather on the hop','Float immediately off the land -- no reset','High release over help'] },
-    'To Step Through':    { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 reps', hands:['Right Side','Left Side'], cues:['Hop to draw the block','Step through low -- under the contest','Finish with either hand'] },
-    'Pump Bump and Shoot':{ sets:3, reps:6, rest:'40s', time:'50s', volume:'18 makes', hands:['Right Side','Left Side'], cues:['Pump fake must be convincing -- full extension','Draw contact on the bump','Land balanced before shooting'] },
-    'To Reverse Pivot':   { sets:3, reps:6, rest:'40s', time:'50s', volume:'18 reps', hands:['Right Side','Left Side'], cues:['Hop to gather -- pivot on land','Reverse away from help','Quick release off the pivot'] },
-    'To Slide By':        { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Hop to engage -- slide past on land','Stay low through the slide','Finish soft -- you\'re already by them'] },
-  },
-  // FINISH IN TRAFFIC
-  traffic: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Both Sides'] },
-    'Pinoy Step':         { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Contact is the trigger -- not the basket','Step across the body tight','High soft release off the step'] },
-    'Euro':               { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Attack help first -- earn the euro','Two-step gather, stay low','Extend fully through contact'] },
-    'Tuck Bump':          { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Tuck the ball tight through contact','Don\'t reach -- protect the ball','Finish strong off the bump'] },
-    'Veer Bump':          { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Veer into the defender -- controlled contact','Bump and redirect -- don\'t stop','Soft finish off the veer'] },
-    'Swing Step High Pickup': { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['High pickup protects ball in traffic','Swing through the contact point','Finish at the highest point you can reach'] },
-  },
-  // TOUCH FINISHES
-  touch: {
-    default: { sets:4, reps:8, rest:'35s', time:'45s', volume:'32 makes', hands:['Right Hand','Left Hand'] },
-    'Two Foot Floater Both Hands': { sets:4, reps:8, rest:'35s', time:'45s', volume:'32 makes', hands:['Right Hand','Left Hand'], cues:['Two-foot gather every time -- discipline','Release off two feet -- no one-foot cheat','Alternate hands each rep'] },
-    'Downhill Runner':      { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 makes', hands:['Right Hand','Left Hand'], cues:['Full speed -- don\'t brake for the finish','Eyes on the rim from outside the paint','Runner off one foot -- momentum finish'] },
-    'Inside Hand Scoop':    { sets:4, reps:8, rest:'35s', time:'45s', volume:'32 makes', hands:['Right Hand','Left Hand'], cues:['Inside hand is the weak hand -- own it','Scoop over the near shoulder of the defender','High arc -- let the backboard help'] },
-    'Outside the Lane Hook':{ sets:3, reps:8, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Hand','Left Hand'], cues:['Step across on the hook','Release above the box -- not the lane line','Elbow up -- protect the ball'] },
-  },
-  // LAYUPS
-  layups: {
-    default: { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 makes', hands:['Right Side','Left Side'] },
-    'Normal Scoop':    { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 makes', hands:['Right Side','Left Side'], cues:['High off the glass','Inside foot takeoff on right side','Extend fully -- don\'t flip it'] },
-    'High Pickup':     { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 makes', hands:['Right Side','Left Side'], cues:['Pick it up high -- protect from the reach','Gather above the waist','Finish strong -- expect contest'] },
-    'Same Foot':       { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Same foot plant creates deception','Stay low into the gather','Jump off same foot -- don\'t double hop'] },
-    'OG Reverse':      { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Run past the rim first -- sell the straight line','Plant and reverse under control','Soft touch off the far side of the board'] },
-    'Pinoy Reverse':   { sets:4, reps:6, rest:'40s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Pinoy step creates the angle','High soft touch on the reverse','Protect the ball through the gather'] },
-  },
-  // CROSSOVERS
-  crossovers: {
-    default: { sets:4, reps:10, rest:'30s', time:'45s', volume:'40 reps', hands:['Right→Left','Left→Right'] },
-    'BTB Cross':       { sets:4, reps:8,  rest:'35s', time:'45s', volume:'32 reps', hands:['Right→Left','Left→Right'], cues:['Drive the ball around -- don\'t let it float','Stay low through the BTB','Eyes forward the whole way'] },
-    'Scissor Cross':   { sets:4, reps:8,  rest:'35s', time:'45s', volume:'32 reps', hands:['Right→Left','Left→Right'], cues:['Scissor first -- make them react','Cross tight after the scissor','Attack immediately after the cross'] },
-    'Float Crossover': { sets:4, reps:8,  rest:'30s', time:'45s', volume:'32 reps', hands:['Right→Left','Left→Right'], cues:['Let the ball float out front first','Cross through the float -- one motion','Attack off the cross -- don\'t reset'] },
-  },
-  // STRIDE STOP
-  stride: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Both Sides'] },
-    'To Forward Pivot Hook / Floater': { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Stride stop -- two feet together','Forward pivot immediately after stop','Hook or float off the pivot -- no extra dribble'] },
-    'To Forward Pivot Shot':           { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Stop balanced on two feet','Pivot into your shot -- no drift','Quick release off the pivot'] },
-    'To Forward Pivot Up and Under':   { sets:3, reps:6, rest:'40s', time:'50s', volume:'18 makes', hands:['Right Side','Left Side'], cues:['Stride stop -- load the defender','Shot fake off the pivot','Up and under on the step'] },
-  },
-  // MIDDY MOVES
-  middy: {
-    default: { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Hand','Left Hand'] },
-    'Hop Mini Fade':        { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Short hop -- not a big jump','Fade on the hop -- create separation','Quick release at top of fade'] },
-    'Half Spin Mini Fade':  { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['Half spin only -- stay tight','Fade immediately out of the spin','Balance on the fade -- no lean'] },
-    '1-2 Mini Fade':        { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Side','Left Side'], cues:['1-2 rhythm -- don\'t rush it','Fade on the 2','Hold the follow-through'] },
-    'BTB Step Back':        { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Hand','Left Hand'], cues:['BTB first to sell the drive','Step back creates separation','Balanced catch and shoot off step back'] },
-    'Crossover Step Back':  { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right→Left','Left→Right'], cues:['Hard cross to sell the attack','Step back off the cross','Quick shot -- don\'t let them recover'] },
-    'Punch Middy':          { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 makes', hands:['Right Hand','Left Hand'], cues:['Punch dribble to change speed','Pull up immediately off the punch','Balanced two-foot stop'] },
-  },
-  // LIVE DRIBBLE
-  live: {
-    default: { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 reps', hands:['Right Hand','Left Hand'] },
-    'Quick Blow By':   { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 reps', hands:['Right Hand','Left Hand'], cues:['First step is the move -- make it count','Stay low through the acceleration','Eyes on the rim from the first step'] },
-    'Float and Go':    { sets:4, reps:8, rest:'30s', time:'40s', volume:'32 reps', hands:['Right Hand','Left Hand'], cues:['Float the ball out front','Explode past when they reach','One dribble max after the float'] },
-    'Double Tween':    { sets:4, reps:6, rest:'35s', time:'45s', volume:'24 reps', hands:['Both Hands'], cues:['Rhythm is everything on double tween','Stay low -- don\'t bounce up between tweens','Attack off the second tween'] },
-  },
-  // SPEED
-  speed: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Right Hand','Left Hand'] },
-  },
-  // STOPS
-  stops: {
-    default: { sets:4, reps:8, rest:'30s', time:'45s', volume:'32 reps', hands:['Right Hand','Left Hand'] },
-    'BTB Speed Stop':  { sets:4, reps:8, rest:'30s', time:'45s', volume:'32 reps', hands:['Right Hand','Left Hand'], cues:['Build full speed first -- the stop means nothing without it','BTB on the stop -- protect the ball','Explode back the other way immediately'] },
-  },
-  // SPACE
-  space: {
-    default: { sets:4, reps:8, rest:'30s', time:'45s', volume:'32 reps', hands:['Right Hand','Left Hand'] },
-  },
-  // DOWNHILL
-  downhill: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Right Side','Left Side'] },
-  },
-  // CUTOFF
-  cutoff: {
-    default: { sets:4, reps:6, rest:'40s', time:'45s', volume:'24 reps', hands:['Both Sides'] },
-    'BTB and Go':           { sets:4, reps:6, rest:'40s', time:'45s', volume:'24 reps', hands:['Right Hand','Left Hand'], cues:['BTB cuts off the pursuit angle','Go immediately after -- no reset','Attack the space behind them'] },
-    'Scissor and Go':       { sets:4, reps:6, rest:'40s', time:'45s', volume:'24 reps', hands:['Right Hand','Left Hand'], cues:['Scissor creates hesitation','Go before they recover','Low and fast off the scissor'] },
-    'Anchor Step and Go':   { sets:4, reps:6, rest:'40s', time:'45s', volume:'24 reps', hands:['Both Sides'], cues:['Plant the anchor foot hard','Redirect off the anchor -- sharp angle','Accelerate immediately through the gap'] },
-  },
-  // PRESSURE
-  pressure: {
-    default: { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Both Hands'] },
-    'Retreat and Attack':   { sets:4, reps:6, rest:'40s', time:'50s', volume:'24 reps', hands:['Right Hand','Left Hand'], cues:['Retreat resets their momentum','Attack before they can re-load','Change of pace is the weapon'] },
-  },
-};
-
-function getSkillPlan(catId, skillName) {
-  const catPlan = SKILL_PLANS[catId] || {};
-  return catPlan[skillName] || catPlan['default'] || {
-    sets:4, reps:8, rest:'30s', time:'45s', volume:'32 reps', hands:['Both Hands'], cues:[]
-  };
-}
-
-window._generateSessionPlan = function() {
-  if(workoutOrder.length === 0 && philWorkout.length === 0) {
-    alert('Add some moves to your workout first!');
-    return;
-  }
-
-  const totalMoves = workoutOrder.length;
-  let totalSets = 0;
-  let totalMins = 0;
-
-  let bodyHtml = '';
-
-  // Summary will be filled after calculating
-  const summaryPlaceholder = '<div id="sp-summary-placeholder"></div>';
-  bodyHtml += summaryPlaceholder;
-
-  workoutOrder.forEach((key, i) => {
-    const entry = selected[key];
-    if(!entry) return;
-    const cat = CATEGORIES.find(c => c.id === entry.catId);
-    const plan = getSkillPlan(entry.catId, entry.skill);
-    const mode = entry.mode || getMode(entry.catId);
-    const finish = entry.finish;
-    const finishName = entry.finishName;
-    const startName = entry.startName;
-    const spotName = entry.spotName;
-
-    totalSets += plan.sets;
-    // Estimate time: sets * (time_per_set + rest)
-    const timePerSet = parseInt(plan.time) || 45;
-    const restSec = parseInt(plan.rest) || 30;
-    totalMins += Math.round((plan.sets * (timePerSet + restSec)) / 60 * 10) / 10;
-
-    // Badge color per mode
-    const badgeColor = mode === 'start' ? 'var(--accent2)' : mode === 'spot' ? '#fff' : 'var(--accent2)';
-    const badgeBg = mode === 'start' ? 'rgba(192,132,252,.12)' : mode === 'spot' ? 'rgba(255,255,255,.08)' : 'rgba(192,132,252,.12)';
-    const modeLabel = mode === 'start' ? 'BEGIN WITH' : mode === 'spot' ? 'MIDDY SPOT' : 'FINISH';
-    const modeValue = mode === 'start' ? (startName || '—') : mode === 'spot' ? (spotName || 'RANDOM') : (finish ? finish.toUpperCase() + (finishName ? ' · ' + finishName : '') : '—');
-
-    bodyHtml += '<div class="sp-card">';
-
-    // Header
-    bodyHtml += '<div class="sp-card-hdr">';
-    bodyHtml += '<span class="sp-num">' + (i+1) + '</span>';
-    bodyHtml += '<div class="sp-move">';
-    bodyHtml += '<div class="sp-move-name">' + entry.skill + '</div>';
-    bodyHtml += '<div class="sp-move-cat">' + (cat ? cat.icon + ' ' + cat.name : '') + '</div>';
-    bodyHtml += '</div>';
-    if(modeValue !== '—') {
-      bodyHtml += '<div style="text-align:right;">';
-      bodyHtml += '<div style="font-family:monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">' + modeLabel + '</div>';
-      bodyHtml += '<div style="font-size:11px;font-weight:700;color:' + badgeColor + ';">' + modeValue + '</div>';
-      bodyHtml += '</div>';
-    }
-    bodyHtml += '</div>';
-
-    // Stats grid
-    bodyHtml += '<div class="sp-body">';
-    bodyHtml += '<div class="sp-stat"><div class="sp-stat-val">' + plan.sets + '</div><div class="sp-stat-label">SETS</div></div>';
-    bodyHtml += '<div class="sp-stat"><div class="sp-stat-val">' + plan.reps + '</div><div class="sp-stat-label">REPS / SET</div></div>';
-    bodyHtml += '<div class="sp-stat"><div class="sp-stat-val">' + plan.time + '</div><div class="sp-stat-label">WORK TIME</div></div>';
-    bodyHtml += '<div class="sp-stat"><div class="sp-stat-val">' + plan.rest + '</div><div class="sp-stat-label">REST</div></div>';
-    bodyHtml += '<div class="sp-stat" style="grid-column:span 2"><div class="sp-stat-val" style="font-size:14px;padding-top:4px;">' + plan.volume + '</div><div class="sp-stat-label">VOLUME TARGET</div></div>';
-    bodyHtml += '</div>';
-
-    // Hand/side chips
-    if(plan.hands && plan.hands.length) {
-      bodyHtml += '<div class="sp-hand-row">';
-      plan.hands.forEach(h => {
-        bodyHtml += '<span class="sp-hand-chip">' + h + '</span>';
-      });
-      bodyHtml += '</div>';
-    }
-
-    // Coaching cues
-    if(plan.cues && plan.cues.length) {
-      bodyHtml += '<div class="sp-cues">';
-      plan.cues.forEach(cue => {
-        bodyHtml += '<div class="sp-cue-row"><span class="sp-cue-dot"></span><span class="sp-cue-text">' + cue + '</span></div>';
-      });
-      bodyHtml += '</div>';
-    }
-
-    bodyHtml += '</div>'; // close sp-card
-  });
-
-  // Phil handle drills
-  if(philWorkout.length > 0) {
-    bodyHtml += '<div style="font-family:sans-serif;font-size:20px;letter-spacing:3px;color:var(--accent2);margin:16px 0 10px;border-top:1px solid var(--border);padding-top:14px;">HANDLE WORK</div>';
-    philWorkout.forEach((step, i) => {
-      bodyHtml += '<div class="sp-card">';
-      bodyHtml += '<div class="sp-card-hdr"><span class="sp-num">' + (workoutOrder.length + i + 1) + '</span>';
-      bodyHtml += '<div class="sp-move"><div class="sp-move-name">' + step.name + '</div>';
-      bodyHtml += '<div class="sp-move-cat">🔁 HANDLES</div></div></div>';
-      bodyHtml += '<div class="sp-body">';
-      bodyHtml += '<div class="sp-stat" style="grid-column:span 2"><div class="sp-stat-val" style="font-size:13px;padding-top:2px;">' + step.reps + '</div><div class="sp-stat-label">PRESCRIPTION</div></div>';
-      bodyHtml += '</div>';
-      bodyHtml += '<div class="sp-cues"><div class="sp-cue-row"><span class="sp-cue-dot"></span><span class="sp-cue-text">' + step.cues + '</span></div></div>';
-      bodyHtml += '</div>';
-    });
-  }
-
-  // Build summary
-  const totalMinsRounded = Math.round(totalMins);
-  const summaryHtml = '<div class="sp-summary">' +
-    '<div style="font-family:sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);">SESSION OVERVIEW</div>' +
-    '<div class="sp-summary-grid">' +
-    '<div class="sp-summary-stat"><div class="sp-summary-num">' + totalMoves + '</div><div class="sp-summary-lbl">MOVES</div></div>' +
-    '<div class="sp-summary-stat"><div class="sp-summary-num">' + totalSets + '</div><div class="sp-summary-lbl">TOTAL SETS</div></div>' +
-    '<div class="sp-summary-stat"><div class="sp-summary-num">' + totalMinsRounded + '</div><div class="sp-summary-lbl">EST. MINS</div></div>' +
-    '<div class="sp-summary-stat"><div class="sp-summary-num">' + (totalSets * 8) + '+</div><div class="sp-summary-lbl">TOTAL REPS</div></div>' +
-    '</div></div>';
-
-  bodyHtml = bodyHtml.replace(summaryPlaceholder, summaryHtml);
-
-  document.getElementById('sessionPlanBody').innerHTML = bodyHtml;
-  document.getElementById('sessionPlanMeta').textContent = totalMoves + ' MOVES · ' + totalSets + ' SETS · ~' + totalMinsRounded + ' MIN';
-  document.getElementById('sessionPlanPanel').classList.add('open');
-}
-
-window._closeSessionPlan = function() {
-  document.getElementById('sessionPlanPanel').classList.remove('open');
-}
-
-window._printSessionPlan = function() {
-  const meta = document.getElementById('sessionPlanMeta').textContent;
-  const body = document.getElementById('sessionPlanBody').innerText;
-  const w = window.open('', '_blank');
-  w.document.write('<html><head><title>THE LAB — Session Plan</title><style>body{font-family:monospace;padding:32px;max-width:680px;background:#0d0a14;color:#fff;}h1{color:#c084fc;font-size:28px;letter-spacing:4px;margin-bottom:4px;}h3{color:#6b5a85;font-size:10px;letter-spacing:3px;font-weight:normal;margin-bottom:20px;}pre{white-space:pre-wrap;color:#c4b5d8;font-size:12px;line-height:1.7;}</style></head><body><h1>THE LAB</h1><h3>SESSION PLAN · ' + meta + '</h3><pre>' + body + '</pre></body></html>');
-  w.document.close();
-  w.print();
-}
-
-// ══════════════════════════════════════════
-// FIREBASE CONFIG & AUTH
-// ══════════════════════════════════════════
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDsNpx3-iCE6U3yEe6xApsYy5R-PX86OzU",
-  authDomain: "the-lab-f96f3.firebaseapp.com",
-  projectId: "the-lab-f96f3",
-  storageBucket: "the-lab-f96f3.firebasestorage.app",
-  messagingSenderId: "929179228645",
-  appId: "1:929179228645:web:21b1eb7024e64835d1b70c",
-  measurementId: "G-RX2XZYCJ36"
-};
-
-const ADMIN_EMAIL = "seebee210@gmail.com"; // Your email - only you see admin tab
-
-let firebaseApp, db, auth, currentUser = null;
-let authMode = "login";
-
-function initFirebase(){
+function archiveW2(wid, name, data) {
+  // shift: prev -> prev2, current -> prev
   try {
-    firebaseApp = firebase.initializeApp(FIREBASE_CONFIG);
-    db = firebase.firestore();
-    auth = firebase.auth();
-    auth.onAuthStateChanged(handleAuthStateChange);
-    console.log("Firebase initialized");
-  } catch(e){ console.error("Firebase init error:", e); }
+    const old = localStorage.getItem(sKey(wid,name)+'_prev');
+    if (old) localStorage.setItem(sKey(wid,name)+'_prev2', old);
+    localStorage.setItem(sKey(wid,name)+'_prev', JSON.stringify(data));
+  } catch(e){}
 }
 
-function handleAuthStateChange(user){
-  currentUser = user;
-  const overlay = document.getElementById("authOverlay");
-  if(user){
-    // Check if approved
-    db.collection("users").doc(user.uid).get().then(doc => {
-      if(doc.exists){
-        const data = doc.data();
-        if(data.status === "approved" || user.email === ADMIN_EMAIL){
-          overlay.style.display = "none";
-          showPlayerUI(user, data);
-        } else if(data.status === "pending"){
-          showAuthMsg("Your account is pending coach approval. Check back soon.", "pending");
-          auth.signOut();
+function renderInlineWeight() {
+  const item = it();
+  const el = document.getElementById('inlineWeight');
+  if (!isWork() || W.isCircuit) { el.innerHTML=''; return; }
+
+  const saved = loadW(W.id, item.name) || {};
+  const prev  = loadPrev(W.id, item.name) || {};
+  const c     = color();
+  const suggestion = getSuggestion(item);
+
+  // Best default: saved top-input OR suggestion OR prev session weight
+  const topDefault = saved['_top'] !== undefined ? saved['_top']
+    : suggestion ? suggestion.weight
+    : prev[1] !== undefined ? prev[1] : '';
+
+  // Build set rows
+  let rows = '';
+  for (let s = 1; s <= item.sets; s++) {
+    const isDone = s < setN;
+    const isActive = s === setN;
+    const val = saved[s] !== undefined ? saved[s] : topDefault;
+    const pv  = prev[s]  !== undefined ? prev[s]  : null;
+    const rowBg     = isActive ? '#1a1800' : isDone ? '#0a0a0a' : '#111';
+    const rowBorder = isActive ? c : isDone ? '#1e1e1e' : '#1a1a1a';
+    const numCol    = isActive ? c : isDone ? '#444' : '#888';
+
+    rows += `<div style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.75rem;background:${rowBg};border:1px solid ${rowBorder};border-radius:3px;margin-bottom:0.35rem">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.1em;color:${numCol};width:38px;flex-shrink:0">SET ${s}</div>
+      <div style="position:relative;flex:1">
+        <input id="wi_${s}" type="number" inputmode="decimal" placeholder="${pv !== null ? pv : '0'}"
+          value="${val}"
+          style="width:100%;background:#1e1e1e;border:1px solid ${isActive ? c : '#2a2a2a'};border-radius:3px;padding:0.4rem 2.2rem 0.4rem 0.6rem;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:${isDone?'#555':'#f5f0e8'};-webkit-appearance:none;outline:none;"
+          oninput="onSetInput(${s},this.value)" ${isDone?'disabled':''} />
+        <span style="position:absolute;right:0.45rem;top:50%;transform:translateY(-50%);font-size:0.58rem;font-weight:700;color:#555;letter-spacing:0.08em">LBS</span>
+      </div>
+      ${pv !== null ? `<div style="font-size:0.62rem;color:#5ecb8a;width:46px;text-align:right;flex-shrink:0;line-height:1.3">${pv}<br><span style="color:#444;font-size:0.55rem">last</span></div>` : '<div style="width:46px;flex-shrink:0"></div>'}
+      ${isDone
+        ? `<div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;color:#5ecb8a;width:52px;text-align:center;flex-shrink:0">✓</div>`
+        : `<button onclick="completeSet(${s})" style="background:${isActive?c:'#1e1e1e'};color:${isActive?'#0a0a0a':'#555'};border:1px solid ${isActive?c:'#2a2a2a'};padding:0.4rem 0.65rem;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.08em;cursor:pointer;border-radius:3px;flex-shrink:0;white-space:nowrap">DONE</button>`
+      }
+    </div>`;
+  }
+
+  const suggBanner = suggestion
+    ? `<div style="display:flex;align-items:center;gap:0.5rem;padding:0.55rem 0.75rem;background:#0e1a00;border:1px solid #2a4a00;border-radius:3px;margin-bottom:0.75rem">
+        <span style="font-size:1rem">💡</span>
+        <div>
+          <div style="font-size:0.65rem;font-weight:700;color:#8ecb5e;letter-spacing:0.1em;text-transform:uppercase">Progression Suggestion</div>
+          <div style="font-size:0.78rem;color:#aaa;margin-top:1px">${suggestion.reason}</div>
+        </div>
+      </div>` : '';
+
+  el.innerHTML = `
+    <div style="margin-top:1rem;padding:0.85rem;background:#0d0d0d;border-radius:4px;border:1px solid #1e1e1e">
+      ${suggBanner}
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#555;text-transform:uppercase;margin-bottom:0.5rem">⚖️ &nbsp;Today's Weight</div>
+      <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem">
+        <div style="position:relative;flex:1">
+          <input id="topWeightInput" type="number" inputmode="decimal"
+            placeholder="${suggestion ? suggestion.weight : (prev[1] || '0')}"
+            value="${topDefault}"
+            style="width:100%;background:#1e1e1e;border:2px solid ${c};border-radius:4px;padding:0.65rem 2.5rem 0.65rem 0.8rem;font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#f5f0e8;-webkit-appearance:none;outline:none;"
+            oninput="onTopWeightInput(this.value)" />
+          <span style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);font-size:0.65rem;font-weight:700;color:#666;letter-spacing:0.1em">LBS</span>
+        </div>
+        ${prev[1] !== undefined ? `<div style="font-size:0.72rem;color:#5ecb8a;text-align:right;line-height:1.4;flex-shrink:0">${prev[1]} lbs<br><span style="color:#444;font-size:0.62rem">last session</span></div>` : ''}
+      </div>
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#444;text-transform:uppercase;margin-bottom:0.5rem">All Sets</div>
+      ${rows}
+    </div>`;
+
+  // Focus top input
+  setTimeout(() => {
+    const inp = document.getElementById('topWeightInput');
+    if (inp) { inp.focus(); inp.select(); }
+  }, 120);
+}
+
+function onTopWeightInput(val) {
+  const item = it();
+  const saved = loadW(W.id, item.name) || {};
+  saved['_top'] = val === '' ? undefined : parseFloat(val);
+  // Fill all undone sets
+  for (let s = setN; s <= item.sets; s++) {
+    const inp = document.getElementById('wi_' + s);
+    if (inp) inp.value = val;
+    saved[s] = val === '' ? undefined : parseFloat(val);
+  }
+  saveW(W.id, item.name, saved);
+}
+
+function onSetInput(s, val) {
+  saveSetWeight(s, val);
+}
+
+function completeSet(s) {
+  const inp = document.getElementById('wi_' + s);
+  if (inp && inp.value !== '') saveSetWeight(s, parseFloat(inp.value));
+  setN = s + 1 <= it().sets ? s + 1 : s + 1;
+  resting = true;
+  tLeft = it().rest;
+  renderTimer();
+  playTicker();
+  renderInlineWeight();
+}
+
+function saveSetWeight(s, val) {
+  const saved=loadW(W.id,it().name)||{};
+  if (val==='') delete saved[s]; else saved[s]=parseFloat(val);
+  saveW(W.id,it().name,saved);
+}
+
+function renderTimer() {
+  const item=it(), area=document.getElementById('timerArea');
+  const isCircuitWork = W.isCircuit && isWork();
+  const hasDur = (!isWork() && item.dur) || isCircuitWork;
+  if (!hasDur && !resting) { area.innerHTML=''; return; }
+  const c = resting ? '#e8c547' : '#5ecb8a';
+  const label = resting ? '⏸ REST' : '⏱ WORK';
+  const dur = isCircuitWork ? item.dur : item.dur;
+  const num = tLeft !== null ? tLeft : (resting ? item.rest : dur);
+  // Progress bar percentage
+  const total = resting ? item.rest : dur;
+  const pct = total > 0 ? Math.round((num / total) * 100) : 0;
+  const btn = ticker
+    ? `<button class="timer-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTicker()">PAUSE</button>`
+    : `<button class="timer-btn" style="background:${W.accent};color:#0a0a0a" onclick="playTicker()">
+        ${isCircuitWork ? 'START' : 'START TIMER'}
+      </button>`;
+  area.innerHTML = `<div class="timer-box ${resting ? 'rest-mode' : 'work-mode'}">
+    <div class="timer-lbl" style="color:${c}">${label}</div>
+    <div class="timer-num" style="color:${c}">${num}</div>
+    <div style="height:4px;background:#1a1a1a;border-radius:2px;margin:0.4rem 0">
+      <div style="height:100%;border-radius:2px;background:${c};width:${pct}%;transition:width 0.9s linear"></div>
+    </div>
+    ${btn}
+  </div>`;
+}
+
+function playTicker() {
+  if (ticker) return;
+  const item = it();
+  const isCircuitWork = W.isCircuit && isWork();
+  if (tLeft === null) tLeft = resting ? item.rest : item.dur;
+  ticker = setInterval(() => {
+    tLeft--;
+    if (tLeft <= 0) {
+      stopTicker();
+      // Determine what happens next
+      if (!resting && item.rest > 0) {
+        // Work done -> go to rest
+        resting = true;
+        tLeft = item.rest;
+        renderTimer();
+        playTicker();
+      } else {
+        // Rest done (or no rest) -> advance
+        resting = false;
+        tLeft = null;
+        if (isCircuitWork) {
+          // Circuit: auto-advance to next exercise/round
+          setTimeout(() => nextItem(), 400);
+        } else if (isWork()) {
+          // Strength: rest done -> if all sets done advance exercise, else just re-render
+          if (setN > it().sets) {
+            setTimeout(() => nextItem(), 400);
+          } else {
+            resting = false;
+            tLeft = null;
+            render();
+          }
+          return;
         } else {
-          showAuthMsg("Your account has been denied. Contact your coach.", "error");
-          auth.signOut();
+          // Warmup/cooldown: just stop
+          renderTimer();
         }
-      } else {
-        overlay.style.display = "none";
-        showPlayerUI(user, {});
+        return;
       }
-    });
-  } else {
-    overlay.style.display = "flex";
-    hidePlayerUI();
+    }
+    renderTimer();
+    if (!W.isCircuit && isWork() && !resting && tLeft === null)
+      document.getElementById('restArea').innerHTML =
+        `<div class="rest-row"><button onclick="startRest()">⏸ START ${item.rest}s REST</button></div>`;
+  }, 1000);
+  renderTimer();
+}
+function pauseTicker() { stopTicker(); renderTimer(); }
+function stopTicker()  { clearInterval(ticker); ticker = null; }
+function startRest()   { resting=true; tLeft=it().rest; document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
+
+function nextItem() {
+  if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW2(W.id,it().name,s); }
+  stopTicker(); tLeft=null; resting=false;
+
+  // Circuit mode: go through all exercises, then increment round
+  if (W.isCircuit && isWork()) {
+    if (itIdx+1 < ph().items.length) { itIdx++; render(); window.scrollTo(0,0); return; }
+    // finished a round
+    if (roundN < W.rounds) { roundN++; itIdx=0; render(); window.scrollTo(0,0); return; }
+    // all rounds done — fall through to cooldown
+    itIdx=0;
+    if (phIdx+1 < W.phases.length) { phIdx++; itIdx=0; }
+    else { showPage('pg-done'); return; }
+    render(); window.scrollTo(0,0);
+    return;
   }
+
+  if (isWork()&&setN<it().sets) { setN++; render(); return; }
+  setN=1;
+  if (itIdx+1<ph().items.length) itIdx++;
+  else if (phIdx+1<W.phases.length) { phIdx++; itIdx=0; }
+  else { showPage('pg-done'); return; }
+  render(); window.scrollTo(0,0);
+}
+function prevItem() {
+  stopTicker(); tLeft=null; resting=false; setN=1;
+  if (itIdx>0) itIdx--;
+  else if (phIdx>0) { phIdx--; itIdx=W.phases[phIdx].items.length-1; }
+  render(); window.scrollTo(0,0);
 }
 
-function showPlayerUI(user, data){
-  // Show menu items for logged-in users
-  const items = ["menu-saved","menu-highlights"];
-  items.forEach(id => { const el=document.getElementById(id); if(el) el.style.display="flex"; });
-  if(user.email === ADMIN_EMAIL){
-    const adminEl = document.getElementById("menu-admin");
-    if(adminEl) adminEl.style.display = "flex";
+function buildOverview() {
+  document.getElementById('overviewList').innerHTML=workPh().items.map((ex,i)=>
+    `<div class="ex-row" id="er${i}">
+      <div class="ex-num" id="en${i}" style="background:#1e1e1e;color:#444">${i+1}</div>
+      <div class="ex-row-name" id="ern${i}" style="color:#666">${ex.name}</div>
+      <div class="ex-row-sets" style="color:${ex.bicep?'#9a3dbb':'#555'}">${ex.sets}×${ex.reps}</div>
+    </div>`
+  ).join('');
+}
+function highlightOverview() {
+  if (W.isCircuit) {
+    const hd = document.getElementById('overviewHd');
+    if (hd && ph().id==='work') hd.textContent = `Round ${roundN} of ${W.rounds}`;
   }
-  // Show footer with user info
-  const footer = document.getElementById("menuFooter");
-  const emailEl = document.getElementById("menuUserEmail");
-  if(footer) footer.style.display = "block";
-  if(emailEl) emailEl.textContent = user.email;
-  loadSavedWorkouts();
-  loadHighlights();
-}
-
-function hidePlayerUI(){
-  ["menu-saved","menu-highlights","menu-admin"].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.style.display = "none";
-  });
-  const footer = document.getElementById("menuFooter");
-  if(footer) footer.style.display = "none";
-}
-
-function switchAuthTab(mode){
-  authMode = mode;
-  document.querySelectorAll(".auth-tab").forEach((t,i) => {
-    t.classList.toggle("active", (mode === "login" && i===0)||(mode === "signup" && i===1));
-  });
-  document.getElementById("authSubmitBtn").textContent = mode === "login" ? "LOGIN" : "SIGN UP";
-  document.getElementById("authNameField").style.display = mode === "signup" ? "block" : "none";
-  document.getElementById("authMsg").style.display = "none";
-}
-
-function handleAuth(){
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-  const name = document.getElementById("authName").value.trim();
-  const btn = document.getElementById("authSubmitBtn");
-
-  if(!email || !password){ showAuthMsg("Please enter email and password.", "error"); return; }
-  btn.disabled = true;
-  btn.textContent = authMode === "login" ? "LOGGING IN..." : "SIGNING UP...";
-
-  if(authMode === "login"){
-    auth.signInWithEmailAndPassword(email, password)
-      .catch(e => {
-        showAuthMsg(e.message, "error");
-        btn.disabled = false;
-        btn.textContent = "LOGIN";
-      });
-  } else {
-    if(!name){ showAuthMsg("Please enter your name.", "error"); btn.disabled=false; btn.textContent="SIGN UP"; return; }
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(cred => {
-        const status = email === ADMIN_EMAIL ? "approved" : "pending";
-        return db.collection("users").doc(cred.user.uid).set({
-          email, name, status, createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      })
-      .then(() => {
-        if(email !== ADMIN_EMAIL){
-          showAuthMsg("Account created! Waiting for coach approval.", "pending");
-          auth.signOut();
-        }
-      })
-      .catch(e => {
-        showAuthMsg(e.message, "error");
-        btn.disabled = false;
-        btn.textContent = "SIGN UP";
-      });
-  }
-}
-
-function showAuthMsg(msg, type){
-  const el = document.getElementById("authMsg");
-  el.textContent = msg;
-  el.className = "auth-msg " + type;
-  el.style.display = "block";
-}
-
-function handleLogout(){
-  auth.signOut();
-  showTab("bag");
-}
-
-// ══════════════════════════════════════════
-// SAVED WORKOUTS
-// ══════════════════════════════════════════
-function saveCurrentWorkout(){
-  if(!currentUser){ alert("Please log in to save workouts."); return; }
-  if(workoutOrder.length === 0){ alert("No moves in your workout to save."); return; }
-  const name = prompt("Name this workout:") || ("Workout " + new Date().toLocaleDateString());
-  const workoutData = {
-    name,
-    moves: workoutOrder.map(key => {
-      const e = selected[key];
-      if(!e) return null;
-      return { catId: e.catId, skill: e.skill, mode: e.mode, finish: e.finish, finishName: e.finishName, startName: e.startName, spotName: e.spotName };
-    }).filter(Boolean),
-    savedAt: firebase.firestore.FieldValue.serverTimestamp(),
-    userId: currentUser.uid
-  };
-  db.collection("users").doc(currentUser.uid).collection("workouts").add(workoutData)
-    .then(() => { alert("Workout saved!"); loadSavedWorkouts(); })
-    .catch(e => alert("Error saving: " + e.message));
-}
-
-function loadSavedWorkouts(){
-  if(!currentUser) return;
-  const list = document.getElementById("savedWorkoutsList");
-  if(!list) return;
-  list.innerHTML = "<div style='color:var(--muted);font-size:13px;'>Loading...</div>";
-  db.collection("users").doc(currentUser.uid).collection("workouts")
-    .orderBy("savedAt","desc").limit(20).get()
-    .then(snap => {
-      if(snap.empty){ list.innerHTML = "<div style='text-align:center;padding:60px 20px;color:var(--muted);'><div style='font-size:40px;margin-bottom:12px;'>💾</div><div style='font-family:monospace;font-size:10px;'>NO SAVED WORKOUTS YET</div></div>"; return; }
-      let h = "";
-      snap.forEach(doc => {
-        const d = doc.data();
-        const date = d.savedAt ? new Date(d.savedAt.seconds*1000).toLocaleDateString() : "—";
-        h += '<div class="saved-card">';
-        h += '<div class="saved-card-name">' + d.name + '</div>';
-        h += '<div class="saved-card-meta">' + (d.moves||[]).length + ' MOVES · SAVED ' + date + '</div>';
-        h += '<div class="saved-card-actions">';
-        h += '<button class="btn btn-purple btn-sm" data-action="load" data-wid="'+doc.id+'">LOAD</button>';
-        h += '<button class="btn btn-ghost btn-sm" data-action="delete" data-wid="'+doc.id+'">DELETE</button>';
-        h += '</div></div>';
-      });
-      list.innerHTML = h;
-    });
-}
-
-// Event delegation for saved workout and admin buttons
-document.addEventListener('click', function(e){
-  const btn = e.target.closest('[data-action]');
-  if(!btn) return;
-  const action = btn.dataset.action;
-  const wid = btn.dataset.wid;
-  const uid = btn.dataset.uid;
-  if(action==='load' && wid) loadSavedWorkout(wid);
-  if(action==='delete' && wid) deleteSavedWorkout(wid);
-  if(action==='approve' && uid) approvePlayer(uid);
-  if(action==='deny' && uid) denyPlayer(uid);
-});
-
-function loadSavedWorkout(docId){
-  if(!currentUser) return;
-  db.collection("users").doc(currentUser.uid).collection("workouts").doc(docId).get()
-    .then(doc => {
-      if(!doc.exists) return;
-      const d = doc.data();
-      selected = {}; workoutOrder = [];
-      (d.moves||[]).forEach(m => {
-        const key = m.catId+"||"+m.skill;
-        selected[key] = { catId:m.catId, skill:m.skill, mode:m.mode||getMode(m.catId), finish:m.finish||null, finishName:m.finishName||null, startName:m.startName||null, spotName:m.spotName||null };
-        workoutOrder.push(key);
-      });
-      showTab("workout");
-      renderFullWorkout();
-      renderBagContent();
-      updatePip();
-      alert("Workout loaded!");
-    });
-}
-
-function deleteSavedWorkout(docId){
-  if(!confirm("Delete this workout?")) return;
-  db.collection("users").doc(currentUser.uid).collection("workouts").doc(docId).delete()
-    .then(() => loadSavedWorkouts());
-}
-
-// ══════════════════════════════════════════
-// HIGHLIGHTS
-// ══════════════════════════════════════════
-function loadHighlights(){
-  if(!currentUser) return;
-  const list = document.getElementById("highlightsList");
-  const sub = document.getElementById("highlightsSub");
-  if(!list) return;
-  db.collection("highlights").where("playerEmail","==",currentUser.email)
-    .orderBy("addedAt","desc").get()
-    .then(snap => {
-      if(snap.empty){ list.innerHTML = "<div style='text-align:center;padding:60px 20px;color:var(--muted);'><div style='font-size:40px;margin-bottom:12px;'>🎬</div><div style='font-family:monospace;font-size:10px;'>YOUR COACH WILL ADD HIGHLIGHTS HERE</div></div>"; return; }
-      if(sub) sub.textContent = snap.size + " CLIPS IN YOUR LIBRARY";
-      let h = "";
-      snap.forEach(doc => {
-        const d = doc.data();
-        const date = d.addedAt ? new Date(d.addedAt.seconds*1000).toLocaleDateString() : "—";
-        h += '<div class="highlight-card">';
-        h += '<div class="highlight-title">' + d.title + '</div>';
-        h += '<div class="highlight-meta">ADDED ' + date + (d.notes ? " · " + d.notes : "") + '</div>';
-        h += '<a class="highlight-link" href="' + d.link + '" target="_blank">▶ OPEN IN DRIVE</a>';
-        h += '</div>';
-      });
-      list.innerHTML = h;
-    })
-    .catch(() => {
-      list.innerHTML = "<div style='color:var(--muted);font-size:13px;'>Loading highlights...</div>";
-    });
-}
-
-function addHighlight(){
-  const playerEmail = document.getElementById("hlPlayerEmail").value.trim();
-  const title = document.getElementById("hlTitle").value.trim();
-  const link = document.getElementById("hlLink").value.trim();
-  const notes = document.getElementById("hlNotes").value.trim();
-  const msg = document.getElementById("hlMsg");
-  if(!playerEmail||!title||!link){ msg.className="auth-msg error"; msg.textContent="Fill in player email, title and link."; msg.style.display="block"; return; }
-  db.collection("highlights").add({
-    playerEmail, title, link, notes,
-    addedBy: currentUser.email,
-    addedAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    msg.className="auth-msg success"; msg.textContent="Highlight added!"; msg.style.display="block";
-    document.getElementById("hlPlayerEmail").value="";
-    document.getElementById("hlTitle").value="";
-    document.getElementById("hlLink").value="";
-    document.getElementById("hlNotes").value="";
-  }).catch(e => { msg.className="auth-msg error"; msg.textContent=e.message; msg.style.display="block"; });
-}
-
-// ══════════════════════════════════════════
-// ADMIN
-// ══════════════════════════════════════════
-function loadAdminData(){
-  // Pending players
-  db.collection("users").where("status","==","pending").get().then(snap => {
-    const list = document.getElementById("pendingPlayersList");
-    if(!list) return;
-    if(snap.empty){ list.innerHTML="<div style='color:var(--muted);font-size:13px;'>No pending players</div>"; return; }
-    let h="";
-    snap.forEach(doc => {
-      const d = doc.data();
-      h += '<div class="admin-player-row">';
-      h += '<div class="admin-player-email">' + d.name + '<br><span style="font-size:11px;color:var(--muted);">' + d.email + '</span></div>';
-      h += '<span class="admin-player-status status-pending">PENDING</span>';
-        h += '<button class="btn btn-green btn-sm" data-action="approve" data-uid="'+doc.id+'">APPROVE</button>';
-        h += '<button class="btn btn-ghost btn-sm" data-action="deny" data-uid="'+doc.id+'">DENY</button>';
-      h += '</div>';
-    });
-    list.innerHTML = h;
-  });
-  // Approved players
-  db.collection("users").where("status","==","approved").get().then(snap => {
-    const list = document.getElementById("approvedPlayersList");
-    if(!list) return;
-    if(snap.empty){ list.innerHTML="<div style='color:var(--muted);font-size:13px;'>No approved players yet</div>"; return; }
-    let h="";
-    snap.forEach(doc => {
-      const d = doc.data();
-      h += '<div class="admin-player-row">';
-      h += '<div class="admin-player-email">' + d.name + '<br><span style="font-size:11px;color:var(--muted);">' + d.email + '</span></div>';
-      h += '<span class="admin-player-status status-approved">APPROVED</span>';
-      h += '</div>';
-    });
-    list.innerHTML = h;
+  workPh().items.forEach((ex,i)=>{
+    const num=document.getElementById(`en${i}`), nm=document.getElementById(`ern${i}`), row=document.getElementById(`er${i}`);
+    if (!row) return;
+    const active=ph().id==='work'&&i===itIdx, past=ph().id==='cooldown'||(ph().id==='work'&&i<itIdx);
+    const c=ex.bicep?'#e05cff':W.accent;
+    row.style.opacity=past?'0.25':active?'1':'0.45';
+    nm.style.color=active?'#f5f0e8':'#666'; nm.style.fontWeight=active?'700':'400';
+    num.style.background=active?c:'#1e1e1e'; num.style.color=active?'#0a0a0a':'#444';
   });
 }
 
-function approvePlayer(uid){
-  db.collection("users").doc(uid).update({status:"approved"}).then(() => loadAdminData());
-}
-function denyPlayer(uid){
-  db.collection("users").doc(uid).update({status:"denied"}).then(() => loadAdminData());
-}
-
-// ══════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════
-window.onerror = function(msg, src, line, col, err){
-  var d = document.getElementById('debug-bar');
-  if(d){ d.style.display='block'; d.textContent = 'ERROR line '+line+': '+msg; }
-  return false;
-};
-
-function init(){
-  try {
-    initFirebase();
-    renderBagSidebar();
-    renderBagContent();
-    renderHandles();
-  } catch(e){
-    var d = document.getElementById('debug-bar');
-    if(d){ d.style.display='block'; d.textContent = 'INIT ERROR: '+e.message+' at '+e.stack; }
-    console.error(e);
-  }
-}
-
-if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+renderHome();
+showPage('pg-home');
 </script>
-
-<!-- SAVED WORKOUTS PAGE -->
-<div class="page" id="page-saved">
-  <div style="padding:22px;max-width:700px;margin:0 auto;">
-    <div class="sec-header">
-      <div><div class="sec-title" style="color:var(--accent2);">💾 SAVED WORKOUTS</div>
-      <div class="sec-sub">YOUR PERSONAL WORKOUT HISTORY</div></div>
-      <button class="btn btn-purple" onclick="saveCurrentWorkout()">+ SAVE CURRENT</button>
-    </div>
-    <div id="savedWorkoutsList"><div style="text-align:center;padding:60px 20px;color:var(--muted);"><div style="font-size:40px;margin-bottom:12px;">💾</div><div style="font-family:'Space Mono',monospace;font-size:10px;">NO SAVED WORKOUTS YET</div></div></div>
-  </div>
-</div>
-
-<!-- HIGHLIGHTS PAGE -->
-<div class="page" id="page-highlights">
-  <div style="padding:22px;max-width:700px;margin:0 auto;">
-    <div class="sec-header">
-      <div><div class="sec-title" style="color:var(--accent2);">🎬 MY HIGHLIGHTS</div>
-      <div class="sec-sub" id="highlightsSub">YOUR FILM LIBRARY</div></div>
-    </div>
-    <div id="highlightsList"><div style="text-align:center;padding:60px 20px;color:var(--muted);"><div style="font-size:40px;margin-bottom:12px;">🎬</div><div style="font-family:'Space Mono',monospace;font-size:10px;">YOUR COACH WILL ADD HIGHLIGHTS HERE</div></div></div>
-  </div>
-</div>
-
-<!-- ADMIN PAGE -->
-<div class="page" id="page-admin">
-  <div style="padding:22px;max-width:700px;margin:0 auto;">
-    <div class="sec-header">
-      <div><div class="sec-title" style="color:var(--accent2);">⚙️ ADMIN</div>
-      <div class="sec-sub">PLAYER MANAGEMENT</div></div>
-    </div>
-    <!-- Player approval -->
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);margin-bottom:10px;">PENDING APPROVAL</div>
-    <div id="pendingPlayersList"><div style="color:var(--muted);font-size:13px;">No pending players</div></div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);margin:20px 0 10px;">APPROVED PLAYERS</div>
-    <div id="approvedPlayersList"><div style="color:var(--muted);font-size:13px;">No approved players yet</div></div>
-    <!-- Add highlight for player -->
-    <div style="margin-top:24px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:16px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--accent2);margin-bottom:12px;">ADD HIGHLIGHT FOR PLAYER</div>
-      <div class="auth-field"><label class="auth-label">PLAYER EMAIL</label><input class="auth-input" type="text" id="hlPlayerEmail" placeholder="player@email.com"></div>
-      <div class="auth-field"><label class="auth-label">TITLE</label><input class="auth-input" type="text" id="hlTitle" placeholder="vs Lincoln — Game 3 Highlights"></div>
-      <div class="auth-field"><label class="auth-label">GOOGLE DRIVE LINK</label><input class="auth-input" type="text" id="hlLink" placeholder="https://drive.google.com/..."></div>
-      <div class="auth-field"><label class="auth-label">NOTES (optional)</label><input class="auth-input" type="text" id="hlNotes" placeholder="3rd quarter, plays 12-18"></div>
-      <button class="auth-btn" style="margin-top:8px;" onclick="addHighlight()">ADD HIGHLIGHT</button>
-      <div id="hlMsg" style="display:none;" class="auth-msg"></div>
-    </div>
-  </div>
-</div>
-
-<!-- SESSION PLAN MODAL -->
-<div class="panel-overlay" id="sessionPlanPanel">
-  <div class="panel-modal" style="max-width:680px;">
-    <div class="panel-hdr" style="background:var(--surface);">
-      <div>
-        <div class="panel-title" style="color:var(--accent2);">⚡ SESSION PLAN</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;" id="sessionPlanMeta"></div>
-      </div>
-      <button class="panel-close" onclick="closeSessionPlan()">✕</button>
-    </div>
-    <div class="panel-body" id="sessionPlanBody"></div>
-    <div class="panel-footer">
-      <button class="btn btn-ghost" onclick="closeSessionPlan()">CLOSE</button>
-      <button class="btn btn-purple" onclick="printSessionPlan()">PRINT SESSION PLAN</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
