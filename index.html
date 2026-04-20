@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -94,54 +93,51 @@
     .done-sub { font-size: 0.95rem; color: #888; margin-top: 1.5rem; max-width: 300px; line-height: 1.6; }
     .done-btn { margin-top: 2rem; background: #e8c547; color: #0a0a0a; border: none; padding: 1rem 2.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; cursor: pointer; border-radius: 2px; }
 
-```
-/* ── ANIMATIONS ── */
-@keyframes deadlift {
-  0%,100% { transform: rotate(0deg); transform-origin: 60px 75px; }
-  50% { transform: rotate(-35deg); transform-origin: 60px 75px; }
-}
-@keyframes row-arms {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-18px); }
-}
-@keyframes curl-up {
-  0%,100% { transform: rotate(0deg); transform-origin: 60px 58px; }
-  50% { transform: rotate(-70deg); transform-origin: 60px 58px; }
-}
-@keyframes hinge {
-  0%,100% { transform: rotate(0deg); transform-origin: 160px 72px; }
-  50% { transform: rotate(40deg); transform-origin: 160px 72px; }
-}
-@keyframes arm-circle {
-  0% { transform: rotate(0deg); transform-origin: 160px 55px; }
-  100% { transform: rotate(360deg); transform-origin: 160px 55px; }
-}
-@keyframes scap-squeeze {
-  0%,100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-}
-@keyframes scap-squeeze-r {
-  0%,100% { transform: translateX(0); }
-  50% { transform: translateX(-6px); }
-}
-@keyframes twist {
-  0%,100% { transform: rotate(0deg); transform-origin: 160px 80px; }
-  50% { transform: rotate(30deg); transform-origin: 160px 80px; }
-}
-@keyframes breathe {
-  0%,100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-@keyframes kb-float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-@keyframes kb-float-ground {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(20px); }
-}
-```
-
+    /* ── ANIMATIONS ── */
+    @keyframes deadlift {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 75px; }
+      50% { transform: rotate(-35deg); transform-origin: 60px 75px; }
+    }
+    @keyframes row-arms {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes curl-up {
+      0%,100% { transform: rotate(0deg); transform-origin: 60px 58px; }
+      50% { transform: rotate(-70deg); transform-origin: 60px 58px; }
+    }
+    @keyframes hinge {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 72px; }
+      50% { transform: rotate(40deg); transform-origin: 160px 72px; }
+    }
+    @keyframes arm-circle {
+      0% { transform: rotate(0deg); transform-origin: 160px 55px; }
+      100% { transform: rotate(360deg); transform-origin: 160px 55px; }
+    }
+    @keyframes scap-squeeze {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+    @keyframes scap-squeeze-r {
+      0%,100% { transform: translateX(0); }
+      50% { transform: translateX(-6px); }
+    }
+    @keyframes twist {
+      0%,100% { transform: rotate(0deg); transform-origin: 160px 80px; }
+      50% { transform: rotate(30deg); transform-origin: 160px 80px; }
+    }
+    @keyframes breathe {
+      0%,100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    @keyframes kb-float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    @keyframes kb-float-ground {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
   </style>
 </head>
 <body>
@@ -733,6 +729,5 @@ function highlightOverview() {
 renderHome();
 showPage('pg-home');
 </script>
-
 </body>
 </html>
