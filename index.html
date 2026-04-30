@@ -87,6 +87,40 @@
     .tip { margin-top: 1rem; padding: 0.75rem; background: #111; border-radius: 4px; border: 1px solid #1e1e1e; }
     .tip-hd { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; text-transform: uppercase; }
     .tip-body { font-size: 0.8rem; color: #777; line-height: 1.5; }
+
+    /* ── BUILDER ── */
+    #pg-builder { width:100%; min-height:100vh; background:#0a0a0a; padding:0 0 3rem; }
+    .builder-head { padding:1.25rem 1.5rem 0; display:flex; align-items:center; gap:1rem; }
+    .builder-back { background:none; border:none; color:#888; font-size:0.8rem; font-family:'DM Sans',sans-serif; cursor:pointer; padding:0; }
+    .builder-title { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:0.1em; line-height:1; }
+    .builder-section { margin:1.25rem 1.5rem 0; }
+    .builder-label { font-size:0.62rem; font-weight:700; letter-spacing:0.2em; color:#555; text-transform:uppercase; margin-bottom:0.5rem; }
+    .pill-row { display:flex; flex-wrap:wrap; gap:0.4rem; }
+    .pill { font-family:'Bebas Neue',sans-serif; font-size:0.9rem; letter-spacing:0.1em; padding:0.4rem 0.9rem; border-radius:20px; border:1px solid #2a2a2a; background:#141414; color:#666; cursor:pointer; transition:all 0.15s; }
+    .pill.active { background:#e8c547; color:#0a0a0a; border-color:#e8c547; }
+    .pill.active.purple { background:#e05cff; border-color:#e05cff; }
+    .pill.active.blue { background:#5b8dee; border-color:#5b8dee; }
+    .ex-pick-card { background:#141414; border:1px solid #222; border-radius:4px; padding:0.85rem 1rem; margin-bottom:0.4rem; display:flex; align-items:center; gap:0.75rem; position:relative; overflow:hidden; }
+    .ex-pick-stripe { position:absolute; left:0; top:0; bottom:0; width:3px; }
+    .ex-pick-name { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:0.06em; flex:1; line-height:1.1; }
+    .ex-pick-meta { font-size:0.68rem; color:#666; margin-top:2px; }
+    .ex-swap-btn { background:#1e1e1e; border:1px solid #2a2a2a; color:#666; padding:0.35rem 0.65rem; font-family:'Bebas Neue',sans-serif; font-size:0.78rem; letter-spacing:0.08em; cursor:pointer; border-radius:3px; flex-shrink:0; }
+    .swap-drawer { background:#0d0d0d; border:1px solid #1e1e1e; border-radius:4px; margin-bottom:0.4rem; padding:0.5rem; }
+    .swap-option { padding:0.5rem 0.75rem; font-size:0.85rem; color:#aaa; cursor:pointer; border-radius:3px; display:flex; align-items:center; gap:0.5rem; }
+    .swap-option:active { background:#1e1e1e; }
+    .swap-option-name { flex:1; }
+    .swap-option-muscle { font-size:0.65rem; color:#555; }
+    .name-input { width:100%; background:#1e1e1e; border:1px solid #2a2a2a; border-radius:4px; padding:0.75rem 1rem; font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:0.08em; color:#f5f0e8; -webkit-appearance:none; outline:none; }
+    .name-input:focus { border-color:#e8c547; }
+    .save-btn { width:100%; background:#e8c547; color:#0a0a0a; border:none; padding:1rem; font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:0.15em; cursor:pointer; border-radius:4px; margin-top:1rem; }
+    .my-workouts-hd { font-size:0.62rem; font-weight:700; letter-spacing:0.2em; color:#444; text-transform:uppercase; margin-bottom:0.6rem; padding-bottom:0.4rem; border-bottom:1px solid #1a1a1a; }
+    .delete-btn { background:none; border:none; color:#444; font-size:0.8rem; cursor:pointer; padding:0.2rem 0.4rem; flex-shrink:0; }
+    .create-btn { background:#141414; border:1px dashed #333; border-radius:4px; padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem; margin-bottom:0.75rem; cursor:pointer; }
+    .create-btn:active { opacity:0.7; }
+    .create-plus { font-size:1.5rem; color:#e8c547; }
+    .create-text { font-family:'Bebas Neue',sans-serif; font-size:1.15rem; letter-spacing:0.08em; color:#888; }
+    .create-sub { font-size:0.72rem; color:#444; margin-top:1px; }
+
     #pg-done { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
     .done-fire { font-size: 5rem; }
     .done-title { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 0.95; letter-spacing: 0.08em; margin-top: 1rem; }
@@ -147,8 +181,39 @@
   <div class="app-title">KB<br/><span>Strong</span></div>
   <div class="tagline">Push. Pull. Progress.</div>
   <div class="divider"></div>
+  <div id="my-workouts-section" style="display:none">
+    <div class="my-workouts-hd">My Workouts</div>
+    <div id="my-workouts-list"></div>
+  </div>
+  <div class="create-btn" onclick="showPage('pg-builder')">
+    <div class="create-plus">+</div>
+    <div>
+      <div class="create-text">Generate Workout</div>
+      <div class="create-sub">Pick time, focus &amp; we'll build it</div>
+    </div>
+  </div>
+  <div class="create-btn" onclick="showPage('pg-custom-builder')" style="margin-bottom:0.75rem">
+    <div class="create-plus" style="color:#5b8dee">✏️</div>
+    <div>
+      <div class="create-text">Build My Own Workout</div>
+      <div class="create-sub">Pick your style &amp; choose every exercise</div>
+    </div>
+  </div>
+  <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.2em;color:#444;text-transform:uppercase;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid #1a1a1a">Programs</div>
   <div id="home-list"></div>
-  <div class="home-foot">Open in Safari · Add to Home Screen to install</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1.5rem">
+    <div style="font-size:0.65rem;color:#333">🔔 Sound</div>
+    <div onclick="toggleSound()" id="sound-toggle"
+      style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s">
+      <div id="sound-knob" style="position:absolute;top:3px;left:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.2s;left:19px"></div>
+    </div>
+    <div style="font-size:0.65rem;color:#333">Vibration</div>
+    <div onclick="toggleVibe()" id="vibe-toggle"
+      style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s">
+      <div id="vibe-knob" style="position:absolute;top:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.2s;left:19px"></div>
+    </div>
+  </div>
+  <div class="home-foot" style="margin-top:0.5rem">Open in Safari · Add to Home Screen to install</div>
 </div>
 
 <div id="pg-workout" style="display:none">
@@ -195,6 +260,108 @@
       <div class="tip-hd">💡 Beginner Strength Tip</div>
       <div class="tip-body">Add <strong style="color:#e8c547">2.5–5 lbs each week</strong> to your deadlift and rows. Progressive overload is what builds strength.</div>
     </div>
+  </div>
+</div>
+
+
+<div id="pg-builder" style="display:none">
+  <div class="builder-head">
+    <button class="builder-back" onclick="showPage('pg-home')">← Back</button>
+    <div class="builder-title">Build Workout</div>
+  </div>
+
+  <div class="builder-section">
+    <div class="builder-label">Workout Style</div>
+    <div class="pill-row">
+      <div class="pill active" id="pill-strength" onclick="selectStyle('strength')">💪 Strength</div>
+      <div class="pill" id="pill-circuit" onclick="selectStyle('circuit')">🔄 Circuit</div>
+    </div>
+  </div>
+
+  <div class="builder-section">
+    <div class="builder-label">Time Available</div>
+    <div class="pill-row">
+      <div class="pill" id="pill-20" onclick="selectTime(20)">20 min</div>
+      <div class="pill active" id="pill-30" onclick="selectTime(30)">30 min</div>
+      <div class="pill" id="pill-40" onclick="selectTime(40)">40 min</div>
+      <div class="pill" id="pill-60" onclick="selectTime(60)">60 min</div>
+    </div>
+  </div>
+
+  <div class="builder-section">
+    <div class="builder-label">Focus</div>
+    <div class="pill-row">
+      <div class="pill active" id="pill-pull" onclick="selectFocus('pull')">Pull</div>
+      <div class="pill" id="pill-push" onclick="selectFocus('push')">Push</div>
+      <div class="pill" id="pill-full" onclick="selectFocus('full')">Full Body</div>
+      <div class="pill" id="pill-arms" onclick="selectFocus('arms')">Arms</div>
+    </div>
+  </div>
+
+  <div class="builder-section" id="generatedSection" style="display:none">
+    <div class="builder-label" style="margin-bottom:0.75rem">Exercises <span style="color:#444;font-size:0.58rem">· tap swap to change</span></div>
+    <div id="exercisePickList"></div>
+    <div id="swapDrawer"></div>
+  </div>
+
+  <div class="builder-section" id="nameSection" style="display:none">
+    <div class="builder-label">Workout Name</div>
+    <input class="name-input" id="workoutNameInput" placeholder="MY WORKOUT" maxlength="30" />
+    <button class="save-btn" onclick="saveCustomWorkout()">SAVE WORKOUT →</button>
+  </div>
+
+  <div class="builder-section" style="margin-top:1.5rem">
+    <button onclick="generateWorkout()"
+      style="width:100%;background:#e8c547;color:#0a0a0a;border:none;padding:0.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.15em;cursor:pointer;border-radius:4px">
+      GENERATE WORKOUT
+    </button>
+  </div>
+</div>
+
+
+<div id="pg-custom-builder" style="display:none">
+  <div class="builder-head">
+    <button class="builder-back" onclick="showPage('pg-home')">← Back</button>
+    <div class="builder-title">Build My Own</div>
+  </div>
+
+  <!-- Step 1: Style -->
+  <div class="builder-section">
+    <div class="builder-label">Workout Style</div>
+    <div class="pill-row">
+      <div class="pill active" id="cb-pill-strength" onclick="cbSelectStyle('strength')">💪 Strength</div>
+      <div class="pill" id="cb-pill-circuit" onclick="cbSelectStyle('circuit')">🔄 Circuit</div>
+    </div>
+  </div>
+
+  <!-- Step 2: Exercise picker -->
+  <div class="builder-section">
+    <div class="builder-label">Pick Your Exercises</div>
+    <div style="font-size:0.72rem;color:#555;margin-bottom:0.75rem">Tap to add · tap again to remove</div>
+
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#e8c547;text-transform:uppercase;margin-bottom:0.4rem">── PULL ──</div>
+    <div id="cb-pull-list"></div>
+
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#e05cff;text-transform:uppercase;margin:0.85rem 0 0.4rem">── PUSH ──</div>
+    <div id="cb-push-list"></div>
+
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#5b8dee;text-transform:uppercase;margin:0.85rem 0 0.4rem">── CORE / FULL BODY ──</div>
+    <div id="cb-core-list"></div>
+  </div>
+
+  <!-- Selected exercises (ordered) -->
+  <div class="builder-section" id="cb-selected-section" style="display:none">
+    <div class="builder-label" style="margin-bottom:0.5rem">
+      Your Workout <span id="cb-count-label" style="color:#555;font-size:0.58rem"></span>
+    </div>
+    <div id="cb-selected-list"></div>
+  </div>
+
+  <!-- Name + Save -->
+  <div class="builder-section" id="cb-save-section" style="display:none">
+    <div class="builder-label">Workout Name</div>
+    <input class="name-input" id="cb-name-input" placeholder="MY WORKOUT" maxlength="30" />
+    <button class="save-btn" onclick="saveCbWorkout()">SAVE WORKOUT →</button>
   </div>
 </div>
 
@@ -360,9 +527,7 @@ function archiveW(wid, name, data) { try { localStorage.setItem(sKey(wid,name)+'
 
 // ─── PAGE NAV ───
 function showPage(id) {
-  document.getElementById('pg-home').style.display    = 'none';
-  document.getElementById('pg-workout').style.display = 'none';
-  document.getElementById('pg-done').style.display    = 'none';
+  ['pg-home','pg-workout','pg-done','pg-builder','pg-custom-builder'].forEach(p => document.getElementById(p).style.display='none');
   document.getElementById(id).style.display = (id === 'pg-done') ? 'flex' : 'block';
   window.scrollTo(0, 0);
 }
@@ -379,6 +544,33 @@ function renderHome() {
       <div class="wcard-arr">›</div>
     </div>`
   ).join('');
+
+  // My Workouts section
+  const customs = loadCustomWorkouts();
+  const section = document.getElementById('my-workouts-section');
+  const list    = document.getElementById('my-workouts-list');
+  if (customs.length === 0) { section.style.display='none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = customs.map(w =>
+    `<div class="wcard" onclick="startCustomWorkout('${w.id}')">
+      <div class="wcard-bar" style="background:${w.accent}"></div>
+      <div class="wcard-icon">${w.icon}</div>
+      <div style="flex:1">
+        <div class="wcard-name">${w.name}</div>
+        <div class="wcard-meta">${w.duration} · ${w.isCircuit ? (w.rounds||3)+' rounds · ' : ''}${w.phases.find(p=>p.id==='work').items.length} exercises${w.isCircuit ? ' · timed' : ''}</div>
+      </div>
+      <button class="delete-btn" onclick="deleteCustomWorkout('${w.id}',event)">✕</button>
+    </div>`
+  ).join('');
+}
+
+function startCustomWorkout(id) {
+  const customs = loadCustomWorkouts();
+  const workout = customs.find(w => w.id === id);
+  if (!workout) return;
+  // Add to WORKOUTS array temporarily if not present
+  if (!WORKOUTS.find(w => w.id === id)) WORKOUTS.push(workout);
+  startWorkout(id);
 }
 
 function goHome() { stopTicker(); showPage('pg-home'); }
@@ -600,9 +792,10 @@ function renderTimer() {
   const c = resting ? '#e8c547' : '#5ecb8a';
   const label = resting ? '⏸ REST' : '⏱ WORK';
   const dur = isCircuitWork ? item.dur : item.dur;
-  const num = tLeft !== null ? tLeft : (resting ? item.rest : dur);
+  const restDur = Math.max(item.rest || 0, isCircuitWork || resting ? 15 : 0);
+  const num = tLeft !== null ? tLeft : (resting ? restDur : dur);
   // Progress bar percentage
-  const total = resting ? item.rest : dur;
+  const total = resting ? restDur : dur;
   const pct = total > 0 ? Math.round((num / total) * 100) : 0;
   const btn = ticker
     ? `<button class="timer-btn" style="background:#2a2a2a;color:#aaa" onclick="pauseTicker()">PAUSE</button>`
@@ -626,13 +819,17 @@ function playTicker() {
   if (tLeft === null) tLeft = resting ? item.rest : item.dur;
   ticker = setInterval(() => {
     tLeft--;
+    // Countdown beeps at 3 seconds left
+    if (tLeft === 3) playCountdownBeeps();
+
     if (tLeft <= 0) {
       stopTicker();
       // Determine what happens next
-      if (!resting && item.rest > 0) {
-        // Work done -> go to rest
+      if (!resting) {
+        // Work done -> always go to rest (minimum 15s)
+        playWorkEndSignal();
         resting = true;
-        tLeft = item.rest;
+        tLeft = Math.max(item.rest || 0, 15);
         renderTimer();
         playTicker();
       } else {
@@ -641,12 +838,15 @@ function playTicker() {
         tLeft = null;
         if (isCircuitWork) {
           // Circuit: auto-advance to next exercise/round
+          playRestEndSignal();
           setTimeout(() => nextItem(), 400);
         } else if (isWork()) {
           // Strength: rest done -> if all sets done advance exercise, else just re-render
           if (setN > it().sets) {
+            playRestEndSignal();
             setTimeout(() => nextItem(), 400);
           } else {
+            playRestEndSignal();
             resting = false;
             tLeft = null;
             render();
@@ -668,7 +868,70 @@ function playTicker() {
 }
 function pauseTicker() { stopTicker(); renderTimer(); }
 function stopTicker()  { clearInterval(ticker); ticker = null; }
-function startRest()   { resting=true; tLeft=it().rest; document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
+function startRest()   { resting=true; tLeft=Math.max(it().rest||0,15); document.getElementById('restArea').innerHTML=''; renderTimer(); playTicker(); }
+
+// ── AUDIO & HAPTICS ──
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return audioCtx;
+}
+
+function beep(freq, dur, vol, delay) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = freq;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + delay + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + dur);
+    osc.start(ctx.currentTime + delay);
+    osc.stop(ctx.currentTime + delay + dur + 0.05);
+  } catch(e) {}
+}
+
+function vibrate(pattern) {
+  try { if (navigator.vibrate) navigator.vibrate(pattern); } catch(e) {}
+}
+
+// 3 countdown beeps + final GO beep
+function playCountdownBeeps() {
+  // 3 short beeps at 3,2,1 seconds before end
+  beep(440, 0.12, 0.4, 0);    // beep 1
+  beep(440, 0.12, 0.4, 0.5);  // beep 2
+  beep(880, 0.3,  0.6, 1.0);  // GO — higher pitch
+  vibrate([100, 50, 100, 50, 300]);
+}
+
+// Rest over — time to work signal
+function playRestEndSignal() {
+  beep(523, 0.15, 0.5, 0);
+  beep(659, 0.15, 0.5, 0.18);
+  beep(784, 0.35, 0.7, 0.36);
+  vibrate([200, 100, 200, 100, 400]);
+}
+
+// Work over — rest signal
+function playWorkEndSignal() {
+  beep(784, 0.15, 0.5, 0);
+  beep(659, 0.15, 0.4, 0.18);
+  beep(523, 0.35, 0.6, 0.36);
+  vibrate([300, 100, 300]);
+}
+
+// Unlock audio context on first user tap (iOS requirement)
+document.addEventListener('touchstart', function unlockAudio() {
+  const ctx = getAudio();
+  if (ctx && ctx.state === 'suspended') ctx.resume();
+  document.removeEventListener('touchstart', unlockAudio);
+}, { once: true });
 
 function nextItem() {
   if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW2(W.id,it().name,s); }
@@ -725,6 +988,456 @@ function highlightOverview() {
     num.style.background=active?c:'#1e1e1e'; num.style.color=active?'#0a0a0a':'#444';
   });
 }
+
+
+// ═══════════════════════════════════════
+// EXERCISE LIBRARY
+// ═══════════════════════════════════════
+const EXERCISE_LIBRARY = {
+  pull: [
+    { name:"Ring Rows",             icon:"⭕", muscle:"Lats, Rear Delt, Biceps", sets:5, reps:"5",      rest:90,  dur:40, desc:"Body rigid, pull chest to rings. Adjust angle — more horizontal = harder. Squeeze at top.", equipment:"rings" },
+    { name:"DB Bent Over Row",      icon:"⛏️", muscle:"Lats, Rhomboids, Biceps", sets:5, reps:"5",      rest:90,  dur:40, desc:"Hinge 45°, drive elbows back past hips, squeeze shoulder blades hard. Go heavy.", equipment:"db" },
+    { name:"KB Deadlift",           icon:"🏋️", muscle:"Erectors, Glutes, Lats",  sets:5, reps:"5",      rest:120, dur:45, desc:"Hip hinge, flat back, chest proud. Drive the floor away. Add weight every week.", equipment:"kb" },
+    { name:"DB Single Arm Row",     icon:"💪", muscle:"Lats, Rear Delt, Biceps",  sets:4, reps:"6 each", rest:75,  dur:40, desc:"Brace on bench, full stretch at bottom, pull elbow past hip. Heavy. 3-count lower.", equipment:"db" },
+    { name:"KB Romanian Deadlift",  icon:"🔩", muscle:"Hamstrings, Glutes, Lats", sets:4, reps:"8",      rest:90,  dur:40, desc:"Soft knees, push hips back, lower KBs along legs. Feel the hamstring stretch. Drive hips forward to stand.", equipment:"kb" },
+    { name:"DB Hammer Curl",        icon:"🔨", muscle:"Biceps, Brachialis",        sets:4, reps:"6",      rest:60,  dur:35, desc:"Neutral grip, palms facing each other. Heavy — last 2 reps a grind. Slow 3-count lower.", equipment:"db", bicep:true },
+    { name:"DB Concentration Curl", icon:"💥", muscle:"Biceps Peak",               sets:3, reps:"6 each", rest:60,  dur:35, desc:"Elbow braced on inner thigh. Full stretch, hard peak squeeze. Pure isolation.", equipment:"db", bicep:true },
+    { name:"DB Zottman Curl",       icon:"🌀", muscle:"Biceps, Brachialis, Forearms", sets:3, reps:"8",  rest:60,  dur:35, desc:"Curl up supinated, rotate to pronated at top, lower slowly. Hits every part of the bicep.", equipment:"db", bicep:true },
+    { name:"DB Incline Curl",       icon:"📐", muscle:"Biceps Long Head",           sets:3, reps:"8",      rest:60,  dur:35, desc:"Lie on incline bench, arms hanging. Curl up — the stretch at the bottom is extreme. Don't rush.", equipment:"db", bicep:true },
+  ],
+  push: [
+    { name:"DB Shoulder Press",     icon:"🏋️", muscle:"Anterior Delt, Triceps",    sets:5, reps:"5",      rest:120, dur:40, desc:"DBs at ear level, press straight overhead to lockout. Go HEAVY — main overhead strength builder.", equipment:"db" },
+    { name:"DB Chest Press",        icon:"🎯", muscle:"Chest, Triceps, Ant. Delt",  sets:5, reps:"5",      rest:120, dur:40, desc:"Floor or bench. DBs just outside chest, palms in. Press up and in — squeeze chest hard at top.", equipment:"db" },
+    { name:"DB Incline Press",      icon:"📐", muscle:"Upper Chest, Ant. Delt",     sets:4, reps:"6",      rest:90,  dur:40, desc:"Incline bench, DBs at chest. Press up and in, squeeze upper chest. Go heavy.", equipment:"db" },
+    { name:"DB Skull Crushers",     icon:"💀", muscle:"Triceps (All 3 Heads)",      sets:4, reps:"6",      rest:60,  dur:35, desc:"Lie flat, DBs over chest. Hinge ONLY at elbows, lower toward forehead, press back up.", equipment:"db", tricep:true },
+    { name:"DB Arnold Press",       icon:"🔄", muscle:"All 3 Delt Heads",           sets:4, reps:"8",      rest:75,  dur:40, desc:"Start palms facing you, rotate outward as you press overhead. Full shoulder development.", equipment:"db" },
+    { name:"DB Lateral Raise",      icon:"↔️", muscle:"Medial Delt",               sets:4, reps:"10",     rest:60,  dur:35, desc:"Slight forward lean, raise to shoulder height. Lead with elbows not hands. Controlled lower.", equipment:"db" },
+    { name:"DB Floor Flyes",        icon:"🦋", muscle:"Chest (Stretch Focus)",      sets:3, reps:"10",     rest:60,  dur:35, desc:"Arms slightly bent, lower out to sides until chest fully stretches, squeeze back up. Light-moderate weight.", equipment:"db" },
+    { name:"DB Tricep Kickback",    icon:"💫", muscle:"Triceps (Lateral Head)",     sets:3, reps:"12",     rest:45,  dur:35, desc:"Hinge forward, upper arm parallel to floor. Extend arm fully back, squeeze at lockout.", equipment:"db", tricep:true },
+    { name:"KB Tricep Extension",   icon:"💪", muscle:"Triceps Long Head",          sets:3, reps:"10",     rest:60,  dur:35, desc:"Both hands on KB overhead. Lower behind head, elbows forward. Full stretch, press up.", equipment:"kb", tricep:true },
+  ],
+  core: [
+    { name:"KB Swing",              icon:"⚡", muscle:"Glutes, Hamstrings, Core",   sets:4, reps:"10",     rest:60,  dur:35, desc:"Hip hinge, drive hips forward explosively. KB floats to chest height. NOT a squat.", equipment:"kb" },
+    { name:"DB Farmers Carry",      icon:"🚶", muscle:"Core, Traps, Grip",          sets:3, reps:"30 steps",rest:60, dur:40, desc:"Heavy DBs at sides, walk tall, shoulders back. Don't let the weight pull you sideways.", equipment:"db" },
+    { name:"KB Suitcase Carry",     icon:"💼", muscle:"Core, Obliques, Grip",       sets:3, reps:"20 steps",rest:60, dur:35, desc:"One heavy KB, resist the urge to lean. Obliques fire hard to keep you upright.", equipment:"kb" },
+  ]
+};
+
+// ═══════════════════════════════════════
+// BUILDER STATE
+// ═══════════════════════════════════════
+let bStyle = 'strength', bTime = 30, bFocus = 'pull';
+let generatedExercises = [];
+let openSwapIdx = -1;
+
+function selectStyle(s) {
+  bStyle = s;
+  document.querySelectorAll('[id^="pill-strength"],[id^="pill-circuit"]').forEach(p => p.classList.remove('active','purple'));
+  document.getElementById('pill-' + s).classList.add('active');
+  if (s==='circuit') document.getElementById('pill-circuit').classList.add('purple');
+}
+
+function selectTime(t) {
+  bTime = t;
+  [20,30,40,60].forEach(v => document.getElementById('pill-'+v).classList.remove('active'));
+  document.getElementById('pill-'+t).classList.add('active');
+}
+
+function selectFocus(f) {
+  bFocus = f;
+  ['pull','push','full','arms'].forEach(v => document.getElementById('pill-'+v).classList.remove('active','blue'));
+  document.getElementById('pill-'+f).classList.add('active','blue');
+}
+
+function generateWorkout() {
+  // Figure out how many exercises fit in the time
+  // Strength: each exercise ~7-10 min (sets*rest + work time)
+  // Circuit: fixed at 40s work + rest per exercise, N rounds
+  let count;
+  if (bStyle === 'strength') {
+    if (bTime === 20) count = 2;
+    else if (bTime === 30) count = 3;
+    else if (bTime === 40) count = 4;
+    else count = 5;
+  } else {
+    if (bTime === 20) count = 4;
+    else if (bTime === 30) count = 5;
+    else if (bTime === 40) count = 6;
+    else count = 8;
+  }
+
+  // Pick exercises based on focus
+  let pool = [];
+  if (bFocus === 'pull')       pool = [...EXERCISE_LIBRARY.pull];
+  else if (bFocus === 'push')  pool = [...EXERCISE_LIBRARY.push];
+  else if (bFocus === 'full')  pool = [...EXERCISE_LIBRARY.pull.slice(0,3), ...EXERCISE_LIBRARY.push.slice(0,3), ...EXERCISE_LIBRARY.core.slice(0,2)];
+  else if (bFocus === 'arms')  pool = [...EXERCISE_LIBRARY.pull.filter(e=>e.bicep), ...EXERCISE_LIBRARY.push.filter(e=>e.tricep), ...EXERCISE_LIBRARY.pull.slice(0,2)];
+
+  // Shuffle and pick
+  pool = pool.sort(() => Math.random() - 0.5);
+
+  // For strength: prioritize compound first
+  if (bStyle === 'strength' && bFocus !== 'arms') {
+    const compound = pool.filter(e => !e.bicep && !e.tricep);
+    const iso      = pool.filter(e => e.bicep || e.tricep);
+    pool = [...compound, ...iso];
+  }
+
+  generatedExercises = pool.slice(0, count).map(e => ({...e}));
+  openSwapIdx = -1;
+  renderGeneratedExercises();
+  document.getElementById('generatedSection').style.display = 'block';
+  document.getElementById('nameSection').style.display = 'block';
+  document.getElementById('workoutNameInput').value = '';
+  document.getElementById('workoutNameInput').placeholder = autoName();
+}
+
+function autoName() {
+  const focusMap = { pull:'PULL', push:'PUSH', full:'FULL BODY', arms:'ARMS' };
+  const styleMap = { strength:'STRENGTH', circuit:'CIRCUIT' };
+  return `${focusMap[bFocus]} ${styleMap[bStyle]} ${bTime}`;
+}
+
+function renderGeneratedExercises() {
+  const accent = bStyle === 'circuit' ? '#5ecb8a' : '#e8c547';
+  const list = document.getElementById('exercisePickList');
+  list.innerHTML = generatedExercises.map((ex, i) => `
+    <div class="ex-pick-card">
+      <div class="ex-pick-stripe" style="background:${ex.bicep?'#e05cff':ex.tricep?'#5b8dee':accent}"></div>
+      <div style="font-size:1.4rem;flex-shrink:0">${ex.icon}</div>
+      <div style="flex:1">
+        <div class="ex-pick-name">${ex.name}</div>
+        <div class="ex-pick-meta">${bStyle==='strength' ? ex.sets+'×'+ex.reps+' · '+ex.rest+'s rest' : ex.dur+'s work · '+ex.rest+'s rest'} · ${ex.muscle}</div>
+      </div>
+      <button class="ex-swap-btn" onclick="toggleSwap(${i})">SWAP</button>
+    </div>
+    <div id="swap-${i}" style="display:none"></div>
+  `).join('');
+}
+
+function toggleSwap(idx) {
+  if (openSwapIdx === idx) { openSwapIdx = -1; closeAllSwaps(); return; }
+  closeAllSwaps();
+  openSwapIdx = idx;
+  const current = generatedExercises[idx];
+  // Build pool of alternatives (same category, not already selected)
+  let pool = [];
+  if (current.bicep)       pool = EXERCISE_LIBRARY.pull.filter(e => e.bicep);
+  else if (current.tricep) pool = EXERCISE_LIBRARY.push.filter(e => e.tricep);
+  else if (bFocus==='pull' || EXERCISE_LIBRARY.pull.find(e=>e.name===current.name)) pool = EXERCISE_LIBRARY.pull.filter(e=>!e.bicep);
+  else pool = EXERCISE_LIBRARY.push.filter(e=>!e.tricep);
+
+  const selectedNames = generatedExercises.map(e=>e.name);
+  const alternatives = pool.filter(e => e.name !== current.name && !selectedNames.includes(e.name));
+
+  const el = document.getElementById('swap-' + idx);
+  el.style.display = 'block';
+  el.innerHTML = `<div class="swap-drawer">
+    <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;color:#555;text-transform:uppercase;padding:0.25rem 0.5rem 0.5rem">Choose replacement</div>
+    ${alternatives.length === 0 ? '<div style="padding:0.5rem;font-size:0.8rem;color:#555">No other options available</div>' :
+      alternatives.map(alt => `
+        <div class="swap-option" onclick="swapExercise(${idx}, '${alt.name}')">
+          <span style="font-size:1.1rem">${alt.icon}</span>
+          <span class="swap-option-name">${alt.name}</span>
+          <span class="swap-option-muscle">${alt.muscle}</span>
+        </div>
+      `).join('')}
+  </div>`;
+}
+
+function closeAllSwaps() {
+  generatedExercises.forEach((_, i) => {
+    const el = document.getElementById('swap-' + i);
+    if (el) el.style.display = 'none';
+  });
+}
+
+function swapExercise(idx, name) {
+  const allEx = [...EXERCISE_LIBRARY.pull, ...EXERCISE_LIBRARY.push, ...EXERCISE_LIBRARY.core];
+  const found = allEx.find(e => e.name === name);
+  if (found) generatedExercises[idx] = {...found};
+  openSwapIdx = -1;
+  renderGeneratedExercises();
+}
+
+// ═══════════════════════════════════════
+// SAVE & LOAD CUSTOM WORKOUTS
+// ═══════════════════════════════════════
+function saveCustomWorkout() {
+  const nameEl = document.getElementById('workoutNameInput');
+  const name = (nameEl.value.trim() || autoName()).toUpperCase();
+  const id = 'custom_' + Date.now();
+  const isCircuit = bStyle === 'circuit';
+  const accent = isCircuit
+    ? (bFocus==='push' ? '#e05cff' : '#5ecb8a')
+    : (bFocus==='push' ? '#e05cff' : bFocus==='arms' ? '#e05cff' : '#e8c547');
+
+  const workout = {
+    id, name,
+    duration: bTime + ' min',
+    icon: bFocus==='pull'?'⛏️':bFocus==='push'?'💥':bFocus==='full'?'⚡':'💪',
+    accent,
+    isCircuit,
+    rounds: isCircuit ? (bTime<=20?2:bTime<=30?3:4) : undefined,
+    isCustom: true,
+    phases: [
+      { id:'warmup', label:'WARM-UP', items:[
+        { name:'Arm Circles',        dur:40, rest:10, desc:'Big controlled circles — loosen the shoulder capsule', icon:'🔄' },
+        { name:'Hip Hinge Practice', dur:40, rest:10, desc:'Bodyweight hip hinge — prep the posterior chain', icon:'📐' },
+        { name:'Scapular Pulls',     dur:40, rest:10, desc:'Retract and depress shoulder blades before lifting', icon:'🦅' }
+      ]},
+      { id:'work', label: isCircuit ? 'CIRCUIT' : 'MAIN WORK', items: generatedExercises },
+      { id:'cooldown', label:'COOLDOWN', items:[
+        { name:"Chest Opener",       dur:30, rest:0, desc:"Open chest and anterior shoulders", icon:"🚪" },
+        { name:"Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into your lats", icon:"🧘" },
+        { name:"Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  };
+
+  // Save to localStorage
+  try {
+    const saved = JSON.parse(localStorage.getItem('kb_custom_workouts') || '[]');
+    saved.unshift(workout);
+    localStorage.setItem('kb_custom_workouts', JSON.stringify(saved));
+  } catch(e) {}
+
+  showPage('pg-home');
+  renderHome();
+}
+
+function loadCustomWorkouts() {
+  try { return JSON.parse(localStorage.getItem('kb_custom_workouts') || '[]'); } catch(e) { return []; }
+}
+
+function deleteCustomWorkout(id, e) {
+  e.stopPropagation();
+  try {
+    const saved = JSON.parse(localStorage.getItem('kb_custom_workouts') || '[]');
+    const filtered = saved.filter(w => w.id !== id);
+    localStorage.setItem('kb_custom_workouts', JSON.stringify(filtered));
+  } catch(e) {}
+  renderHome();
+}
+
+
+// ═══════════════════════════════════════
+// BUILD MY OWN WORKOUT
+// ═══════════════════════════════════════
+let cbStyle = 'strength';
+let cbSelected = []; // array of exercise names in order selected
+
+function cbSelectStyle(s) {
+  cbStyle = s;
+  ['strength','circuit'].forEach(v => {
+    const p = document.getElementById('cb-pill-' + v);
+    p.classList.remove('active','purple');
+  });
+  document.getElementById('cb-pill-' + s).classList.add('active');
+  if (s==='circuit') document.getElementById('cb-pill-circuit').classList.add('purple');
+  renderCbLists();
+}
+
+function initCustomBuilder() {
+  cbStyle = 'strength';
+  cbSelected = [];
+  document.getElementById('cb-pill-strength').classList.add('active');
+  document.getElementById('cb-pill-circuit').classList.remove('active','purple');
+  renderCbLists();
+  renderCbSelected();
+}
+
+function renderCbLists() {
+  const accent = cbStyle === 'circuit' ? '#5ecb8a' : '#e8c547';
+  renderCbGroup('cb-pull-list', EXERCISE_LIBRARY.pull, accent);
+  renderCbGroup('cb-push-list', EXERCISE_LIBRARY.push, '#e05cff');
+  renderCbGroup('cb-core-list', EXERCISE_LIBRARY.core, '#5b8dee');
+}
+
+function renderCbGroup(elId, exercises, accent) {
+  const el = document.getElementById(elId);
+  el.innerHTML = exercises.map(ex => {
+    const isSelected = cbSelected.includes(ex.name);
+    return `<div onclick="cbToggleExercise('${ex.name}')"
+      style="display:flex;align-items:center;gap:0.75rem;padding:0.7rem 0.9rem;
+        background:${isSelected ? '#1a1800' : '#111'};
+        border:1px solid ${isSelected ? accent : '#1e1e1e'};
+        border-radius:4px;margin-bottom:0.35rem;cursor:pointer;position:relative;overflow:hidden">
+      ${isSelected ? `<div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${accent}"></div>` : ''}
+      <div style="font-size:1.3rem;flex-shrink:0">${ex.icon}</div>
+      <div style="flex:1">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.06em;color:${isSelected ? '#f5f0e8' : '#888'}">${ex.name}</div>
+        <div style="font-size:0.65rem;color:#555;margin-top:1px">${ex.muscle}</div>
+      </div>
+      <div style="font-size:1.1rem;color:${isSelected ? accent : '#333'}">${isSelected ? '✓' : '+'}</div>
+    </div>`;
+  }).join('');
+}
+
+function cbToggleExercise(name) {
+  const idx = cbSelected.indexOf(name);
+  if (idx === -1) cbSelected.push(name);
+  else cbSelected.splice(idx, 1);
+  renderCbLists();
+  renderCbSelected();
+}
+
+function renderCbSelected() {
+  const section = document.getElementById('cb-selected-section');
+  const saveSection = document.getElementById('cb-save-section');
+  const list = document.getElementById('cb-selected-list');
+  const countLabel = document.getElementById('cb-count-label');
+
+  if (cbSelected.length === 0) {
+    section.style.display = 'none';
+    saveSection.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  saveSection.style.display = 'block';
+  countLabel.textContent = `· ${cbSelected.length} exercise${cbSelected.length>1?'s':''}`;
+
+  const allEx = [...EXERCISE_LIBRARY.pull, ...EXERCISE_LIBRARY.push, ...EXERCISE_LIBRARY.core];
+  const accent = cbStyle === 'circuit' ? '#5ecb8a' : '#e8c547';
+
+  list.innerHTML = cbSelected.map((name, i) => {
+    const ex = allEx.find(e => e.name === name);
+    if (!ex) return '';
+    const exAccent = ex.bicep ? '#e05cff' : ex.tricep ? '#5b8dee' : accent;
+    return `<div style="display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.75rem;
+      background:#141414;border:1px solid #222;border-radius:4px;margin-bottom:0.35rem;position:relative;overflow:hidden">
+      <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${exAccent}"></div>
+      <div style="font-size:1.2rem;flex-shrink:0">${ex.icon}</div>
+      <div style="flex:1">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:0.95rem;letter-spacing:0.06em">${ex.name}</div>
+        <div style="font-size:0.63rem;color:#555;margin-top:1px">
+          ${cbStyle==='strength' ? ex.sets+'×'+ex.reps+' · '+ex.rest+'s rest' : ex.dur+'s work · '+(Math.max(ex.rest,15))+'s rest'}
+        </div>
+      </div>
+      <div style="display:flex;gap:0.3rem">
+        ${i > 0 ? `<button onclick="cbMoveUp(${i})" style="background:#1e1e1e;border:1px solid #2a2a2a;color:#666;padding:0.3rem 0.5rem;font-size:0.75rem;cursor:pointer;border-radius:3px">↑</button>` : ''}
+        ${i < cbSelected.length-1 ? `<button onclick="cbMoveDown(${i})" style="background:#1e1e1e;border:1px solid #2a2a2a;color:#666;padding:0.3rem 0.5rem;font-size:0.75rem;cursor:pointer;border-radius:3px">↓</button>` : ''}
+        <button onclick="cbToggleExercise('${name}')" style="background:#1e1e1e;border:1px solid #2a2a2a;color:#666;padding:0.3rem 0.5rem;font-size:0.75rem;cursor:pointer;border-radius:3px">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function cbMoveUp(i) {
+  if (i === 0) return;
+  [cbSelected[i-1], cbSelected[i]] = [cbSelected[i], cbSelected[i-1]];
+  renderCbSelected();
+}
+
+function cbMoveDown(i) {
+  if (i >= cbSelected.length-1) return;
+  [cbSelected[i], cbSelected[i+1]] = [cbSelected[i+1], cbSelected[i]];
+  renderCbSelected();
+}
+
+function saveCbWorkout() {
+  if (cbSelected.length === 0) return;
+  const nameEl = document.getElementById('cb-name-input');
+  const name = (nameEl.value.trim() || 'MY WORKOUT').toUpperCase();
+  const id = 'custom_' + Date.now();
+  const isCircuit = cbStyle === 'circuit';
+  const allEx = [...EXERCISE_LIBRARY.pull, ...EXERCISE_LIBRARY.push, ...EXERCISE_LIBRARY.core];
+
+  const exercises = cbSelected.map(n => {
+    const ex = allEx.find(e => e.name === n);
+    return ex ? {...ex} : null;
+  }).filter(Boolean);
+
+  // Estimate duration
+  let mins;
+  if (isCircuit) {
+    mins = Math.round((exercises.length * (40 + 20) * 3) / 60);
+  } else {
+    mins = Math.round(exercises.reduce((acc, ex) => acc + (ex.sets * (ex.rest + 30)), 0) / 60);
+  }
+
+  const hasPull = exercises.some(e => EXERCISE_LIBRARY.pull.find(p=>p.name===e.name));
+  const hasPush = exercises.some(e => EXERCISE_LIBRARY.push.find(p=>p.name===e.name));
+  const icon = hasPull && hasPush ? '⚡' : hasPull ? '⛏️' : '💥';
+  const accent = isCircuit ? '#5ecb8a' : (hasPull && !hasPush ? '#e8c547' : hasPush && !hasPull ? '#e05cff' : '#e8c547');
+
+  const workout = {
+    id, name,
+    duration: '~' + mins + ' min',
+    icon, accent,
+    isCircuit,
+    rounds: isCircuit ? 3 : undefined,
+    isCustom: true,
+    phases: [
+      { id:'warmup', label:'WARM-UP', items:[
+        { name:'Arm Circles',        dur:40, rest:10, desc:'Big controlled circles — loosen the shoulder capsule', icon:'🔄' },
+        { name:'Hip Hinge Practice', dur:40, rest:10, desc:'Bodyweight hip hinge — prep the posterior chain', icon:'📐' },
+        { name:'Scapular Pulls',     dur:40, rest:10, desc:'Retract and depress shoulder blades before lifting', icon:'🦅' }
+      ]},
+      { id:'work', label: isCircuit ? 'CIRCUIT' : 'MAIN WORK', items: exercises },
+      { id:'cooldown', label:'COOLDOWN', items:[
+        { name:"Chest Opener",       dur:30, rest:0, desc:"Open chest and anterior shoulders", icon:"🚪" },
+        { name:"Child's Pose Reach", dur:30, rest:0, desc:"Reach arms long, breathe into lats", icon:"🧘" },
+        { name:"Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
+      ]}
+    ]
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem('kb_custom_workouts') || '[]');
+    saved.unshift(workout);
+    localStorage.setItem('kb_custom_workouts', JSON.stringify(saved));
+  } catch(e) {}
+
+  showPage('pg-home');
+  renderHome();
+}
+
+// Override showPage to init custom builder when navigating to it
+const _origShowPage = showPage;
+showPage = function(id) {
+  _origShowPage(id);
+  if (id === 'pg-custom-builder') initCustomBuilder();
+};
+
+
+// ── SOUND & VIBE SETTINGS ──
+let soundOn = true, vibeOn = true;
+try {
+  soundOn = localStorage.getItem('kb_sound') !== 'off';
+  vibeOn  = localStorage.getItem('kb_vibe')  !== 'off';
+} catch(e) {}
+
+function updateToggles() {
+  const soundEl = document.getElementById('sound-toggle');
+  const soundKnob = document.getElementById('sound-knob');
+  const vibeEl  = document.getElementById('vibe-toggle');
+  const vibeKnob = document.getElementById('vibe-knob');
+  if (!soundEl) return;
+  soundEl.style.background = soundOn ? '#e8c547' : '#2a2a2a';
+  soundKnob.style.left = soundOn ? '19px' : '3px';
+  vibeEl.style.background = vibeOn ? '#e8c547' : '#2a2a2a';
+  vibeKnob.style.left = vibeOn ? '19px' : '3px';
+}
+function toggleSound() {
+  soundOn = !soundOn;
+  try { localStorage.setItem('kb_sound', soundOn ? 'on' : 'off'); } catch(e) {}
+  updateToggles();
+}
+function toggleVibe() {
+  vibeOn = !vibeOn;
+  try { localStorage.setItem('kb_vibe', vibeOn ? 'on' : 'off'); } catch(e) {}
+  updateToggles();
+}
+
+// Wrap beep and vibrate to respect settings
+const _rawBeep = beep;
+const _rawVibe = vibrate;
+beep = function(...args) { if (soundOn) _rawBeep(...args); };
+vibrate = function(...args) { if (vibeOn) _rawVibe(...args); };
+
+setTimeout(updateToggles, 100);
 
 renderHome();
 showPage('pg-home');
