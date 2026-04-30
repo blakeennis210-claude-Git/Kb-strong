@@ -201,16 +201,24 @@
   </div>
   <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.2em;color:#444;text-transform:uppercase;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid #1a1a1a">Programs</div>
   <div id="home-list"></div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1.5rem">
-    <div style="font-size:0.65rem;color:#333">🔔 Sound</div>
-    <div onclick="toggleSound()" id="sound-toggle"
-      style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s">
-      <div id="sound-knob" style="position:absolute;top:3px;left:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.2s;left:19px"></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:0.4rem">
+      <div style="font-size:0.65rem;color:#555">🔔 Sound</div>
+      <div onclick="toggleSound()" id="sound-toggle"
+        style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer">
+        <div id="sound-knob" style="position:absolute;top:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.15s;left:19px"></div>
+      </div>
     </div>
-    <div style="font-size:0.65rem;color:#333">Vibration</div>
-    <div onclick="toggleVibe()" id="vibe-toggle"
-      style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s">
-      <div id="vibe-knob" style="position:absolute;top:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.2s;left:19px"></div>
+    <button onclick="ensureAudio();playRestEndSignal();"
+      style="background:#1e1e1e;border:1px solid #2a2a2a;color:#888;padding:0.3rem 0.8rem;font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.1em;cursor:pointer;border-radius:3px">
+      TEST SOUND
+    </button>
+    <div style="display:flex;align-items:center;gap:0.4rem">
+      <div style="font-size:0.65rem;color:#555">📳 Vibe</div>
+      <div onclick="toggleVibe()" id="vibe-toggle"
+        style="width:36px;height:20px;background:#e8c547;border-radius:10px;position:relative;cursor:pointer">
+        <div id="vibe-knob" style="position:absolute;top:3px;width:14px;height:14px;background:#0a0a0a;border-radius:50%;transition:left 0.15s;left:19px"></div>
+      </div>
     </div>
   </div>
   <div class="home-foot" style="margin-top:0.5rem">Open in Safari · Add to Home Screen to install</div>
@@ -926,12 +934,25 @@ function playWorkEndSignal() {
   vibrate([300, 100, 300]);
 }
 
-// Unlock audio context on first user tap (iOS requirement)
-document.addEventListener('touchstart', function unlockAudio() {
+// iOS Audio unlock — must happen inside a direct user gesture
+// We unlock on every button tap to ensure it's always active
+function ensureAudio() {
   const ctx = getAudio();
-  if (ctx && ctx.state === 'suspended') ctx.resume();
-  document.removeEventListener('touchstart', unlockAudio);
-}, { once: true });
+  if (!ctx) return;
+  if (ctx.state === 'suspended') {
+    ctx.resume().then(() => {
+      // Play a silent buffer to fully unlock
+      const buf = ctx.createBuffer(1, 1, 22050);
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(ctx.destination);
+      src.start(0);
+    });
+  }
+}
+// Attach unlock to every interactive element
+document.addEventListener('click', ensureAudio, true);
+document.addEventListener('touchend', ensureAudio, true);
 
 function nextItem() {
   if (isWork() && !W.isCircuit) { const s=loadW(W.id,it().name); if(s) archiveW2(W.id,it().name,s); }
