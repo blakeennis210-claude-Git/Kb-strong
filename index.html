@@ -201,6 +201,9 @@
   </div>
   <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.2em;color:#444;text-transform:uppercase;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid #1a1a1a">Programs</div>
   <div id="home-list"></div>
+
+  <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.2em;color:#5b8dee;text-transform:uppercase;margin-top:1.5rem;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid #0d1a33">Amanda</div>
+  <div id="amanda-list"></div>
   <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap">
     <div style="display:flex;align-items:center;gap:0.4rem">
       <div style="font-size:0.65rem;color:#555">🔔 Sound</div>
@@ -519,6 +522,35 @@ const WORKOUTS = [
         { name: "Supine Twist",       dur:30, rest:0, desc:"Both sides — decompress the spine", icon:"🌀" }
       ]}
     ]
+  },
+
+  // ── AMANDA ──────────────────────────────────────────────
+  {
+    id: "amanda-legs",
+    name: "Legs · Day 2",
+    duration: "~45 min",
+    icon: "🦵",
+    accent: "#5b8dee",
+    amanda: true,
+    phases: [
+      { id: "warmup", label: "WARM-UP", items: [
+        { name: "Leg Swings",      dur: 30, rest: 10, desc: "Hold a wall for balance — swing each leg forward & back 10x, then side to side 10x. Opens the hip and warms the hamstrings.", icon: "🔄" },
+        { name: "Bodyweight Squat", dur: 40, rest: 10, desc: "Slow, controlled — feet shoulder-width, knees track over toes. Focus on depth and knee position before adding weight.", icon: "📐" },
+        { name: "Hip Circle",      dur: 30, rest: 10, desc: "Hands on hips, big circles in both directions. Loosens the hip capsule before loading.", icon: "🌀" }
+      ]},
+      { id: "work", label: "MAIN WORK", items: [
+        { name: "DB Romanian Deadlift", sets:4, reps:"8-10", rest:90,  desc:"Hinge at the hips, DBs slide down your thighs, feel the hamstring stretch at the bottom. Flat back the entire time. Squeeze glutes as you drive back up. Go heavy — this is the main hamstring builder.", muscle:"Hamstrings, Glutes, Erectors", icon:"🏋️" },
+        { name: "DB Goblet Squat",      sets:4, reps:"10-12", rest:90, desc:"Hold one heavy DB vertically at your chest. Feet shoulder-width, toes slightly out. Sit deep into the squat, elbows inside your knees at the bottom. Drive knees out as you stand.", muscle:"Quads, Glutes, Core", icon:"🏆" },
+        { name: "DB Lunge",             sets:2, reps:"8-10 each", rest:75, desc:"Step forward, lower the back knee toward the floor. Front shin stays vertical. Push through the front heel to stand. Alternate legs or do all reps on one side, then switch.", muscle:"Quads, Glutes, Hamstrings", icon:"🚶" },
+        { name: "Single-Leg DB Calf Raise", sets:3, reps:"12-15 each", rest:45, desc:"Stand on one foot on a stair edge, heel hanging off. Lower heel below the step for a full stretch, then rise as high as possible. Hold a DB for added weight. Slow and controlled.", muscle:"Gastrocnemius, Soleus", icon:"🦶" },
+        { name: "V Sit-Ups",            sets:3, reps:"12-15", rest:45, desc:"Lie flat, arms overhead. In one motion, lift legs and torso to meet in a V shape. Reach hands toward feet. Lower back down with control. Keep core tight throughout.", muscle:"Core, Hip Flexors", icon:"✌️" }
+      ]},
+      { id: "cooldown", label: "COOLDOWN", items: [
+        { name: "Standing Quad Stretch", dur:30, rest:0, desc:"Hold ankle to glute — one leg at a time. Hold a wall if needed. 30 sec each side.", icon:"🧍" },
+        { name: "Seated Hamstring Stretch", dur:30, rest:0, desc:"Sit on the floor, legs straight, reach toward toes. Breathe into the stretch.", icon:"🧘" },
+        { name: "Pigeon Pose",           dur:30, rest:0, desc:"Both sides — opens the hip flexors and glutes after all the squatting. 30 sec each side.", icon:"🕊️" }
+      ]}
+    ]
   }
 ];
 
@@ -541,13 +573,28 @@ function showPage(id) {
 }
 
 function renderHome() {
-  document.getElementById('home-list').innerHTML = WORKOUTS.map(w =>
+  const blakeWorkouts = WORKOUTS.filter(w => !w.amanda);
+  const amandaWorkouts = WORKOUTS.filter(w => w.amanda);
+
+  document.getElementById('home-list').innerHTML = blakeWorkouts.map(w =>
     `<div class="wcard" onclick="startWorkout('${w.id}')">
       <div class="wcard-bar" style="background:${w.accent}"></div>
       <div class="wcard-icon">${w.icon}</div>
       <div style="flex:1">
         <div class="wcard-name">${w.name}</div>
         <div class="wcard-meta">${w.duration} · ${w.isCircuit ? w.rounds+' rounds · ' : ''}${w.phases.find(p=>p.id==='work').items.length} exercises${w.isCircuit ? ' · timed' : ''}</div>
+      </div>
+      <div class="wcard-arr">›</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('amanda-list').innerHTML = amandaWorkouts.map(w =>
+    `<div class="wcard" onclick="startWorkout('${w.id}')">
+      <div class="wcard-bar" style="background:${w.accent}"></div>
+      <div class="wcard-icon">${w.icon}</div>
+      <div style="flex:1">
+        <div class="wcard-name">${w.name}</div>
+        <div class="wcard-meta">${w.duration} · ${w.phases.find(p=>p.id==='work').items.length} exercises</div>
       </div>
       <div class="wcard-arr">›</div>
     </div>`
